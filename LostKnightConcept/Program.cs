@@ -8,12 +8,21 @@ namespace LostKnightConcept
 {
     class Program
     {
+        //varibles
+
+        static bool isGameActive = true;
+
         static void Main(string[] args)
         {
+            //instantiation
             Map map = new Map();
+            Player player = new Player();
 
-            map.DisplayMap();
-            Console.ReadKey(true);
+            while (isGameActive)
+            {
+                map.DisplayMap();
+                player.Update();                           
+            }        
         }
     }
 }

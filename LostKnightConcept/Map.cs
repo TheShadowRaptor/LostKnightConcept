@@ -8,12 +8,17 @@ namespace LostKnightConcept
 {
     class Map
     {
+        // fields
         static private char[,] map;
 
         public Map()
         {
+            // gives map array the games map
             map = new char[,] 
             {
+                {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
+                {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
+                {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
                 {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
                 {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
                 {'*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
@@ -23,7 +28,7 @@ namespace LostKnightConcept
 
         public void DisplayMap()
         {
-            //------------------Top Border--------------------
+            //------------------Top Map Border--------------------
             Console.Write("╔");
             for (int i = 0; i < map.GetLength(1); i++)
             {
@@ -31,30 +36,31 @@ namespace LostKnightConcept
             }
             Console.Write("╗");
             Console.WriteLine("");
+            //----------------------------------------------------
 
-            //---------------------Map------------------------           
+            //------------------------Map-------------------------         
 
-            //
             for (int x = 0; x < map.GetLength(0); x++)
             {
                 Console.Write("║");
 
                 for (int y = 0; y < map.GetLength(1); y++)
                 {
-                    //Colour the Map
+                    // colour the Map
                     ColourMap(x, y);
 
-                    //Draws map
+                    // draws map
                     Console.Write(map[x, y]);
 
-                    //Resets colour
+                    // resets colour
                     Console.ResetColor();
                 }
                 Console.WriteLine("║");
-            }           
+            }
 
+            //----------------------------------------------------
 
-            //------------------Bottom Border--------------------
+            //------------------Bottom Map Border-----------------
             Console.Write("╚");
             for (int i = 0; i < map.GetLength(1); i++)
             {
@@ -62,11 +68,12 @@ namespace LostKnightConcept
             }
             Console.Write("╝");
             Console.WriteLine("");
+            //----------------------------------------------------
         }
 
         public void ColourMap(int x, int y)
         {
-
+            // colours spacific char in the map array
             if (map[x, y] == '*')
             {
                 Console.ForegroundColor = ConsoleColor.Green;
