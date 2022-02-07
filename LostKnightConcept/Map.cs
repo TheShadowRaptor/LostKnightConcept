@@ -8,8 +8,10 @@ namespace LostKnightConcept
 {
     class Map
     {
+
+        private string name = "DarkPlains";
         // fields
-        static private char[,] map;
+        public char[,] map;
 
         public Map()
         {
@@ -76,8 +78,8 @@ namespace LostKnightConcept
             // colours spacific char in the map array
             if (map[x, y] == '*')
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
             }
         }
     }

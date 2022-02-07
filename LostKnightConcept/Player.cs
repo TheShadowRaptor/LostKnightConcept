@@ -8,6 +8,7 @@ namespace LostKnightConcept
 {
     class Player
     {
+        private string name = "Guille";
 
         // fields
         private int startPositionX = 1;
@@ -41,13 +42,17 @@ namespace LostKnightConcept
 
         public void MovePlayer()
         {
-            // moves player with button input
 
+            // moves player with button input
             ConsoleKeyInfo input = Console.ReadKey();
 
             if (input.Key == ConsoleKey.W)
-            {
+            {                             
                 y--;
+                if(y <= 0)
+                {
+                    y++;
+                }
             }
 
             if (input.Key == ConsoleKey.A)
@@ -66,9 +71,7 @@ namespace LostKnightConcept
             }
             // waits for input before clearing map
             Console.Clear();
-        }
-
-        
+        }     
     }
 
     
