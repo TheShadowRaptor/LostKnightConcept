@@ -22,7 +22,7 @@ namespace LostKnightConcept
         protected bool attackRight;
         protected bool attackLeft;
 
-        protected string name;
+        public string name;
 
         protected Random rng;
       

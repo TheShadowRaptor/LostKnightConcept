@@ -10,8 +10,8 @@ namespace LostKnightConcept
     {
         public void ShowStats(Player player, Enemy enemy)
         {
-            Console.WriteLine("Player health = " + player.health);
-            Console.WriteLine("Enemy health = " + enemy.health);
+            Console.WriteLine(player.name + " health = " + player.health);
+            Console.WriteLine(enemy.name + " health = " + enemy.health);
         }
     }
 }
