@@ -86,23 +86,18 @@ namespace LostKnightConcept
 
         public bool IsWall(int x, int y)
         {
-            try
+            //Outer map boundries
+            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
             {
-                if (x < 0 || y < 0)
-                {
-                    return true;
-                }
-                
-                if (mapData[y, x] == '^')
+                return true;
+            }
+
+            //Inner map boundries
+            if (mapData[y, x] == '^')
                 {
                     boundsHit = true;
                 }
-            }
-            catch
-            {
-                Console.WriteLine(x + ", " + y);
-                Console.ReadKey(true);
-            }
+
             return boundsHit;
         }
     }

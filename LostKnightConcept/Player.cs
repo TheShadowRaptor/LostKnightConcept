@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Player
+    class Player : Character
     {
         private string name = "Guille";
 
         // fields
-        private int startPositionX = 1;
-        private int startPositionY = 1;
+        private const int startPositionX = 1;
+        private const int startPositionY = 1;
 
-        private int x;
-        private int y;
+        
         public Player()
         {
             // instatiation
@@ -25,11 +24,11 @@ namespace LostKnightConcept
 
         public void Update(Map map)
         {
-            Draw(map);
+            Draw();
             MovePlayer(map);            
         }
 
-        public void Draw(Map map)
+        public void Draw()
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
@@ -51,7 +50,7 @@ namespace LostKnightConcept
                 // move up
                 y--;
 
-                if(y < 0 || map.IsWall(x, y) == true)
+                if(map.IsWall(x, y) == true)
                 {
                     y++;
                     map.boundsHit = false;
@@ -60,8 +59,9 @@ namespace LostKnightConcept
 
             if (input.Key == ConsoleKey.A)
             {
+                //move left
                 x--;
-                if(x < 0 || map.IsWall(x, y) == true)
+                if(map.IsWall(x, y) == true)
                 {
                     x++;
                     map.boundsHit = false;
@@ -70,8 +70,9 @@ namespace LostKnightConcept
 
             if (input.Key == ConsoleKey.D)
             {
+                //move right
                 x++;
-                if(x >= map.mapData.GetLength(1) || map.IsWall(x, y) == true)
+                if(map.IsWall(x, y) == true)
                 {
                     x--;
                     map.boundsHit = false;
@@ -80,8 +81,9 @@ namespace LostKnightConcept
 
             if (input.Key == ConsoleKey.S)
             {
+                //move down
                 y++;
-                if (y >= map.mapData.GetLength(0) || map.IsWall(x, y) == true)
+                if (map.IsWall(x, y) == true)
                 {
                     y--;
                     map.boundsHit = false;
