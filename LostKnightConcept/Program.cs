@@ -21,7 +21,7 @@ namespace LostKnightConcept
             while (isGameActive)
             {
                 map.DisplayMap();
-                player.Update();                           
+                player.Update(map);        
             }        
         }
     }
