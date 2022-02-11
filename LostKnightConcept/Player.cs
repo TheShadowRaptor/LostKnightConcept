@@ -15,7 +15,7 @@ namespace LostKnightConcept
         public Player()
         {
             // instatiation
-            health = 3;
+            health = 1;
 
             x = startPositionX;
             y = startPositionY;
@@ -25,10 +25,16 @@ namespace LostKnightConcept
 
         public void Update(Enemy enemy, Map map)
         {
+            CheckIfDead();
+            
+            if(isAlive)
+            {
                 Draw();
-                MovePlayer(map);
-                hitEnemy(enemy);
-                CheckIfAlive();
+                checkIfOnEnemy(enemy);
+                MovePlayer(map, enemy);
+            }
+                           
+                
         }
 
         public void Draw()
@@ -46,13 +52,13 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, 0);
         }
 
-        public void MovePlayer(Map map)
+        public void MovePlayer(Map map, Enemy enemy)
         {
             attackUp = false;
             attackDown = false;
             attackRight = false;
             attackLeft = false;
-            attacked = false;
+            onEnemy = false;           
 
             // moves player with button input
             ConsoleKeyInfo input = Console.ReadKey(true);
@@ -66,14 +72,9 @@ namespace LostKnightConcept
                 if(map.IsWall(x, y) == true)
                 {
                     y++;
+                    
                     map.boundsHit = false;
-                }
-
-                else if (attacked == true)
-                {
-                    y++;
-                    attacked = false;
-                }
+                }               
             }
 
             if (input.Key == ConsoleKey.A)
@@ -86,12 +87,6 @@ namespace LostKnightConcept
                     x++;
                     map.boundsHit = false;
                 }
-
-                else if (attacked == true)
-                {
-                    x++;
-                    attacked = false;
-                }
             }
 
             if (input.Key == ConsoleKey.D)
@@ -103,13 +98,7 @@ namespace LostKnightConcept
                 {
                     x--;
                     map.boundsHit = false;
-                }
-
-                else if (attacked == true)
-                {
-                    x--;
-                    attacked = false;
-                }
+                }             
             }
 
             if (input.Key == ConsoleKey.S)
@@ -122,45 +111,43 @@ namespace LostKnightConcept
                     y--;
                     map.boundsHit = false;
                 }
-
-                else if (attacked == true)
-                {
-                    y--;
-                    attacked = false;
-                }
             }          
         }
-        public void hitEnemy(Enemy enemy)
-        {
-            if (yData + 1 == enemy.yData && xData == enemy.xData && attackDown == true)
-            {
-                attacked = true;
+        public void checkIfOnEnemy(Enemy enemy)
+        {           
+            if (xData == enemy.xData && yData == enemy.yData && attackUp)
+            {           
+                y--;
                 Console.Beep();
                 enemy.health -= 1;
+                onEnemy = false;           
             }
 
-            if (yData - 1 == enemy.yData && xData == enemy.xData && attackUp == true)
+            if (xData == enemy.xData && yData == enemy.yData && attackDown)
             {
-                attacked = true;
+                y++;
                 Console.Beep();
                 enemy.health -= 1;
+                onEnemy = false;
             }
 
-            if (xData + 1 == enemy.xData && yData == enemy.yData && attackRight == true)
+            if (xData == enemy.xData && yData == enemy.yData && attackLeft)
             {
-                attacked = true;
+                x--;
                 Console.Beep();
                 enemy.health -= 1;
+                onEnemy = false;
             }
 
-            if (xData - 1 == enemy.xData && yData == enemy.xData && attackLeft == true)
+            if (xData == enemy.xData && yData == enemy.yData && attackRight)
             {
-                attacked = true;
+                x++;
                 Console.Beep();
                 enemy.health -= 1;
-            }           
+                onEnemy = false;
+            }
         }
-        private void CheckIfAlive()
+        private void CheckIfDead()
         {
             if (health <= 0)
             {
