@@ -16,7 +16,7 @@ namespace LostKnightConcept
 
         protected int x;
         protected int y;
-        protected bool onEnemy = false;
+        protected bool hitEnemy = false;
         protected bool attackUp;
         protected bool attackDown;
         protected bool attackRight;

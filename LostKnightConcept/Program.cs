@@ -33,7 +33,7 @@ namespace LostKnightConcept
                 {
                     player.Update(enemy, map);
                 }
-                else isGameActive = false;
+                else break;
             }        
         }
     }

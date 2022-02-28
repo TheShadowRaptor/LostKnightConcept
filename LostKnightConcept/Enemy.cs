@@ -16,7 +16,7 @@ namespace LostKnightConcept
         public Enemy()
         {
             // instatiation
-            health = 1;
+            health = 2;
 
             x = startPositionX;
             y = startPositionY;
@@ -34,10 +34,8 @@ namespace LostKnightConcept
             {
                 Draw();
                 checkIfOnPlayer(player);
-                MoveEnemy(map, player);              
-            }
-                            
-                                
+                /*MoveEnemy(map, player);*/              
+            }                                
         }
 
         public void Draw()
@@ -62,12 +60,6 @@ namespace LostKnightConcept
 
         public void MoveEnemy(Map map, Player player)
         {
-            attackUp = false;
-            attackDown = false;
-            attackRight = false;
-            attackLeft = false;
-            onEnemy = false;
-
             int choice;
 
             choice = rng.Next(1, 5);
@@ -76,7 +68,6 @@ namespace LostKnightConcept
             {
                 // moves up
                 y--;
-                attackUp = true;
                 if (map.IsWall(x, y) == true)
                 {
                     y++;
@@ -88,7 +79,6 @@ namespace LostKnightConcept
             {
                 // moves left
                 x--;
-                attackLeft = true;
                 if (map.IsWall(x, y) == true)
                 {
                     x++;
@@ -100,7 +90,6 @@ namespace LostKnightConcept
             {
                 // moves right
                 x++;
-                attackRight = true;
                 if (map.IsWall(x, y) == true)
                 {
                     x--;
@@ -112,7 +101,6 @@ namespace LostKnightConcept
             {
                 // moves down
                 y++;
-                attackDown = true;
                 if (map.IsWall(x, y) == true)
                 {
                     y--;
@@ -123,38 +111,13 @@ namespace LostKnightConcept
 
         public void checkIfOnPlayer(Player player)
         {
-            if (xData == player.xData && yData == player.yData && attackUp)
+            if (xData == player.xData && yData == player.yData)
             {
-                y--;
                 Console.Beep();
                 player.health -= 1;
-                onEnemy = false;
+                hitEnemy = false;
             }
-
-            if (xData == player.xData && yData == player.yData && attackDown)
-            {
-                y++;
-                Console.Beep();
-                player.health -= 1;
-                onEnemy = false;
-            }
-
-            if (xData == player.xData && yData == player.yData && attackLeft)
-            {
-                x--;
-                Console.Beep();
-                player.health -= 1;
-                onEnemy = false;
-            }
-
-            if (xData == player.xData && yData == player.yData && attackRight)
-            {
-                x++;
-                Console.Beep();
-                player.health -= 1;
-                onEnemy = false;
-            }
-        }
+        }  
         private void checkIfDead()
         {
             if (health <= 0)

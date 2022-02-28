@@ -15,7 +15,7 @@ namespace LostKnightConcept
         public Player()
         {
             // instatiation
-            health = 1;
+            health = 2;
 
             x = startPositionX;
             y = startPositionY;
@@ -29,8 +29,8 @@ namespace LostKnightConcept
             
             if(isAlive)
             {
-                Draw();
                 checkIfOnEnemy(enemy);
+                Draw();           
                 MovePlayer(map, enemy);
             }
                            
@@ -38,7 +38,7 @@ namespace LostKnightConcept
         }
 
         public void Draw()
-        {          
+        {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
 
@@ -49,103 +49,82 @@ namespace LostKnightConcept
             Console.Write('+');
             Console.ResetColor();
             Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0, 0);       
         }
 
         public void MovePlayer(Map map, Enemy enemy)
         {
-            attackUp = false;
-            attackDown = false;
-            attackRight = false;
-            attackLeft = false;
-            onEnemy = false;           
+            // moves player with button input          
+            bool inputLoop;
+            inputLoop = true;           
 
-            // moves player with button input
-            ConsoleKeyInfo input = Console.ReadKey(true);
-
-            if (input.Key == ConsoleKey.W)
+            if(hitEnemy == false)
             {
-                // move up
-                y--;
-                attackUp = true;
-
-                if(map.IsWall(x, y) == true)
+                while (inputLoop == true)
                 {
-                    y++;
-                    
-                    map.boundsHit = false;
-                }               
-            }
+                    ConsoleKeyInfo input = Console.ReadKey(true);
 
-            if (input.Key == ConsoleKey.A)
-            {
-                //move left
-                x--;
-                attackLeft = true;
-                if(map.IsWall(x, y) == true)
-                {
-                    x++;
-                    map.boundsHit = false;
+                    if (input.Key == ConsoleKey.W)
+                    {
+                        // move up
+                        y--;
+                        if (map.IsWall(x, y) == true)
+                        {
+                            y++;
+                            map.boundsHit = false;
+                        }
+                        break;
+                    }
+
+                    else if (input.Key == ConsoleKey.A)
+                    {
+                        //move left
+                        x--;
+                        if (map.IsWall(x, y) == true)
+                        {
+                            x++;
+                            map.boundsHit = false;
+                        }
+                        break;
+                    }
+
+                    else if (input.Key == ConsoleKey.D)
+                    {
+                        //move right
+                        x++;
+                        if (map.IsWall(x, y) == true)
+                        {
+                            x--;
+                            map.boundsHit = false;
+                        }
+                        inputLoop = false;
+                        break;
+                    }
+
+                    else if (input.Key == ConsoleKey.S)
+                    {
+                        //move down
+                        y++;
+                        if (map.IsWall(x, y) == true)
+                        {
+                            y--;
+                            map.boundsHit = false;
+                        }
+                        inputLoop = false;
+                        break;
+                    }
                 }
-            }
-
-            if (input.Key == ConsoleKey.D)
-            {
-                //move right
-                x++;
-                attackRight = true;
-                if(map.IsWall(x, y) == true)
-                {
-                    x--;
-                    map.boundsHit = false;
-                }             
-            }
-
-            if (input.Key == ConsoleKey.S)
-            {
-                //move down
-                y++;
-                attackDown = true;
-                if (map.IsWall(x, y) == true)
-                {
-                    y--;
-                    map.boundsHit = false;
-                }
-            }          
+            }                  
         }
         public void checkIfOnEnemy(Enemy enemy)
-        {           
-            if (xData == enemy.xData && yData == enemy.yData && attackUp)
+        {
+            hitEnemy = false;
+            if (xData == enemy.xData && yData == enemy.yData)
             {           
-                y--;
                 Console.Beep();
                 enemy.health -= 1;
-                onEnemy = false;           
-            }
-
-            if (xData == enemy.xData && yData == enemy.yData && attackDown)
-            {
-                y++;
-                Console.Beep();
-                enemy.health -= 1;
-                onEnemy = false;
-            }
-
-            if (xData == enemy.xData && yData == enemy.yData && attackLeft)
-            {
-                x--;
-                Console.Beep();
-                enemy.health -= 1;
-                onEnemy = false;
-            }
-
-            if (xData == enemy.xData && yData == enemy.yData && attackRight)
-            {
-                x++;
-                Console.Beep();
-                enemy.health -= 1;
-                onEnemy = false;
-            }
+                hitEnemy = true;           
+            }           
         }
         private void CheckIfDead()
         {
