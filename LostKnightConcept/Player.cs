@@ -29,9 +29,8 @@ namespace LostKnightConcept
             
             if(isAlive)
             {
-                checkIfOnEnemy(enemy);
                 Draw();           
-                MovePlayer(map);
+                MovePlayer(map, enemy);
             }
                            
                 
@@ -41,9 +40,7 @@ namespace LostKnightConcept
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
-
-            xData = x;
-            yData = y;
+     
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write('+');
@@ -52,14 +49,14 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, 0);       
         }
 
-        public void MovePlayer(Map map)
+        public void MovePlayer(Map map, Enemy enemy)
         {
             // moves player with button input          
             bool inputLoop;
             bool moveBack;
             inputLoop = true;
             moveBack = true;
-
+  
             while (inputLoop == true)
             {
                 ConsoleKeyInfo input = Console.ReadKey(true);
@@ -68,11 +65,14 @@ namespace LostKnightConcept
                 {
                     y--;
                     if (map.IsMapBounds(x, y) == false)
-                    {                      
-                        if (map.IsFloor(x, y))
+                    {
+                        if (IsOnEnemy(enemy, x, y) == false)
                         {
-                            moveBack = false;                            
-                        }
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
+                        }                       
                     }
 
                     if (moveBack)
@@ -88,9 +88,12 @@ namespace LostKnightConcept
                     x--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (map.IsFloor(x, y))
+                        if (IsOnEnemy(enemy, x, y) == false)
                         {
-                            moveBack = false;
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
                         }
                     }
 
@@ -107,9 +110,12 @@ namespace LostKnightConcept
                     x++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (map.IsFloor(x, y))
+                        if (IsOnEnemy(enemy, x, y) == false)
                         {
-                            moveBack = false;
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
                         }
                     }
 
@@ -126,9 +132,12 @@ namespace LostKnightConcept
                     y++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (map.IsFloor(x, y))
+                        if (IsOnEnemy(enemy, x, y) == false)
                         {
-                            moveBack = false;
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
                         }
                     }
 
@@ -141,15 +150,18 @@ namespace LostKnightConcept
                 }
             }               
         }
-        public void checkIfOnEnemy(Enemy enemy)
+        private bool IsOnEnemy(Enemy enemy, int x, int y)
         {
-            hitEnemy = false;
+            xData = x;
+            yData = y;
+
             if (xData == enemy.xData && yData == enemy.yData)
             {           
                 Console.Beep();
                 enemy.health -= 1;
-                hitEnemy = true;           
-            }           
+                return true;        
+            }
+            return false;
         }
         private void CheckIfDead()
         {
@@ -158,6 +170,6 @@ namespace LostKnightConcept
                 health = 0;
                 isAlive = false;
             }
-        }
+        }       
     }  
 }

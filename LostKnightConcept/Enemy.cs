@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
@@ -33,8 +29,7 @@ namespace LostKnightConcept
             if (isAlive == true)
             {
                 Draw();
-                checkIfOnPlayer(player);
-                /*MoveEnemy(map, player);*/              
+                MoveEnemy(map, player);
             }                                
         }
 
@@ -48,9 +43,6 @@ namespace LostKnightConcept
 
             else Console.SetCursorPosition(300, 300);
 
-
-            xData = x;
-            yData = y;
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write('#');
@@ -61,59 +53,121 @@ namespace LostKnightConcept
         public void MoveEnemy(Map map, Player player)
         {
             int choice;
+            bool moveBack;
+            moveBack = true;
 
-            choice = rng.Next(1, 5);
-
-            if(choice == 1)
+            choice = rng.Next(0, 4);
+            if (IsPlayerClose(player, x, y) == false)
             {
-                // moves up
-                y--;
-                if (map.IsFloor(x, y) == true)
-                {
-                    y++;
-                }                
-            }
-            
-            else if(choice == 2)
-            {
-                // moves left
-                x--;
-                if (map.IsFloor(x, y) == true)
-                {
-                    x++;
-                }
-            }
-
-            else if (choice == 3)
-            {
-                // moves right
-                x++;
-                if (map.IsFloor(x, y) == true)
-                {
-                    x--;
-                }
-            }
-
-            else if (choice == 4)
-            {
-                // moves down
-                y++;
-                if (map.IsFloor(x, y) == true)
+                if (choice == 0)
                 {
                     y--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        y++;
+                    }
                 }
-            }
+
+                if (choice == 1)
+                {
+                    x--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        x++;
+                    }
+                }
+
+                if (choice == 2)
+                {
+                    x++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        x--;
+                    }
+                }
+
+                if (choice == 3)
+                {
+                    y++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                moveBack = false;
+                            }
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        y--;
+                    }
+                }
+            }           
         }
 
-        public void checkIfOnPlayer(Player player)
+        private bool IsOnPlayer(Player player, int x, int y)
         {
+
             if (xData == player.xData && yData == player.yData)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsPlayerClose(Player player, int x, int y)
+        {
+            xData = x;
+            yData = y;
+
+            if (xData == player.xData && yData == player.yData - 1 ||
+                xData == player.xData && yData == player.yData + 1 ||
+                yData == player.yData && xData == player.xData - 1 ||
+                yData == player.yData && xData == player.xData + 1)
             {
                 Console.Beep();
                 player.health -= 1;
-                hitEnemy = false;
+                return true;
             }
-        }  
+            return false;
+        }
+
         private void checkIfDead()
         {
             if (health <= 0)

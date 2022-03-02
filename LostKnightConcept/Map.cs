@@ -98,7 +98,7 @@ namespace LostKnightConcept
             {
                return true;
             }
-            return false;
+            else return false;
         }
     }
 }
