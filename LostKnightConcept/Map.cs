@@ -11,7 +11,6 @@ namespace LostKnightConcept
         private string name = "DarkPlains";
         // fields
         public char[,] mapData;
-        public bool boundsHit = false;
 
         public Map()
         {
@@ -83,21 +82,23 @@ namespace LostKnightConcept
             }
         }
 
-        public bool IsWall(int x, int y)
+        public bool IsFloor(int x, int y)
         {
-            //Outer map bounds
-            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
+            //Inner map bounds
+            if (mapData[y, x] == '*')
             {
                 return true;
             }
+            return false;
+        }
 
-            //Inner map bounds
-            if (mapData[y, x] == '^')
-                {
-                    boundsHit = true;
-                }
-
-            return boundsHit;
+        public bool IsMapBounds(int x, int y)
+        {
+            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
+            {
+               return true;
+            }
+            return false;
         }
     }
 }

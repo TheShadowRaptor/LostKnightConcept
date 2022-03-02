@@ -31,7 +31,7 @@ namespace LostKnightConcept
             {
                 checkIfOnEnemy(enemy);
                 Draw();           
-                MovePlayer(map, enemy);
+                MovePlayer(map);
             }
                            
                 
@@ -52,69 +52,94 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, 0);       
         }
 
-        public void MovePlayer(Map map, Enemy enemy)
+        public void MovePlayer(Map map)
         {
             // moves player with button input          
             bool inputLoop;
-            inputLoop = true;           
+            bool moveBack;
+            inputLoop = true;
+            moveBack = true;
 
-            if(hitEnemy == false)
+            while (inputLoop == true)
             {
-                while (inputLoop == true)
+                ConsoleKeyInfo input = Console.ReadKey(true);
+
+                if (input.Key == ConsoleKey.W)
                 {
-                    ConsoleKeyInfo input = Console.ReadKey(true);
-
-                    if (input.Key == ConsoleKey.W)
-                    {
-                        // move up
-                        y--;
-                        if (map.IsWall(x, y) == true)
+                    y--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {                      
+                        if (map.IsFloor(x, y))
                         {
-                            y++;
-                            map.boundsHit = false;
+                            moveBack = false;                            
                         }
-                        break;
                     }
 
-                    else if (input.Key == ConsoleKey.A)
+                    if (moveBack)
                     {
-                        //move left
-                        x--;
-                        if (map.IsWall(x, y) == true)
-                        {
-                            x++;
-                            map.boundsHit = false;
-                        }
-                        break;
-                    }
-
-                    else if (input.Key == ConsoleKey.D)
-                    {
-                        //move right
-                        x++;
-                        if (map.IsWall(x, y) == true)
-                        {
-                            x--;
-                            map.boundsHit = false;
-                        }
-                        inputLoop = false;
-                        break;
-                    }
-
-                    else if (input.Key == ConsoleKey.S)
-                    {
-                        //move down
                         y++;
-                        if (map.IsWall(x, y) == true)
-                        {
-                            y--;
-                            map.boundsHit = false;
-                        }
-                        inputLoop = false;
                         break;
                     }
+                    break;
                 }
-            }                  
+
+                else if (input.Key == ConsoleKey.A)
+                {
+                    x--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (map.IsFloor(x, y))
+                        {
+                            moveBack = false;
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        x++;
+                        break;
+                    }
+                    break;
+                }
+
+                else if (input.Key == ConsoleKey.D)
+                {
+                    x++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (map.IsFloor(x, y))
+                        {
+                            moveBack = false;
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        x--;
+                        break;
+                    }
+                    break;
+                }
+
+                else if (input.Key == ConsoleKey.S)
+                {
+                    y++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (map.IsFloor(x, y))
+                        {
+                            moveBack = false;
+                        }
+                    }
+
+                    if (moveBack)
+                    {
+                        y--;
+                        break;
+                    }
+                    break;
+                }
+            }               
         }
         public void checkIfOnEnemy(Enemy enemy)
         {

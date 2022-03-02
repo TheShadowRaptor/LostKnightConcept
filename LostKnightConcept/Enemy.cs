@@ -68,10 +68,9 @@ namespace LostKnightConcept
             {
                 // moves up
                 y--;
-                if (map.IsWall(x, y) == true)
+                if (map.IsFloor(x, y) == true)
                 {
                     y++;
-                    map.boundsHit = false;
                 }                
             }
             
@@ -79,10 +78,9 @@ namespace LostKnightConcept
             {
                 // moves left
                 x--;
-                if (map.IsWall(x, y) == true)
+                if (map.IsFloor(x, y) == true)
                 {
                     x++;
-                    map.boundsHit = false;
                 }
             }
 
@@ -90,10 +88,9 @@ namespace LostKnightConcept
             {
                 // moves right
                 x++;
-                if (map.IsWall(x, y) == true)
+                if (map.IsFloor(x, y) == true)
                 {
                     x--;
-                    map.boundsHit = false;
                 }
             }
 
@@ -101,10 +98,9 @@ namespace LostKnightConcept
             {
                 // moves down
                 y++;
-                if (map.IsWall(x, y) == true)
+                if (map.IsFloor(x, y) == true)
                 {
                     y--;
-                    map.boundsHit = false;
                 }
             }
         }
