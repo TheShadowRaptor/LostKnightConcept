@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Media;
 
 namespace LostKnightConcept
 {
@@ -52,106 +57,126 @@ namespace LostKnightConcept
 
         public void MoveEnemy(Map map, Player player)
         {
-            int choice;
-            bool moveBack;
-            moveBack = true;
+            int direction;
+            int willMove;
+            bool canMove;
 
-            choice = rng.Next(0, 4);
-            if (IsPlayerClose(player, x, y) == false)
+            canMove = false;
+
+            direction = rng.Next(0, 4);
+            willMove = rng.Next(0, 1);
+            
+            if (direction == 0)
+
+                y--;
+            if (map.IsMapBounds(x, y) == false)
             {
-                if (choice == 0)
+                if (IsOnPlayer(player, x, y) == false)
                 {
-                    y--;
-                    if (map.IsMapBounds(x, y) == false)
+                    if (map.IsFloor(x, y))
                     {
-                        if (IsOnPlayer(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                moveBack = false;
-                            }
-                        }
+                        canMove = true;
                     }
+                }
+            }
 
-                    if (moveBack)
+            if (canMove == false)
+            {
+                y++;
+                if (IsOnPlayer(player, x, y) == true)
+                {
+                    y++;
+                }
+            }
+
+            if (direction == 1)
+            {
+                x--;
+                if (map.IsMapBounds(x, y) == false)
+                {
+                    if (IsOnPlayer(player, x, y) == false)
                     {
-                        y++;
+                        if (map.IsFloor(x, y))
+                        {
+                            canMove = true;
+                        }
                     }
                 }
 
-                if (choice == 1)
+                if (canMove == false)
                 {
-                    x--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsOnPlayer(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                moveBack = false;
-                            }
-                        }
-                    }
-
-                    if (moveBack)
+                    x++;
+                    if (IsOnPlayer(player, x, y) == true)
                     {
                         x++;
                     }
                 }
+            }
 
-                if (choice == 2)
+            if (direction == 2)
+            {
+                x++;
+                if (map.IsMapBounds(x, y) == false)
                 {
-                    x++;
-                    if (map.IsMapBounds(x, y) == false)
+                    if (IsOnPlayer(player, x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (map.IsFloor(x, y))
                         {
-                            if (map.IsFloor(x, y))
-                            {
-                                moveBack = false;
-                            }
+                            canMove = true;
                         }
                     }
+                }
 
-                    if (moveBack)
+                if (canMove == false)
+                {
+                    x--;
+                    if (IsOnPlayer(player, x, y) == true)
                     {
                         x--;
                     }
                 }
+            }
 
-                if (choice == 3)
+            if (direction == 3)
+            {
+                y++;
+                if (map.IsMapBounds(x, y) == false)
                 {
-                    y++;
-                    if (map.IsMapBounds(x, y) == false)
+                    if (IsOnPlayer(player, x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (map.IsFloor(x, y))
                         {
-                            if (map.IsFloor(x, y))
-                            {
-                                moveBack = false;
-                            }
+                            canMove = true;
                         }
                     }
+                }
 
-                    if (moveBack)
+                if (canMove == false)
+                {
+                    y--;
+                    if (IsOnPlayer(player, x, y) == true)
                     {
                         y--;
                     }
                 }
-            }           
+            }          
         }
 
         private bool IsOnPlayer(Player player, int x, int y)
         {
+            xData = x;
+            yData = y;
 
             if (xData == player.xData && yData == player.yData)
             {
+                player.health -= 1;
+                SystemSounds.Beep.Play();
                 return true;
             }
             return false;
         }
 
-        private bool IsPlayerClose(Player player, int x, int y)
+        /*private bool IsPlayerClose(Player player, int x, int y)
         {
             xData = x;
             yData = y;
@@ -166,7 +191,7 @@ namespace LostKnightConcept
                 return true;
             }
             return false;
-        }
+        }*/
 
         private void checkIfDead()
         {

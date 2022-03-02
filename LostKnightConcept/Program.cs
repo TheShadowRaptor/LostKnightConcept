@@ -34,6 +34,7 @@ namespace LostKnightConcept
                     player.Update(enemy, map);
                 }
                 else break;
+                Console.SetCursorPosition(0, 0);
             }        
         }
     }

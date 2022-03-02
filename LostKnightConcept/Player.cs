@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Media;
 
 namespace LostKnightConcept
 {
@@ -40,22 +41,21 @@ namespace LostKnightConcept
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
-     
+
             Console.BackgroundColor = ConsoleColor.Yellow;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write('+');
             Console.ResetColor();
             Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);       
         }
 
         public void MovePlayer(Map map, Enemy enemy)
         {
             // moves player with button input          
             bool inputLoop;
-            bool moveBack;
+            bool canMove;
             inputLoop = true;
-            moveBack = true;
+            canMove = false;
   
             while (inputLoop == true)
             {
@@ -70,14 +70,18 @@ namespace LostKnightConcept
                         {
                             if (map.IsFloor(x, y))
                             {
-                                moveBack = false;
+                                canMove = true;
                             }
                         }                       
                     }
 
-                    if (moveBack)
+                    if (canMove == false)
                     {
                         y++;
+                        if (IsOnEnemy(enemy, x, y) == true)
+                        {
+                            y++;
+                        }
                         break;
                     }
                     break;
@@ -92,14 +96,18 @@ namespace LostKnightConcept
                         {
                             if (map.IsFloor(x, y))
                             {
-                                moveBack = false;
+                                canMove = true;
                             }
                         }
                     }
 
-                    if (moveBack)
+                    if (canMove == false)
                     {
                         x++;
+                        if (IsOnEnemy(enemy, x, y) == true)
+                        {
+                            x++;
+                        }
                         break;
                     }
                     break;
@@ -114,14 +122,18 @@ namespace LostKnightConcept
                         {
                             if (map.IsFloor(x, y))
                             {
-                                moveBack = false;
+                                canMove = true;
                             }
                         }
                     }
 
-                    if (moveBack)
+                    if (canMove == false)
                     {
                         x--;
+                        if (IsOnEnemy(enemy, x, y) == true)
+                        {
+                            x--;
+                        }
                         break;
                     }
                     break;
@@ -136,14 +148,18 @@ namespace LostKnightConcept
                         {
                             if (map.IsFloor(x, y))
                             {
-                                moveBack = false;
+                                canMove = true;
                             }
                         }
                     }
 
-                    if (moveBack)
+                    if (canMove == false)
                     {
                         y--;
+                        if (IsOnEnemy(enemy, x, y) == true)
+                        {
+                            y--;
+                        }
                         break;
                     }
                     break;
@@ -157,7 +173,7 @@ namespace LostKnightConcept
 
             if (xData == enemy.xData && yData == enemy.yData)
             {           
-                Console.Beep();
+                SystemSounds.Hand.Play();
                 enemy.health -= 1;
                 return true;        
             }
