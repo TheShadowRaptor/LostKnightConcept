@@ -7,16 +7,14 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class Enemy : Character
+    class EnemyClass : GameCharacter
     {
         // fields
         private const int startPositionX = 5;
         private const int startPositionY = 2;
-        public ConsoleColor backColor;
-        public ConsoleColor foreColor;
 
         public char enemyGraphic;
-        public Enemy()
+        public EnemyClass()
         {
             // instatiation
             health = 2;
@@ -62,10 +60,8 @@ namespace LostKnightConcept
 
             else Console.SetCursorPosition(300, 300);
 
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(charGraphic);
-            Console.ResetColor();
+            DrawChar(charGraphic, backColor, foreColor);
+
             Console.CursorVisible = false;
         }
         private void PlaySoundHitPlayer()
@@ -76,15 +72,15 @@ namespace LostKnightConcept
         private void Move(Map map, Player player)
         {
             int direction;
-            int stall;
+            int wait;
             bool canMove;
 
             canMove = false;
 
             direction = rng.Next(0, 4);
-            stall = rng.Next(0, 2);
+            wait = rng.Next(0, 2);
             
-            if(stall == 1)
+            if(wait == 1)
             {
                 if (direction == 0)
                 {

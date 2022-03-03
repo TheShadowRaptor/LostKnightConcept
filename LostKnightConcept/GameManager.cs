@@ -12,25 +12,39 @@ namespace LostKnightConcept
         public void RunGame()
         {
             //instantiation
-            Map map = new Map();
+            Map map = new Map();            
+            EnemyClass enemy = new EnemyClass();
+            HUD hud = new HUD();
+            Heart heart = new Heart();
             Player player = new Player();
-            Enemy enemy = new Enemy();
-
+            map.DisplayMap();
+            heart.Update(player);
+            enemy.Update(player, map);
+            hud.ShowHUD(player, enemy, map);
+            
 
             while (isGameActive)
-            {
-                map.DisplayMap();
-                player.ShowHud(player, enemy);
-                if (enemy.isAlive)
-                {
-                    enemy.Update(player, map);
-                }
-
+            {               
                 if (player.isAlive)
                 {
                     player.Update(enemy, map);
                 }
                 else break;
+
+                map.DisplayMap();
+
+                if (enemy.isAlive)
+                {
+                    enemy.Update(player, map);
+                }
+
+                if (heart.isAlive)
+                {
+                    heart.Update(player);
+                }
+
+                hud.ShowHUD(player, enemy, map);               
+                
                 Console.SetCursorPosition(0, 0);
             }
         }

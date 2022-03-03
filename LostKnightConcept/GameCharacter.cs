@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Media;
 namespace LostKnightConcept
 {
-    class Character
+    class GameCharacter
     {
         //fields       
         public bool isAlive = true;
@@ -15,7 +15,10 @@ namespace LostKnightConcept
         public string name;
 
         public int health;
-        
+
+        public ConsoleColor backColor;
+        public ConsoleColor foreColor;
+
         protected int x;
         protected int y;
 
@@ -25,10 +28,6 @@ namespace LostKnightConcept
 
         protected Random rng;
 
-        public Character()
-        {
-
-        }
         protected void CheckIfDead()
         {
             if (health <= 0)
@@ -37,12 +36,13 @@ namespace LostKnightConcept
                 isAlive = false;
             }
         }
-
-        protected void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
+        public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
         {
             Console.BackgroundColor = backColor;
             Console.ForegroundColor = foreColor;
             Console.Write(charGraphic);
+            Console.ResetColor();
         }
+
     }
 }

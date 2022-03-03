@@ -7,20 +7,17 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class Player : Character
+    class Player : GameCharacter
     {
         // fields
         private const int startPositionX = 1;
         private const int startPositionY = 1;
 
-        private SoundPlayer hitWall = new SoundPlayer();
-
-        public ConsoleColor backColor;
-        public ConsoleColor foreColor;
+        private SoundPlayer hitWall = new SoundPlayer();      
         
         public char playerGraphic;
 
-        private bool showTarget;
+        public bool showTarget;
         public Player()
         {
             // instatiation
@@ -41,7 +38,7 @@ namespace LostKnightConcept
             showTarget = false;
         }
 
-        public void Update(Enemy enemy, Map map)
+        public void Update(EnemyClass enemy, Map map)
         {
             CheckIfDead();
             
@@ -49,49 +46,17 @@ namespace LostKnightConcept
             {
                 Draw();           
                 Move(map, enemy);
-            }
-                           
-                
+            }               
         }
-        public void ShowHud(Player player, Enemy enemy)
-        {
-            Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
-            Console.Write("║");
-            Console.Write("Player name: " + player.name + " health = " + player.health);
-            Console.WriteLine("                   ║");
-            if (showTarget == true)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("║Target name: " + enemy.name + " health = " + enemy.health);
-                Console.WriteLine("║╔═╗");
-                Console.Write("║║");
-                Console.BackgroundColor = enemy.backColor;
-                Console.ForegroundColor = enemy.foreColor;
-                Console.Write((enemy.enemyGraphic));
-                Console.ResetColor();
-                Console.WriteLine("║");
-                Console.WriteLine("║╚═╝");
-                showTarget = false;
-            }           
-            else
-            {
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-            }
-            Console.WriteLine("╚═════════════════════════════════════════════════╝");
+        
 
-        }
+        
         private void Draw()
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
 
-            DrawChar(charGraphic, backColor, foreColor);
-
-            Console.ResetColor();
+            DrawChar(charGraphic, backColor, foreColor);           
             Console.CursorVisible = false;
         }
         private void PlaySoundHitWall()
@@ -106,7 +71,7 @@ namespace LostKnightConcept
             hit.Play();
         }
 
-        private void Move(Map map, Enemy enemy)
+        private void Move(Map map, EnemyClass enemy)
         {
             // moves player with button input          
             bool inputLoop;
@@ -130,10 +95,6 @@ namespace LostKnightConcept
                                 canMove = true;
                             }
                         }                       
-                    }
-                    else
-                    {
-                        
                     }
 
                     if (canMove == false)
@@ -166,10 +127,6 @@ namespace LostKnightConcept
                             }
                         }
                     }
-                    else
-                    {
-                      
-                    }
 
                     if (canMove == false)
                     {
@@ -200,10 +157,6 @@ namespace LostKnightConcept
                             }
                         }
                     }
-                    else
-                    {
-                    
-                    }
 
                     if (canMove == false)
                     {
@@ -216,8 +169,7 @@ namespace LostKnightConcept
                         else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             x--;
-                        }
-                        
+                        }                       
                         break;
                     }
                     break;
@@ -236,10 +188,6 @@ namespace LostKnightConcept
                             }
                         }
                     }
-                    else
-                    {
-                     
-                    }
 
                     if (canMove == false)
                     {
@@ -252,15 +200,14 @@ namespace LostKnightConcept
                         else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             y--;
-                        }
-                        
+                        }                      
                         break;
                     }
                     break;
                 }
             }               
         }        
-        private bool IsOnEnemy(Enemy enemy, int x, int y)
+        private bool IsOnEnemy(EnemyClass enemy, int x, int y)
         {
             xData = x;
             yData = y;
