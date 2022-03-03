@@ -8,5 +8,134 @@ namespace LostKnightConcept
 {
     class Skeleton : EnemyClass
     {
+        private const int startPosX = 7;
+        private const int startPosY = 3;
+
+        public Skeleton()
+        {
+            health = 2;
+
+            x = startPosX;
+            y = startPosY;
+
+            backColor = ConsoleColor.Red;
+            foreColor = ConsoleColor.Red;
+
+            charGraphic = '#';
+            enemyGraphic = charGraphic;
+            name = "Skeleton";
+        }
+
+        private void Move(Map map, Player player)
+        {
+            int direction;
+            int wait;
+            bool canMove;
+
+            canMove = false;
+
+            direction = rng.Next(0, 4);
+            wait = rng.Next(0, 2);
+
+            if (wait == 1)
+            {
+                if (direction == 0)
+                {
+                    y--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        y++;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            y++;
+                        }
+                    }
+                }
+
+                else if (direction == 1)
+                {
+                    x--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        x++;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            x++;
+                        }
+                    }
+                }
+
+                else if (direction == 2)
+                {
+                    x++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        x--;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            x--;
+                        }
+                    }
+                }
+
+                else if (direction == 3)
+                {
+                    y++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        y--;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            y--;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

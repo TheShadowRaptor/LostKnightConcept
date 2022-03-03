@@ -13,29 +13,29 @@ namespace LostKnightConcept
         {
             //instantiation
             Map map = new Map();            
-            EnemyClass enemy = new EnemyClass();
+            Skeleton skeleton = new Skeleton();
             HUD hud = new HUD();
             Heart heart = new Heart();
             Player player = new Player();
             map.DisplayMap();
             heart.Update(player);
-            enemy.Update(player, map);
-            hud.ShowHUD(player, enemy, map);
+            skeleton.Update(player, map);
+            hud.ShowHUD(player, skeleton, map);
             
 
             while (isGameActive)
             {               
                 if (player.isAlive)
                 {
-                    player.Update(enemy, map);
+                    player.Update(skeleton, map);
                 }
                 else break;
 
                 map.DisplayMap();
 
-                if (enemy.isAlive)
+                if (skeleton.isAlive)
                 {
-                    enemy.Update(player, map);
+                    skeleton.Update(player, map);
                 }
 
                 if (heart.isAlive)
@@ -43,7 +43,7 @@ namespace LostKnightConcept
                     heart.Update(player);
                 }
 
-                hud.ShowHUD(player, enemy, map);               
+                hud.ShowHUD(player, skeleton, map);               
                 
                 Console.SetCursorPosition(0, 0);
             }
