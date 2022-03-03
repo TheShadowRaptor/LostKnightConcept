@@ -32,6 +32,8 @@ namespace LostKnightConcept
             charGraphic = '#';
             enemyGraphic = charGraphic;
             name = "Skeleton";
+
+            hit.SoundLocation = "Hit_Player.wav";
         }
 
         public void Update(Player player, Map map)
@@ -66,7 +68,11 @@ namespace LostKnightConcept
             Console.ResetColor();
             Console.CursorVisible = false;
         }
-
+        private void PlaySoundHitPlayer()
+        {
+            hit.Load();
+            hit.Play();
+        }
         private void Move(Map map, Player player)
         {
             int direction;
@@ -184,8 +190,8 @@ namespace LostKnightConcept
 
             if (xData == player.xData && yData == player.yData)
             {
+                PlaySoundHitPlayer();
                 player.health -= 1;
-                SystemSounds.Beep.Play();
                 return true;
             }
             return false;

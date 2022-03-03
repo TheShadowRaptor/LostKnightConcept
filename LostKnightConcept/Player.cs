@@ -12,6 +12,9 @@ namespace LostKnightConcept
         // fields
         private const int startPositionX = 1;
         private const int startPositionY = 1;
+
+        private SoundPlayer hitWall = new SoundPlayer();
+
         public ConsoleColor backColor;
         public ConsoleColor foreColor;
         
@@ -33,6 +36,8 @@ namespace LostKnightConcept
             playerGraphic = charGraphic;
             name = "Guille";
 
+            hit.SoundLocation = "Hit_Enemy.wav";
+            hitWall.SoundLocation = "Hit_Wall.wav";
             showTarget = false;
         }
 
@@ -89,6 +94,17 @@ namespace LostKnightConcept
             Console.ResetColor();
             Console.CursorVisible = false;
         }
+        private void PlaySoundHitWall()
+        {
+            hitWall.Load();
+            hitWall.Play();
+        }
+
+        private void PlaySoundHitEnemy()
+        {
+            hit.Load();
+            hit.Play();
+        }
 
         private void Move(Map map, Enemy enemy)
         {
@@ -115,14 +131,23 @@ namespace LostKnightConcept
                             }
                         }                       
                     }
+                    else
+                    {
+                        
+                    }
 
                     if (canMove == false)
                     {
                         y++;
-                        if (IsOnEnemy(enemy, x, y) == true)
+                        if (IsOnEnemy(enemy, x, y) == false)
+                        {
+                            PlaySoundHitWall();
+                        }
+
+                        else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             y++;
-                        }
+                        }                        
                         break;
                     }
                     break;
@@ -141,14 +166,22 @@ namespace LostKnightConcept
                             }
                         }
                     }
+                    else
+                    {
+                      
+                    }
 
                     if (canMove == false)
                     {
                         x++;
-                        if (IsOnEnemy(enemy, x, y) == true)
+                        if (IsOnEnemy(enemy, x, y) == false)
+                        {
+                            PlaySoundHitWall();
+                        }
+                        else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             x++;
-                        }
+                        }                        
                         break;
                     }
                     break;
@@ -167,14 +200,24 @@ namespace LostKnightConcept
                             }
                         }
                     }
+                    else
+                    {
+                    
+                    }
 
                     if (canMove == false)
                     {
                         x--;
-                        if (IsOnEnemy(enemy, x, y) == true)
+                        if (IsOnEnemy(enemy, x, y) == false)
+                        {
+                            PlaySoundHitWall();
+                        }
+
+                        else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             x--;
                         }
+                        
                         break;
                     }
                     break;
@@ -193,14 +236,24 @@ namespace LostKnightConcept
                             }
                         }
                     }
+                    else
+                    {
+                     
+                    }
 
                     if (canMove == false)
                     {
                         y--;
-                        if (IsOnEnemy(enemy, x, y) == true)
+                        if (IsOnEnemy(enemy, x, y) == false)
+                        {
+                            PlaySoundHitWall();
+                        }
+
+                        else if (IsOnEnemy(enemy, x, y) == true)
                         {
                             y--;
                         }
+                        
                         break;
                     }
                     break;
@@ -213,13 +266,13 @@ namespace LostKnightConcept
             yData = y;
 
             if (xData == enemy.xData && yData == enemy.yData)
-            {           
-                SystemSounds.Hand.Play();
+            {
+                PlaySoundHitEnemy();
                 enemy.health -= 1;
                 showTarget = true;
                 return true;        
             }
             return false;
-        }       
+        }         
     }  
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Media;
 namespace LostKnightConcept
 {
     class Character
@@ -15,11 +15,13 @@ namespace LostKnightConcept
         public string name;
 
         public int health;
-
+        
         protected int x;
         protected int y;
 
         protected char charGraphic;
+
+        protected SoundPlayer hit = new SoundPlayer();
 
         protected Random rng;
 
