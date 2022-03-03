@@ -44,8 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Character.cs" />
+    <Compile Include="Collectables.cs" />
     <Compile Include="GameManager.cs" />
-    <Compile Include="Stats.cs" />
+    <Compile Include="Potions.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs" />

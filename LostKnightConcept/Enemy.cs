@@ -12,8 +12,10 @@ namespace LostKnightConcept
         // fields
         private const int startPositionX = 5;
         private const int startPositionY = 2;
+        private ConsoleColor backColor;
+        private ConsoleColor foreColor;
 
-      
+        public char enemyGraphic;
         public Enemy()
         {
             // instatiation
@@ -22,23 +24,33 @@ namespace LostKnightConcept
             x = startPositionX;
             y = startPositionY;
 
-            rng = new Random();
+            backColor = ConsoleColor.Red;
+            foreColor = ConsoleColor.Red;
 
+            rng = new Random();
+            
+            charGraphic = '#';
+            enemyGraphic = charGraphic;
             name = "Skeleton";
         }
 
         public void Update(Player player, Map map)
         {
+            CheckIfDead();
 
-            checkIfDead();
             if (isAlive == true)
             {
                 Draw();
                 MoveEnemy(map, player);
-            }                                
+            }
+            else
+            {
+                xData = map.mapData.GetLength(0) + 1;
+                yData = map.mapData.GetLength(1) + 1;
+            }
         }
 
-        public void Draw()
+        private void Draw()
         {
             // draws enemy position
             if (isAlive)
@@ -50,12 +62,12 @@ namespace LostKnightConcept
 
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write('#');
+            Console.Write(charGraphic);
             Console.ResetColor();
             Console.CursorVisible = false;
         }
 
-        public void MoveEnemy(Map map, Player player)
+        private void MoveEnemy(Map map, Player player)
         {
             int direction;
             int stall;
@@ -165,7 +177,6 @@ namespace LostKnightConcept
                 }
             }           
         }
-
         private bool IsOnPlayer(Player player, int x, int y)
         {
             xData = x;
@@ -178,34 +189,6 @@ namespace LostKnightConcept
                 return true;
             }
             return false;
-        }
-
-        /*private bool IsPlayerClose(Player player, int x, int y)
-        {
-            xData = x;
-            yData = y;
-
-            if (xData == player.xData && yData == player.yData - 1 ||
-                xData == player.xData && yData == player.yData + 1 ||
-                yData == player.yData && xData == player.xData - 1 ||
-                yData == player.yData && xData == player.xData + 1)
-            {
-                Console.Beep();
-                player.health -= 1;
-                return true;
-            }
-            return false;
-        }*/
-
-        private void checkIfDead()
-        {
-            if (health <= 0)
-            {
-                health = 0;
-                isAlive = false;
-                xData = 30;
-                yData = 30;
-            }
         }
     }
 }

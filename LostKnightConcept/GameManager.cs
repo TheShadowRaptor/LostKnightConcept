@@ -13,7 +13,6 @@ namespace LostKnightConcept
         {
             //instantiation
             Map map = new Map();
-            Stats stats = new Stats();
             Player player = new Player();
             Enemy enemy = new Enemy();
 
@@ -21,7 +20,7 @@ namespace LostKnightConcept
             while (isGameActive)
             {
                 map.DisplayMap();
-                stats.ShowStats(player, enemy);
+                player.ShowHud(player, enemy);
                 if (enemy.isAlive)
                 {
                     enemy.Update(player, map);

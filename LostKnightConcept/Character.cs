@@ -17,8 +17,30 @@ namespace LostKnightConcept
         public int health;
 
         protected int x;
-        protected int y;    
+        protected int y;
 
-        protected Random rng;     
+        protected char charGraphic;
+
+        protected Random rng;
+
+        public Character()
+        {
+
+        }
+        protected void CheckIfDead()
+        {
+            if (health <= 0)
+            {
+                health = 0;
+                isAlive = false;
+            }
+        }
+
+        protected void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
+        {
+            Console.BackgroundColor = backColor;
+            Console.ForegroundColor = foreColor;
+            Console.Write(charGraphic);
+        }
     }
 }

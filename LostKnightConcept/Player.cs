@@ -12,7 +12,10 @@ namespace LostKnightConcept
         // fields
         private const int startPositionX = 1;
         private const int startPositionY = 1;
+        private ConsoleColor backColor;
+        private ConsoleColor foreColor;
 
+        public char playerGraphic;
         public Player()
         {
             // instatiation
@@ -21,6 +24,11 @@ namespace LostKnightConcept
             x = startPositionX;
             y = startPositionY;
 
+            backColor = ConsoleColor.DarkYellow;
+            foreColor = ConsoleColor.White;
+
+            charGraphic = 'P';
+            playerGraphic = charGraphic;
             name = "Guille";
         }
 
@@ -36,20 +44,29 @@ namespace LostKnightConcept
                            
                 
         }
+        public void ShowHud(Player player, Enemy enemy)
+        {
+            Console.WriteLine("===================================================");
+            Console.WriteLine("Player name: " + player.name + " health = " + player.health);
+            Console.WriteLine("Target name: " + enemy.name + " health = " + enemy.health);
+            Console.WriteLine("╔═╗");
+            Console.WriteLine("║" + enemy.enemyGraphic + "║");
+            Console.WriteLine("╚═╝");
+            Console.WriteLine("===================================================");
 
-        public void Draw()
+        }
+        private void Draw()
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);
 
-            Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write('+');
+            DrawChar(charGraphic, backColor, foreColor);
+
             Console.ResetColor();
             Console.CursorVisible = false;
         }
 
-        public void MovePlayer(Map map, Enemy enemy)
+        private void MovePlayer(Map map, Enemy enemy)
         {
             // moves player with button input          
             bool inputLoop;
@@ -165,7 +182,7 @@ namespace LostKnightConcept
                     break;
                 }
             }               
-        }
+        }        
         private bool IsOnEnemy(Enemy enemy, int x, int y)
         {
             xData = x;
@@ -178,14 +195,6 @@ namespace LostKnightConcept
                 return true;        
             }
             return false;
-        }
-        private void CheckIfDead()
-        {
-            if (health <= 0)
-            {
-                health = 0;
-                isAlive = false;
-            }
         }       
     }  
 }
