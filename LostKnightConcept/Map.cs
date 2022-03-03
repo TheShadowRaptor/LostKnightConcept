@@ -7,7 +7,7 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class Map
+    class Map 
     {
         private string name = "DarkPlains";
         // fields

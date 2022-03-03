@@ -8,23 +8,17 @@ namespace LostKnightConcept
 {
     class Character
     {
-        //fields
+        //fields       
+        public bool isAlive = true;
         public int xData;
         public int yData;
-        public int health;
-        public bool isAlive = true;
-
-        protected int x;
-        protected int y;
-        protected bool hitEnemy = false;
-        protected bool attackUp;
-        protected bool attackDown;
-        protected bool attackRight;
-        protected bool attackLeft;
-
         public string name;
 
-        protected Random rng;
-      
+        public int health;
+
+        protected int x;
+        protected int y;    
+
+        protected Random rng;     
     }
 }

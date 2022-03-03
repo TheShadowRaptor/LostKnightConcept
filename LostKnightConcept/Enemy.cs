@@ -58,38 +58,38 @@ namespace LostKnightConcept
         public void MoveEnemy(Map map, Player player)
         {
             int direction;
-            int willMove;
+            int stall;
             bool canMove;
 
             canMove = false;
 
             direction = rng.Next(0, 4);
-            willMove = rng.Next(0, 1);
-            
+                      
             if (direction == 0)
-
-                y--;
-            if (map.IsMapBounds(x, y) == false)
             {
-                if (IsOnPlayer(player, x, y) == false)
+                y--;
+                if (map.IsMapBounds(x, y) == false)
                 {
-                    if (map.IsFloor(x, y))
+                    if (IsOnPlayer(player, x, y) == false)
                     {
-                        canMove = true;
+                        if (map.IsFloor(x, y))
+                        {
+                            canMove = true;
+                        }
+                    }
+                }
+
+                if (canMove == false)
+                {
+                    y++;
+                    if (IsOnPlayer(player, x, y) == true)
+                    {
+                        y++;
                     }
                 }
             }
 
-            if (canMove == false)
-            {
-                y++;
-                if (IsOnPlayer(player, x, y) == true)
-                {
-                    y++;
-                }
-            }
-
-            if (direction == 1)
+            else if (direction == 1)
             {
                 x--;
                 if (map.IsMapBounds(x, y) == false)
@@ -113,7 +113,7 @@ namespace LostKnightConcept
                 }
             }
 
-            if (direction == 2)
+            else if (direction == 2)
             {
                 x++;
                 if (map.IsMapBounds(x, y) == false)
@@ -137,7 +137,7 @@ namespace LostKnightConcept
                 }
             }
 
-            if (direction == 3)
+            else if (direction == 3)
             {
                 y++;
                 if (map.IsMapBounds(x, y) == false)
@@ -159,7 +159,9 @@ namespace LostKnightConcept
                         y--;
                     }
                 }
-            }          
+            }
+            
+           
         }
 
         private bool IsOnPlayer(Player player, int x, int y)
