@@ -12,8 +12,8 @@ namespace LostKnightConcept
         // fields
         private const int startPositionX = 5;
         private const int startPositionY = 2;
-        private ConsoleColor backColor;
-        private ConsoleColor foreColor;
+        public ConsoleColor backColor;
+        public ConsoleColor foreColor;
 
         public char enemyGraphic;
         public Enemy()
@@ -41,7 +41,7 @@ namespace LostKnightConcept
             if (isAlive == true)
             {
                 Draw();
-                MoveEnemy(map, player);
+                Move(map, player);
             }
             else
             {
@@ -67,7 +67,7 @@ namespace LostKnightConcept
             Console.CursorVisible = false;
         }
 
-        private void MoveEnemy(Map map, Player player)
+        private void Move(Map map, Player player)
         {
             int direction;
             int stall;

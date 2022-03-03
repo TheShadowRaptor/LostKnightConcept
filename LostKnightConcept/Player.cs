@@ -12,10 +12,12 @@ namespace LostKnightConcept
         // fields
         private const int startPositionX = 1;
         private const int startPositionY = 1;
-        private ConsoleColor backColor;
-        private ConsoleColor foreColor;
-
+        public ConsoleColor backColor;
+        public ConsoleColor foreColor;
+        
         public char playerGraphic;
+
+        private bool showTarget;
         public Player()
         {
             // instatiation
@@ -30,6 +32,8 @@ namespace LostKnightConcept
             charGraphic = 'P';
             playerGraphic = charGraphic;
             name = "Guille";
+
+            showTarget = false;
         }
 
         public void Update(Enemy enemy, Map map)
@@ -39,20 +43,40 @@ namespace LostKnightConcept
             if(isAlive)
             {
                 Draw();           
-                MovePlayer(map, enemy);
+                Move(map, enemy);
             }
                            
                 
         }
         public void ShowHud(Player player, Enemy enemy)
         {
-            Console.WriteLine("===================================================");
-            Console.WriteLine("Player name: " + player.name + " health = " + player.health);
-            Console.WriteLine("Target name: " + enemy.name + " health = " + enemy.health);
-            Console.WriteLine("╔═╗");
-            Console.WriteLine("║" + enemy.enemyGraphic + "║");
-            Console.WriteLine("╚═╝");
-            Console.WriteLine("===================================================");
+            Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
+            Console.Write("║");
+            Console.Write("Player name: " + player.name + " health = " + player.health);
+            Console.WriteLine("                   ║");
+            if (showTarget == true)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("║Target name: " + enemy.name + " health = " + enemy.health);
+                Console.WriteLine("║╔═╗");
+                Console.Write("║║");
+                Console.BackgroundColor = enemy.backColor;
+                Console.ForegroundColor = enemy.foreColor;
+                Console.Write((enemy.enemyGraphic));
+                Console.ResetColor();
+                Console.WriteLine("║");
+                Console.WriteLine("║╚═╝");
+                showTarget = false;
+            }           
+            else
+            {
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+            }
+            Console.WriteLine("╚═════════════════════════════════════════════════╝");
 
         }
         private void Draw()
@@ -66,7 +90,7 @@ namespace LostKnightConcept
             Console.CursorVisible = false;
         }
 
-        private void MovePlayer(Map map, Enemy enemy)
+        private void Move(Map map, Enemy enemy)
         {
             // moves player with button input          
             bool inputLoop;
@@ -192,6 +216,7 @@ namespace LostKnightConcept
             {           
                 SystemSounds.Hand.Play();
                 enemy.health -= 1;
+                showTarget = true;
                 return true;        
             }
             return false;
