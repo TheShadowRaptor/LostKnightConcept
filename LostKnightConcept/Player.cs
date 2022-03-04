@@ -38,27 +38,17 @@ namespace LostKnightConcept
             showTarget = false;
         }
 
-        public void Update(EnemyClass enemy, Map map)
+        public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul)
         {
             CheckIfDead();
             
             if(isAlive)
             {
                 Draw();           
-                Move(map, enemy);
+                Move(map, skeleton, ghost, ghoul);
             }               
         }
-        
-
-        
-        private void Draw()
-        {
-            // draws player position
-            Console.SetCursorPosition(x + 1, y + 1);
-
-            DrawChar(charGraphic, backColor, foreColor);           
-            Console.CursorVisible = false;
-        }
+               
         private void PlaySoundHitWall()
         {
             hitWall.Load();
@@ -71,7 +61,7 @@ namespace LostKnightConcept
             hit.Play();
         }
 
-        private void Move(Map map, EnemyClass enemy)
+        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul)
         {
             // moves player with button input          
             bool inputLoop;
@@ -88,7 +78,7 @@ namespace LostKnightConcept
                     y--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -100,12 +90,12 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y++;
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(enemy, x, y) == true)
+                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             y++;
                         }                        
@@ -119,7 +109,7 @@ namespace LostKnightConcept
                     x--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -131,11 +121,11 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x++;
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
-                        else if (IsOnEnemy(enemy, x, y) == true)
+                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             x++;
                         }                        
@@ -149,7 +139,7 @@ namespace LostKnightConcept
                     x++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -161,12 +151,12 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x--;
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(enemy, x, y) == true)
+                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             x--;
                         }                       
@@ -180,7 +170,7 @@ namespace LostKnightConcept
                     y++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -192,12 +182,12 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y--;
-                        if (IsOnEnemy(enemy, x, y) == false)
+                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(enemy, x, y) == true)
+                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             y--;
                         }                      
@@ -207,17 +197,33 @@ namespace LostKnightConcept
                 }
             }               
         }        
-        private bool IsOnEnemy(EnemyClass enemy, int x, int y)
+        private bool IsOnEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
         {
             xData = x;
             yData = y;
 
-            if (xData == enemy.xData && yData == enemy.yData)
+            if (xData == skeleton.xData && yData == skeleton.yData)
             {
                 PlaySoundHitEnemy();
-                enemy.health -= 1;
+                skeleton.health -= 1;
                 showTarget = true;
                 return true;        
+            }
+
+            if (xData == ghost.xData && yData == ghost.yData)
+            {
+                PlaySoundHitEnemy();
+                ghost.health -= 1;
+                showTarget = true;
+                return true;
+            }
+
+            if (xData == ghoul.xData && yData == ghoul.yData)
+            {
+                PlaySoundHitEnemy();
+                ghoul.health -= 1;
+                showTarget = true;
+                return true;
             }
             return false;
         }         

@@ -18,15 +18,31 @@ namespace LostKnightConcept
             x = startPosX;
             y = startPosY;
 
-            backColor = ConsoleColor.Red;
-            foreColor = ConsoleColor.Red;
+            backColor = ConsoleColor.White;
+            foreColor = ConsoleColor.DarkGray;
 
             charGraphic = '#';
             enemyGraphic = charGraphic;
             name = "Skeleton";
         }
 
-        private void Move(Map map, Player player)
+        public new void Update(Player player, Map map)
+        {
+            CheckIfDead();
+
+            if (isAlive == true)
+            {
+                Draw();
+                Move(map, player);
+            }
+            else
+            {
+                xData = map.mapData.GetLength(0) + 1;
+                yData = map.mapData.GetLength(1) + 1;
+            }
+        }
+
+        protected new void Move(Map map, Player player)
         {
             int direction;
             int wait;
@@ -136,6 +152,5 @@ namespace LostKnightConcept
                 }
             }
         }
-
     }
 }

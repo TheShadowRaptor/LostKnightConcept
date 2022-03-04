@@ -27,6 +27,8 @@ namespace LostKnightConcept
         protected SoundPlayer hit = new SoundPlayer();
 
         protected Random rng;
+        protected Random rng2;
+        protected Random rng3;
 
         protected void CheckIfDead()
         {
@@ -36,6 +38,15 @@ namespace LostKnightConcept
                 isAlive = false;
             }
         }
+        protected void Draw()
+        {
+            // draws player position
+            Console.SetCursorPosition(x + 1, y + 1);
+
+            DrawChar(charGraphic, backColor, foreColor);
+            Console.CursorVisible = false;
+        }
+
         public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
         {
             Console.BackgroundColor = backColor;

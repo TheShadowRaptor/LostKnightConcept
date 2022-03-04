@@ -20,7 +20,9 @@ namespace LostKnightConcept
             x = startPosX;
             y = startPosY;
 
-            rng = new Random();            
+            rng = new Random(0);
+            rng2 = new Random(1);
+            rng3 = new Random(2);
 
             hit.SoundLocation = "Hit_Player.wav";
         }
@@ -41,19 +43,115 @@ namespace LostKnightConcept
             }
         }
 
-        private void Draw()
+        protected void Move(Map map, Player player)
         {
-            // draws enemy position
-            if (isAlive)
+            int direction;
+            int wait;
+            bool canMove;
+
+            canMove = false;
+
+            direction = rng.Next(0, 4);
+            wait = rng.Next(0, 2);
+
+            if (wait == 1)
             {
-                Console.SetCursorPosition(x + 1, y + 1);
+                if (direction == 0)
+                {
+                    y--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        y++;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            y++;
+                        }
+                    }
+                }
+
+                else if (direction == 1)
+                {
+                    x--;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        x++;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            x++;
+                        }
+                    }
+                }
+
+                else if (direction == 2)
+                {
+                    x++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        x--;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            x--;
+                        }
+                    }
+                }
+
+                else if (direction == 3)
+                {
+                    y++;
+                    if (map.IsMapBounds(x, y) == false)
+                    {
+                        if (IsOnPlayer(player, x, y) == false)
+                        {
+                            if (map.IsFloor(x, y))
+                            {
+                                canMove = true;
+                            }
+                        }
+                    }
+
+                    if (canMove == false)
+                    {
+                        y--;
+                        if (IsOnPlayer(player, x, y) == true)
+                        {
+                            y--;
+                        }
+                    }
+                }
             }
-
-            else Console.SetCursorPosition(300, 300);
-
-            DrawChar(charGraphic, backColor, foreColor);
-
-            Console.CursorVisible = false;
         }
         public bool IsOnPlayer(Player player, int x, int y)
         {

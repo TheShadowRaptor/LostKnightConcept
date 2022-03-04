@@ -14,12 +14,16 @@ namespace LostKnightConcept
             //instantiation
             Map map = new Map();            
             Skeleton skeleton = new Skeleton();
+            Ghost ghost = new Ghost();
+            Ghoul ghoul = new Ghoul();
             HUD hud = new HUD();
             Heart heart = new Heart();
             Player player = new Player();
             map.DisplayMap();
             heart.Update(player);
             skeleton.Update(player, map);
+            ghost.Update(player, map);
+            ghoul.Update(player, map);
             hud.ShowHUD(player, skeleton, map);
             
 
@@ -27,21 +31,31 @@ namespace LostKnightConcept
             {               
                 if (player.isAlive)
                 {
-                    player.Update(skeleton, map);
+                    player.Update(map, skeleton, ghost, ghoul);
                 }
                 else break;
 
                 map.DisplayMap();
+                
+                if (heart.isAlive)
+                {
+                    heart.Update(player);
+                }
 
                 if (skeleton.isAlive)
                 {
                     skeleton.Update(player, map);
                 }
 
-                if (heart.isAlive)
+                if (ghost.isAlive)
                 {
-                    heart.Update(player);
+                    ghost.Update(player, map);
                 }
+
+                if (ghoul.isAlive)
+                {
+                    ghoul.Update(player, map);
+                }               
 
                 hud.ShowHUD(player, skeleton, map);               
                 
