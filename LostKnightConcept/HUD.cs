@@ -8,12 +8,14 @@ namespace LostKnightConcept
 {
     class HUD
     {
-        public void ShowHUD(Map map, Player player, Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        public void ShowHUD(Map map, Player player, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Key key)
         {
             Console.SetCursorPosition(0, map.mapData.GetLength(0) + 3);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
             Console.Write("║");
-            Console.Write("Player name: " + player.name + " ||" + " health = " + player.health);
+            Console.Write("Player name: " + player.name + " ||" + key.keys);
+            Console.Write("║");
+            Console.Write(" health = " + player.health);
             Console.WriteLine("                ║");
             Console.Write("║");
             Console.Write("Damage = " + player.playerDamage);

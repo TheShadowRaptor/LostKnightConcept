@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class DamageUp : Collectables
+    class Key : Collectables
     {
         private const int startPosX = 4;
         private const int startPosy = 4;
-        public DamageUp()
+
+        public int keys;
+        public Key()
         {
-            name = "DamageUp";
-            charGraphic = '+';
+            name = "Key";
+            charGraphic = 'F';
 
             backColor = ConsoleColor.DarkGray;
-            foreColor = ConsoleColor.White;
+            foreColor = ConsoleColor.Yellow;
 
             x = startPosX;
             y = startPosy;
@@ -42,7 +44,7 @@ namespace LostKnightConcept
         {
             if (PickedUp == true)
             {
-                player.playerDamage = player.playerDamage + 1;
+                keys = keys + 1;
                 isAlive = false;
             }
         }
