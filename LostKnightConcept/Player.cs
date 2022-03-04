@@ -21,6 +21,9 @@ namespace LostKnightConcept
 
         public int playerDamage;
 
+        public bool canMove;
+        public bool doorCollide;
+
         public bool targetSkeleton;
         public bool targetGhost;
         public bool targetGhoul;
@@ -45,14 +48,14 @@ namespace LostKnightConcept
             showTarget = false;
         }
 
-        public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
         {
             CheckIfDead();
             
             if(isAlive)
             {
                 Draw();           
-                Move(map, skeleton, ghost, ghoul);
+                Move(map, skeleton, ghost, ghoul, door);
             }               
         }
                
@@ -68,11 +71,10 @@ namespace LostKnightConcept
             hit.Play();
         }
 
-        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
         {
             // moves player with button input          
             bool inputLoop;
-            bool canMove;
             inputLoop = true;
             canMove = false;
   
@@ -85,7 +87,7 @@ namespace LostKnightConcept
                     y--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -97,12 +99,12 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y++;
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
+                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             y++;
                         }                        
@@ -116,7 +118,7 @@ namespace LostKnightConcept
                     x--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -128,11 +130,11 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x++;
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
-                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
+                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             x++;
                         }                        
@@ -146,7 +148,7 @@ namespace LostKnightConcept
                     x++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -158,15 +160,15 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x--;
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
+                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             x--;
-                        }                       
+                        }
                         break;
                     }
                     break;
@@ -177,7 +179,7 @@ namespace LostKnightConcept
                     y++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -189,22 +191,24 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y--;
-                        if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == false)
+                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
                         {
                             PlaySoundHitWall();
                         }
 
-                        else if (IsOnEnemy(skeleton, ghost, ghoul, x, y) == true)
+                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
                         {
                             y--;
-                        }                      
+                        }    
+                        
+                        
                         break;
                     }
                     break;
                 }
             }               
         }        
-        private bool IsOnEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
+        private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
         {            
             xData = x;
             yData = y;
@@ -233,6 +237,6 @@ namespace LostKnightConcept
                 return true;
             }
             return false;
-        }         
+        }
     }  
 }

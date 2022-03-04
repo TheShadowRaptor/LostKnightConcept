@@ -19,21 +19,25 @@ namespace LostKnightConcept
             HUD hud = new HUD();
             Heart heart = new Heart();
             DamageUp damageUp = new DamageUp();
+            Key key = new Key();
+            Door door = new Door();
             Player player = new Player();
             map.DisplayMap();
             heart.Update(player);
             damageUp.Update(player);
+            key.Update(player);
+            door.Update(player, key);
             skeleton.Update(player, map);
             ghost.Update(player, map);
             ghoul.Update(player, map);
-            hud.ShowHUD(map, player, skeleton, ghost, ghoul);
+            hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);
             
 
             while (isGameActive)
             {               
                 if (player.isAlive)
                 {
-                    player.Update(map, skeleton, ghost, ghoul);
+                    player.Update(map, skeleton, ghost, ghoul, door);
                 }
                 else break;
 
@@ -47,6 +51,16 @@ namespace LostKnightConcept
                 if (damageUp.isAlive)
                 {
                     damageUp.Update(player);
+                }
+
+                if (key.isAlive)
+                {
+                    key.Update(player);
+                }
+
+                if (door.isAlive)
+                {
+                    door.Update(player, key);
                 }
 
                 if (skeleton.isAlive)
@@ -64,7 +78,7 @@ namespace LostKnightConcept
                     ghoul.Update(player, map);
                 }               
 
-                hud.ShowHUD(map, player, skeleton, ghost, ghoul);               
+                hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);               
                 
                 Console.SetCursorPosition(0, 0);
             }
