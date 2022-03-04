@@ -12,24 +12,18 @@ namespace LostKnightConcept
     {
         private string name;
         // fields
-        public char[,] mapData;
+        public string[] map;
+        public string mapFile = "Map.txt";
+        public char mapData;
 
         public Map()
         {
             name = "DarkPlains";
             // gives map array the games map
-            mapData = new char[,] 
-            {
-                {'*','*','*','*','^','^','^','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},
-                {'*','*','*','*','^','^','^','*','*','*','*','*','*','*','*','*','*','|','=','=','=','=','*'},
-                {'*','*','*','*','^','^','^','*','*','*','^','^','*','*','*','*','*','|','*','*','*','|','*'},
-                {'*','*','*','*','*','*','*','*','*','^','^','^','^','*','*','*','*','|','*','*','*','|','*'},
-                {'*','*','*','*','*','*','*','*','*','^','^','^','^','*','*','*','*','*','*','*','*','|','*'},
-                {'*','*','*','*','*','^','^','*','*','^','^','^','^','*','*','*','*','|','*','*','*','|','*'},
-                {'*','*','*','*','^','^','^','*','*','*','^','^','*','*','*','*','*','|','*','*','*','|','*'},
-                {'*','*','*','*','^','^','^','*','*','*','*','*','*','*','*','*','*','|','=','=','=','=','*'},
-                {'*','*','*','*','^','^','^','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*','*'},                
-            };
+            map = File.ReadAllLines(mapFile);
+            map[0]
+            map[1]            
+            map[2]            
         }
 
         public void DisplayMap()
@@ -37,7 +31,7 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, 0);
             //------------------Top Map Border--------------------
             Console.Write("╔");
-            for (int i = 0; i < mapData.GetLength(1); i++)
+            for (int i = 0; i < map.GetLength(1); i++)
             {
                 Console.Write("═");
             }
@@ -47,17 +41,17 @@ namespace LostKnightConcept
 
             //------------------------Map-------------------------         
 
-            for (int x = 0; x < mapData.GetLength(0); x++)
+            for (int x = 0; x < map.GetLength(0); x++)
             {
                 Console.Write("║");
 
-                for (int y = 0; y < mapData.GetLength(1); y++)
+                for (int y = 0; y < map.GetLength(1); y++)
                 {
                     // colour the Map
                     ColourMap(x, y);
 
                     // draws map
-                    Console.Write(mapData[x, y]);
+                    Console.Write(map);
 
                     // resets colour
                     Console.ResetColor();
@@ -69,7 +63,7 @@ namespace LostKnightConcept
 
             //------------------Bottom Map Border-----------------
             Console.Write("╚");
-            for (int i = 0; i < mapData.GetLength(1); i++)
+            for (int i = 0; i < map.GetLength(1); i++)
             {
                 Console.Write("═");
             }
@@ -82,7 +76,7 @@ namespace LostKnightConcept
         public void ColourMap(int x, int y)
         {
             // colours spacific char in the map array
-            if (mapData[x, y] == '*')
+            /*if (map == '*')*/
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.BackgroundColor = ConsoleColor.DarkGray;
@@ -92,7 +86,7 @@ namespace LostKnightConcept
         public bool IsFloor(int x, int y)
         {
             //Inner map bounds
-            if (mapData[y, x] == '*')
+            /*if (map == '*')*/
             {
                 return true;
             }
@@ -101,7 +95,7 @@ namespace LostKnightConcept
 
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
+            if (x >= map.GetLength(1) || y >= map.GetLength(0) || x < 0 || y < 0)
             {
                return true;
             }

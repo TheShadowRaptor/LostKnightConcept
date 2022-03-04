@@ -37,8 +37,8 @@ namespace LostKnightConcept
             }
             else
             {
-                xData = map.mapData.GetLength(0) + 1;
-                yData = map.mapData.GetLength(1) + 1;
+                xData = map.map.GetLength(0) + 1;
+                yData = map.map.GetLength(1) + 1;
             }
         }
 
