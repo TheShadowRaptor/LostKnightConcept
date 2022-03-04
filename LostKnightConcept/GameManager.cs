@@ -18,9 +18,11 @@ namespace LostKnightConcept
             Ghoul ghoul = new Ghoul();
             HUD hud = new HUD();
             Heart heart = new Heart();
+            DamageUp damageUp = new DamageUp();
             Player player = new Player();
             map.DisplayMap();
             heart.Update(player);
+            damageUp.Update(player);
             skeleton.Update(player, map);
             ghost.Update(player, map);
             ghoul.Update(player, map);
@@ -40,6 +42,11 @@ namespace LostKnightConcept
                 if (heart.isAlive)
                 {
                     heart.Update(player);
+                }
+
+                if (damageUp.isAlive)
+                {
+                    damageUp.Update(player);
                 }
 
                 if (skeleton.isAlive)

@@ -32,7 +32,7 @@ namespace LostKnightConcept
         }
 
         public void DisplayMap()
-        {
+        {            
             Console.SetCursorPosition(0, 0);
             //------------------Top Map Border--------------------
             Console.Write("╔");
@@ -72,9 +72,10 @@ namespace LostKnightConcept
             {
                 Console.Write("═");
             }
-            Console.Write("╝");
+            Console.Write("╝");            
             Console.WriteLine("");
-            //----------------------------------------------------
+            Console.WriteLine("Map name = " + "{" + name + "}");
+            //----------------------------------------------------            
         }
 
         public void ColourMap(int x, int y)
@@ -99,7 +100,7 @@ namespace LostKnightConcept
 
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
+            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 1 || y < 1)
             {
                return true;
             }

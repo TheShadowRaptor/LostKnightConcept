@@ -8,8 +8,8 @@ namespace LostKnightConcept
 {
     class DamageUp : Collectables
     {
-        private const int startPosX = 2;
-        private const int startPosy = 2;
+        private const int startPosX = 4;
+        private const int startPosy = 4;
         public DamageUp()
         {
             name = "DamageUp";
