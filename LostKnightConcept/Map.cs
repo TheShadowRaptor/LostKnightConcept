@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Media;
+using System.IO;
 
 namespace LostKnightConcept
 {
@@ -100,7 +101,7 @@ namespace LostKnightConcept
 
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 1 || y < 1)
+            if (x >= mapData.GetLength(1) || y >= mapData.GetLength(0) || x < 0 || y < 0)
             {
                return true;
             }

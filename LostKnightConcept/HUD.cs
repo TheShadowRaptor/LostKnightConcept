@@ -13,10 +13,11 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, map.mapData.GetLength(0) + 3);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
             Console.Write("║");
-            Console.Write("Player name: " + player.name + " ||" + key.keys);
+            Console.Write("Player name: " + player.name + " || " + "keys = " + key.keys);
+            Console.WriteLine("                  ║");
             Console.Write("║");
-            Console.Write(" health = " + player.health);
-            Console.WriteLine("                ║");
+            Console.Write("Health = " + player.health);
+            Console.WriteLine("                                       ║");
             Console.Write("║");
             Console.Write("Damage = " + player.playerDamage);
             Console.WriteLine("                                       ║");
