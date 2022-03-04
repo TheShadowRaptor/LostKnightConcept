@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Heart : Collectables
+    class DamageUp : Collectables
     {
         private const int startPosX = 2;
         private const int startPosy = 2;
-        public Heart()
+        public DamageUp()
         {
-            name = "Heart";
-            charGraphic = '♥';
+            name = "DamageUp";
+            charGraphic = '+';
 
             backColor = ConsoleColor.DarkGray;
-            foreColor = ConsoleColor.Red;
+            foreColor = ConsoleColor.Yellow;
 
             x = startPosX;
             y = startPosy;
@@ -24,7 +24,7 @@ namespace LostKnightConcept
         }
 
         public void Update(Player player)
-        {          
+        {
             Draw();
             ItemPickedUp(player, xData, yData);
             CheckIfDead(player);
@@ -42,7 +42,7 @@ namespace LostKnightConcept
         {
             if (PickedUp == true)
             {
-                player.health = player.health + 1;
+                player.playerDamage = player.playerDamage + 1;
                 isAlive = false;
             }
         }

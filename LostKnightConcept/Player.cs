@@ -18,11 +18,18 @@ namespace LostKnightConcept
         public char playerGraphic;
 
         public bool showTarget;
+
+        public int playerDamage;
+
+        public bool targetSkeleton;
+        public bool targetGhost;
+        public bool targetGhoul;
         public Player()
         {
             // instatiation
             health = 2;
 
+            playerDamage = 1;
             x = startPositionX;
             y = startPositionY;
 
@@ -198,31 +205,31 @@ namespace LostKnightConcept
             }               
         }        
         private bool IsOnEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
-        {
+        {            
             xData = x;
             yData = y;
 
             if (xData == skeleton.xData && yData == skeleton.yData)
             {
                 PlaySoundHitEnemy();
-                skeleton.health -= 1;
-                showTarget = true;
+                skeleton.health -= playerDamage; 
+                targetSkeleton = true;
                 return true;        
             }
 
             if (xData == ghost.xData && yData == ghost.yData)
             {
                 PlaySoundHitEnemy();
-                ghost.health -= 1;
-                showTarget = true;
+                ghost.health -= playerDamage;
+                targetGhost = true;
                 return true;
             }
 
             if (xData == ghoul.xData && yData == ghoul.yData)
             {
                 PlaySoundHitEnemy();
-                ghoul.health -= 1;
-                showTarget = true;
+                ghoul.health -= playerDamage; 
+                targetGhoul = true;
                 return true;
             }
             return false;

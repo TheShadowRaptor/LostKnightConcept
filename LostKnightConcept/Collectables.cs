@@ -6,8 +6,22 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Collectables : GameCharacter
+    class Collectables 
     {
+        protected string name;
+        protected char charGraphic;
+
+        protected ConsoleColor backColor;
+        protected ConsoleColor foreColor;
+
+        protected int x;
+        protected int y;
+
+        protected int xData;
+        protected int yData;
+
+        public bool isAlive = true;
+
         protected bool PickedUp;
 
         public Collectables()
@@ -21,6 +35,13 @@ namespace LostKnightConcept
             {
                 PickedUp = true;
             }
+        }
+        public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
+        {
+            Console.BackgroundColor = backColor;
+            Console.ForegroundColor = foreColor;
+            Console.Write(charGraphic);
+            Console.ResetColor();
         }
     }
 }

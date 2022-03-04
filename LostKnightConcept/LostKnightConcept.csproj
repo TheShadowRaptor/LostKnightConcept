@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DamageUp.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="GameCharacter.cs" />
     <Compile Include="Collectables.cs" />

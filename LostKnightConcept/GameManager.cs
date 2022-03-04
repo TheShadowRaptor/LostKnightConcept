@@ -24,7 +24,7 @@ namespace LostKnightConcept
             skeleton.Update(player, map);
             ghost.Update(player, map);
             ghoul.Update(player, map);
-            hud.ShowHUD(player, skeleton, map);
+            hud.ShowHUD(map, player, skeleton, ghost, ghoul);
             
 
             while (isGameActive)
@@ -57,7 +57,7 @@ namespace LostKnightConcept
                     ghoul.Update(player, map);
                 }               
 
-                hud.ShowHUD(player, skeleton, map);               
+                hud.ShowHUD(map, player, skeleton, ghost, ghoul);               
                 
                 Console.SetCursorPosition(0, 0);
             }

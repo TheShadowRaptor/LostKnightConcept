@@ -9,7 +9,7 @@ namespace LostKnightConcept
     class Ghoul : EnemyClass
     {
         private const int startPosX = 11;
-        private const int startPosY = 2;
+        private const int startPosY = 1;
 
         public Ghoul()
         {
