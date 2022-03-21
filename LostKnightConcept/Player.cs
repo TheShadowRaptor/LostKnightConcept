@@ -213,26 +213,26 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
 
-            if (xData == skeleton.xData && yData == skeleton.yData)
+            if (skeleton.xData == xData && skeleton.yData == yData)
             {
                 PlaySoundHitEnemy();
-                skeleton.health -= playerDamage; 
+                health -= skeleton.damage;
                 targetSkeleton = true;
                 return true;        
             }
 
-            if (xData == ghost.xData && yData == ghost.yData)
+            if (ghost.xData == xData && ghost.yData == yData)
             {
                 PlaySoundHitEnemy();
-                ghost.health -= playerDamage;
+                health -= ghost.damage;
                 targetGhost = true;
                 return true;
             }
 
-            if (xData == ghoul.xData && yData == ghoul.yData)
+            if (ghoul.xData == xData && ghoul.yData == yData)
             {
                 PlaySoundHitEnemy();
-                ghoul.health -= playerDamage; 
+                health -= ghoul.damage;
                 targetGhoul = true;
                 return true;
             }

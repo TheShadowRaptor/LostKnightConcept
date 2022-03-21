@@ -14,6 +14,8 @@ namespace LostKnightConcept
         private const int startPosY = 2;
 
         public char enemyGraphic;
+
+        public int damage;
         public EnemyClass()
         {
             // instatiation
@@ -61,7 +63,7 @@ namespace LostKnightConcept
                     y--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (IsHit(player, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -73,7 +75,7 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y++;
-                        if (IsOnPlayer(player, x, y) == true)
+                        if (IsHit(player, x, y) == true)
                         {
                             y++;
                         }
@@ -85,7 +87,7 @@ namespace LostKnightConcept
                     x--;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (IsHit(player, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -97,7 +99,7 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x++;
-                        if (IsOnPlayer(player, x, y) == true)
+                        if (IsHit(player, x, y) == true)
                         {
                             x++;
                         }
@@ -109,7 +111,7 @@ namespace LostKnightConcept
                     x++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (IsHit(player, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -121,7 +123,7 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         x--;
-                        if (IsOnPlayer(player, x, y) == true)
+                        if (IsHit(player, x, y) == true)
                         {
                             x--;
                         }
@@ -133,7 +135,7 @@ namespace LostKnightConcept
                     y++;
                     if (map.IsMapBounds(x, y) == false)
                     {
-                        if (IsOnPlayer(player, x, y) == false)
+                        if (IsHit(player, x, y) == false)
                         {
                             if (map.IsFloor(x, y))
                             {
@@ -145,7 +147,7 @@ namespace LostKnightConcept
                     if (canMove == false)
                     {
                         y--;
-                        if (IsOnPlayer(player, x, y) == true)
+                        if (IsHit(player, x, y) == true)
                         {
                             y--;
                         }
@@ -153,15 +155,15 @@ namespace LostKnightConcept
                 }
             }
         }
-        public bool IsOnPlayer(Player player, int x, int y)
+        public bool IsHit(Player player, int x, int y)
         {
             xData = x;
             yData = y;
 
-            if (xData == player.xData && yData == player.yData)
+            if (player.xData == xData && player.yData == yData)
             {
                 PlaySoundHitPlayer();
-                player.health -= 1;
+                health -= player.playerDamage;
                 return true;
             }
             return false;

@@ -34,8 +34,10 @@ namespace LostKnightConcept
             
 
             while (isGameActive)
-            {               
-                if (player.isAlive)
+            {
+                map.DisplayMap();
+                Console.ReadKey();
+                /*if (player.isAlive)
                 {
                     player.Update(map, skeleton, ghost, ghoul, door);
                 }
@@ -80,7 +82,7 @@ namespace LostKnightConcept
 
                 hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);               
                 
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(0, 0);*/
             }
         }
     }

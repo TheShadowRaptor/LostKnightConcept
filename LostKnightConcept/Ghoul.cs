@@ -14,6 +14,7 @@ namespace LostKnightConcept
         public Ghoul()
         {
             health = 5;
+            damage = 1;
 
             x = startPosX;
             y = startPosY;
@@ -52,7 +53,7 @@ namespace LostKnightConcept
                         y--;
                         if (map.IsMapBounds(x, y) == false)
                         {
-                            if (IsOnPlayer(player, x, y) == false)
+                            if (IsHit(player, x, y) == false)
                             {
                                 if (map.IsFloor(x, y))
                                 {
@@ -64,7 +65,7 @@ namespace LostKnightConcept
                         if (canMove == false)
                         {
                             y++;
-                            if (IsOnPlayer(player, x, y) == true)
+                            if (IsHit(player, x, y) == true)
                             {
                                 y++;
                             }
@@ -86,7 +87,7 @@ namespace LostKnightConcept
                         x--;
                         if (map.IsMapBounds(x, y) == false)
                         {
-                            if (IsOnPlayer(player, x, y) == false)
+                            if (IsHit(player, x, y) == false)
                             {
                                 if (map.IsFloor(x, y))
                                 {
@@ -98,7 +99,7 @@ namespace LostKnightConcept
                         if (canMove == false)
                         {
                             x++;
-                            if (IsOnPlayer(player, x, y) == true)
+                            if (IsHit(player, x, y) == true)
                             {
                                 x++;
                             }
@@ -120,7 +121,7 @@ namespace LostKnightConcept
                         x++;
                         if (map.IsMapBounds(x, y) == false)
                         {
-                            if (IsOnPlayer(player, x, y) == false)
+                            if (IsHit(player, x, y) == false)
                             {
                                 if (map.IsFloor(x, y))
                                 {
@@ -132,7 +133,7 @@ namespace LostKnightConcept
                         if (canMove == false)
                         {
                             x--;
-                            if (IsOnPlayer(player, x, y) == true)
+                            if (IsHit(player, x, y) == true)
                             {
                                 x--;
                             }
@@ -154,7 +155,7 @@ namespace LostKnightConcept
                         y++;
                         if (map.IsMapBounds(x, y) == false)
                         {
-                            if (IsOnPlayer(player, x, y) == false)
+                            if (IsHit(player, x, y) == false)
                             {
                                 if (map.IsFloor(x, y))
                                 {
@@ -166,7 +167,7 @@ namespace LostKnightConcept
                         if (canMove == false)
                         {
                             y--;
-                            if (IsOnPlayer(player, x, y) == true)
+                            if (IsHit(player, x, y) == true)
                             {
                                 y--;
                             }

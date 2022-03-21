@@ -12,26 +12,29 @@ namespace LostKnightConcept
     {
         private string name;
         // fields
-        public string[] map;
         public string mapFile = "Map.txt";
-        public char mapData;
+        public string[] map;
+
+        protected int row;
+        protected int column;
 
         public Map()
         {
             name = "DarkPlains";
+
             // gives map array the games map
             map = File.ReadAllLines(mapFile);
-            map[0]
-            map[1]            
-            map[2]            
-        }
+            row = map.Length;
+            column = map[0].Length;
+
+    }
 
         public void DisplayMap()
         {            
             Console.SetCursorPosition(0, 0);
             //------------------Top Map Border--------------------
             Console.Write("╔");
-            for (int i = 0; i < map.GetLength(1); i++)
+            for (int i = 0; i < row; i++)
             {
                 Console.Write("═");
             }
@@ -41,11 +44,11 @@ namespace LostKnightConcept
 
             //------------------------Map-------------------------         
 
-            for (int x = 0; x < map.GetLength(0); x++)
+            for (int x = 0; x < row; x++)
             {
                 Console.Write("║");
 
-                for (int y = 0; y < map.GetLength(1); y++)
+                for (int y = 0; y < column; y++)
                 {
                     // colour the Map
                     ColourMap(x, y);
@@ -63,7 +66,7 @@ namespace LostKnightConcept
 
             //------------------Bottom Map Border-----------------
             Console.Write("╚");
-            for (int i = 0; i < map.GetLength(1); i++)
+            for (int i = 0; i < row; i++)
             {
                 Console.Write("═");
             }
@@ -95,7 +98,7 @@ namespace LostKnightConcept
 
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= map.GetLength(1) || y >= map.GetLength(0) || x < 0 || y < 0)
+            if (x >= row || y >= column || x < 0 || y < 0)
             {
                return true;
             }

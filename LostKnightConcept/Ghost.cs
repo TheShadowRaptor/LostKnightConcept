@@ -14,6 +14,7 @@ namespace LostKnightConcept
         public Ghost()
         {
             health = 1;
+            damage = 1;
 
             x = startPosX;
             y = startPosY;
@@ -59,7 +60,7 @@ namespace LostKnightConcept
                     {
                         y++;
                     }
-                        if (IsOnPlayer(player, x, y) == true)
+                        if (IsHit(player, x, y) == true)
                         {
                             y++;
                         }
@@ -72,7 +73,7 @@ namespace LostKnightConcept
                     {
                         x++;
                     }
-                    if (IsOnPlayer(player, x, y) == true)
+                    if (IsHit(player, x, y) == true)
                     {
                         x++;
                     }
@@ -85,7 +86,7 @@ namespace LostKnightConcept
                     {
                         x--;
                     }
-                    if (IsOnPlayer(player, x, y) == true)
+                    if (IsHit(player, x, y) == true)
                     {
                         x--;
                     }
@@ -98,7 +99,7 @@ namespace LostKnightConcept
                     {
                         y--;
                     }
-                    if (IsOnPlayer(player, x, y) == true)
+                    if (IsHit(player, x, y) == true)
                     {
                         y--;
                     }
