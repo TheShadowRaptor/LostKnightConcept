@@ -31,7 +31,7 @@ namespace LostKnightConcept
 
         public void Update(Player player, Map map)
         {
-            CheckIfDead();
+            IsAlive();
 
             if (isAlive == true)
             {

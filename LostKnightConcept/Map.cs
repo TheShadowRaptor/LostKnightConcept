@@ -34,7 +34,7 @@ namespace LostKnightConcept
             Console.SetCursorPosition(0, 0);
             //------------------Top Map Border--------------------
             Console.Write("╔");
-            for (int i = 0; i < row; i++)
+            for (int i = 0; i < column; i++)
             {
                 Console.Write("═");
             }
@@ -54,7 +54,7 @@ namespace LostKnightConcept
                     ColourMap(x, y);
 
                     // draws map
-                    Console.Write(map);
+                    Console.Write(map[x][y]);
 
                     // resets colour
                     Console.ResetColor();
@@ -66,7 +66,7 @@ namespace LostKnightConcept
 
             //------------------Bottom Map Border-----------------
             Console.Write("╚");
-            for (int i = 0; i < row; i++)
+            for (int i = 0; i < column; i++)
             {
                 Console.Write("═");
             }
@@ -79,7 +79,7 @@ namespace LostKnightConcept
         public void ColourMap(int x, int y)
         {
             // colours spacific char in the map array
-            /*if (map == '*')*/
+            if (map[x][y] == '*')
             {
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.BackgroundColor = ConsoleColor.DarkGray;

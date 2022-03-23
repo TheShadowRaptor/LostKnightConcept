@@ -49,12 +49,9 @@ namespace LostKnightConcept
         }
 
         public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
-        {
-            CheckIfDead();
-            
-            if(isAlive)
-            {
-                Draw();           
+        {          
+            if(IsAlive() == true)
+            {        
                 Move(map, skeleton, ghost, ghoul, door);
             }               
         }
@@ -64,13 +61,41 @@ namespace LostKnightConcept
             hitWall.Load();
             hitWall.Play();
         }
-
         private void PlaySoundHitEnemy()
         {
             hit.Load();
             hit.Play();
         }
+        private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
+        {            
+            xData = x;
+            yData = y;
 
+            if (skeleton.xData == xData && skeleton.yData == yData)
+            {
+                PlaySoundHitEnemy();
+                health -= skeleton.damage;
+                targetSkeleton = true;
+                return true;        
+            }
+
+            if (ghost.xData == xData && ghost.yData == yData)
+            {
+                PlaySoundHitEnemy();
+                health -= ghost.damage;
+                targetGhost = true;
+                return true;
+            }
+
+            if (ghoul.xData == xData && ghoul.yData == yData)
+            {
+                PlaySoundHitEnemy();
+                health -= ghoul.damage;
+                targetGhoul = true;
+                return true;
+            }
+            return false;
+        }
         protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
         {
             // moves player with button input          
@@ -208,35 +233,5 @@ namespace LostKnightConcept
                 }
             }               
         }        
-        private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
-        {            
-            xData = x;
-            yData = y;
-
-            if (skeleton.xData == xData && skeleton.yData == yData)
-            {
-                PlaySoundHitEnemy();
-                health -= skeleton.damage;
-                targetSkeleton = true;
-                return true;        
-            }
-
-            if (ghost.xData == xData && ghost.yData == yData)
-            {
-                PlaySoundHitEnemy();
-                health -= ghost.damage;
-                targetGhost = true;
-                return true;
-            }
-
-            if (ghoul.xData == xData && ghoul.yData == yData)
-            {
-                PlaySoundHitEnemy();
-                health -= ghoul.damage;
-                targetGhoul = true;
-                return true;
-            }
-            return false;
-        }
     }  
 }

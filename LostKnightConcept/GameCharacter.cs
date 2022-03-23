@@ -30,15 +30,16 @@ namespace LostKnightConcept
         protected Random rng2;
         protected Random rng3;
 
-        protected void CheckIfDead()
+        protected bool IsAlive()
         {
             if (health <= 0)
             {
                 health = 0;
-                isAlive = false;
+                return false;
             }
+            return true;
         }
-        protected void Draw()
+        public void Draw()
         {
             // draws player position
             Console.SetCursorPosition(x + 1, y + 1);

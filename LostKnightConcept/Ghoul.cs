@@ -194,7 +194,7 @@ namespace LostKnightConcept
         }
         public new void Update(Player player, Map map)
         {
-            CheckIfDead();
+            IsAlive();
 
             if (isAlive == true)
             {
