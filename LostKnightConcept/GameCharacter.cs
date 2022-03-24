@@ -42,7 +42,7 @@ namespace LostKnightConcept
         public void Draw()
         {
             // draws player position
-            Console.SetCursorPosition(x + 1, y + 1);
+            Console.SetCursorPosition(x + 1, y + 1);           
 
             DrawChar(charGraphic, backColor, foreColor);
             Console.CursorVisible = false;

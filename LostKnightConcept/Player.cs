@@ -13,6 +13,9 @@ namespace LostKnightConcept
         private const int startPositionX = 1;
         private const int startPositionY = 1;
 
+        private int preMoveX;
+        private int preMoveY;
+
         private SoundPlayer hitWall = new SoundPlayer();      
         
         public char playerGraphic;
@@ -21,7 +24,6 @@ namespace LostKnightConcept
 
         public int playerDamage;
 
-        public bool canMove;
         public bool doorCollide;
 
         public bool targetSkeleton;
@@ -101,136 +103,52 @@ namespace LostKnightConcept
             // moves player with button input          
             bool inputLoop;
             inputLoop = true;
-            canMove = false;
-  
+
+            // checks if player can move
+            preMoveY = y;
+            preMoveX = x;
+
             while (inputLoop == true)
             {
                 ConsoleKeyInfo input = Console.ReadKey(true);
+                
 
+                // move player ============================
                 if (input.Key == ConsoleKey.W)
                 {
-                    y--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }                       
-                    }
-
-                    if (canMove == false)
-                    {
-                        y++;
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            PlaySoundHitWall();
-                        }
-
-                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
-                        {
-                            y++;
-                        }                        
-                        break;
-                    }
-                    break;
-                }
-
-                else if (input.Key == ConsoleKey.A)
-                {
-                    x--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x++;
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            PlaySoundHitWall();
-                        }
-                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
-                        {
-                            x++;
-                        }                        
-                        break;
-                    }
-                    break;
-                }
-
-                else if (input.Key == ConsoleKey.D)
-                {
-                    x++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x--;
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            PlaySoundHitWall();
-                        }
-
-                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
-                        {
-                            x--;
-                        }
-                        break;
-                    }
-                    break;
+                    preMoveY--;
                 }
 
                 else if (input.Key == ConsoleKey.S)
                 {
-                    y++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        y--;
-                        if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == false)
-                        {
-                            PlaySoundHitWall();
-                        }
-
-                        else if (CollidWithEnemy(skeleton, ghost, ghoul, x, y) == true)
-                        {
-                            y--;
-                        }    
-                        
-                        
-                        break;
-                    }
-                    break;
+                    preMoveY++;
                 }
+
+                else if (input.Key == ConsoleKey.A)
+                {
+                    preMoveX--;
+                }
+
+                else if (input.Key == ConsoleKey.D)
+                {
+                    preMoveX++;
+                }
+                // =================================
+               
+                // check for Collision
+                if ((map.IsMapBounds(preMoveX, preMoveY) == false) && map.IsFloor(preMoveX, preMoveY))
+                {
+                    x = preMoveX;
+                    y = preMoveY;
+                }
+                // -------------------------------------------------
+                //if hit collision
+                else
+                {
+                    PlaySoundHitWall();
+                }
+               
+                break;
             }               
         }        
     }  

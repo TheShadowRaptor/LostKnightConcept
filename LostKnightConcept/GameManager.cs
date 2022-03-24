@@ -27,6 +27,7 @@ namespace LostKnightConcept
             while (isGameActive)
             {
                 map.DisplayMap();
+                hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);
                 player.Draw();
                 player.Update(map, skeleton, ghost, ghoul, door);
                 /*map.DisplayMap();
@@ -35,8 +36,7 @@ namespace LostKnightConcept
                 key.Update(player);
                 door.Update(player, key);
                 skeleton.Update(player, map);
-                ghost.Update(player, map);
-                hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);*/
+                ghost.Update(player, map);*/
 
                 Console.SetCursorPosition(0, 0);
             }

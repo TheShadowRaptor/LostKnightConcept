@@ -85,24 +85,24 @@ namespace LostKnightConcept
                 Console.BackgroundColor = ConsoleColor.DarkGray;
             }
         }
+        public bool IsMapBounds(int x, int y)
+        {
+            if (x >= column || y >= row || x < 0 || y < 0)
+            {
+               return true;
+            }
+            return false;
+        }
 
         public bool IsFloor(int x, int y)
         {
             //Inner map bounds
-            /*if (map == '*')*/
+            if (map[y][x] == '*')
             {
                 return true;
             }
             return false;
         }
 
-        public bool IsMapBounds(int x, int y)
-        {
-            if (x >= row || y >= column || x < 0 || y < 0)
-            {
-               return true;
-            }
-            return false;
-        }
     }
 }
