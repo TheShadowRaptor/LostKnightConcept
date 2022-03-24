@@ -17,10 +17,10 @@ namespace LostKnightConcept
         protected int x;
         protected int y;
 
+        protected bool isActive = true;
+
         protected int xData;
         protected int yData;
-
-        public bool isAlive = true;
 
         protected bool PickedUp;
 

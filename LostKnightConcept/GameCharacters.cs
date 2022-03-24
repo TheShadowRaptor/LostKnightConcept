@@ -27,9 +27,9 @@ namespace LostKnightConcept
 
         protected bool IsAlive()
         {
-            if (this.health <= 0)
+            if (health <= 0)
             {
-                this.health = 0;
+                health = 0;
                 return false;
             }
             return true;

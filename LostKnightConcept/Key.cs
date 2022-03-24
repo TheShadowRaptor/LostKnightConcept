@@ -45,7 +45,7 @@ namespace LostKnightConcept
             if (PickedUp == true)
             {
                 keys = keys + 1;
-                isAlive = false;
+                isActive = false;
             }
         }
     }

@@ -43,7 +43,7 @@ namespace LostKnightConcept
             if (PickedUp == true)
             {
                 player.playerDamage = player.playerDamage + 1;
-                isAlive = false;
+                isActive = false;
             }
         }
     }

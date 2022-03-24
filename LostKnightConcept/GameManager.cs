@@ -23,11 +23,12 @@ namespace LostKnightConcept
                 map.DisplayMap();
                 hud.ShowHUD(map, player, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, key);
                 player.Draw();
+                heart.Draw();
                 enemyMananger.DrawEnemies();
                 player.Update(map, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, door);
+                heart.Update(player);
                 enemyMananger.UpdateEnemies(player, map);
                 /*map.DisplayMap();
-                heart.Update(player);
                 damageUp.Update(player);
                 key.Update(player);
                 door.Update(player, key);*/
