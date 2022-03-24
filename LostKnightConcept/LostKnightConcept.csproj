@@ -46,7 +46,7 @@
     <Compile Include="DamageUp.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="Ghost.cs" />
-    <Compile Include="GameCharacter.cs" />
+    <Compile Include="GameCharacters.cs" />
     <Compile Include="Collectables.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Ghoul.cs" />

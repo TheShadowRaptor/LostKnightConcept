@@ -11,6 +11,8 @@ namespace LostKnightConcept
         private const int startPosX = 11;
         private const int startPosY = 1;
 
+        private bool moveTwice;
+
         public Ghoul()
         {
             health = 5;
@@ -22,189 +24,96 @@ namespace LostKnightConcept
             backColor = ConsoleColor.DarkRed;
             foreColor = ConsoleColor.Red;
 
+            rng = new Random(2);
+
             charGraphic = '%';
             enemyGraphic = charGraphic;
             name = "Ghoul";
         }
-
         protected new void Move(Map map, Player player)
         {
+            // checks if enemy can move
+            preMoveY = y;
+            preMoveX = x;
+
+            // moves Twice
+            moveTwice = true;
+
+            // moves enemy with randomizer
             int direction;
             int wait;
 
-            bool canMove;
-            canMove = false;
-
-            bool moveTwice;
-            moveTwice = true;
-
-            bool lastMove;
-            lastMove = false;
-
-            direction = rng3.Next(0, 4);
-            wait = rng3.Next(0, 2);
-
-            if (wait == 1)
+            while (true)
             {
-                if (direction == 0)
+                direction = rng.Next(0, 4);
+                wait = rng.Next(0, 2);
+
+                if (wait == 1)
                 {
-                    while (moveTwice == true)
+                    if (direction == 0)
                     {
-                        y--;
-                        if (map.IsMapBounds(x, y) == false)
-                        {
-                            if (IsHit(player, x, y) == false)
-                            {
-                                if (map.IsFloor(x, y))
-                                {
-                                    canMove = true;
-                                }
-                            }
-                        }
+                        preMoveY--;
+                    }
 
-                        if (canMove == false)
-                        {
-                            y++;
-                            if (IsHit(player, x, y) == true)
-                            {
-                                y++;
-                            }
-                        }
+                    else if (direction == 1)
+                    {
+                        preMoveY++;
+                    }
 
-                        if (lastMove == true)
-                        {
-                            moveTwice = false;
-                        }
+                    else if (direction == 2)
+                    {
+                        preMoveX--;
+                    }
 
-                        lastMove = true;
+                    else if (direction == 3)
+                    {
+                        preMoveX++;
                     }
                 }
 
-                else if (direction == 1)
+                if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                    && map.IsFloor(preMoveX, preMoveY)
+                    && CollideWithPlayer(player, preMoveX, preMoveY) == false
+                    && player.targetGhoul == false)
                 {
-                    while (moveTwice == true)
-                    {
-                        x--;
-                        if (map.IsMapBounds(x, y) == false)
-                        {
-                            if (IsHit(player, x, y) == false)
-                            {
-                                if (map.IsFloor(x, y))
-                                {
-                                    canMove = true;
-                                }
-                            }
-                        }
-
-                        if (canMove == false)
-                        {
-                            x++;
-                            if (IsHit(player, x, y) == true)
-                            {
-                                x++;
-                            }
-                        }
-
-                        if (lastMove == true)
-                        {
-                            moveTwice = false;
-                        }
-
-                        lastMove = true;
-                    }
+                    x = preMoveX;
+                    y = preMoveY;
                 }
 
-                else if (direction == 2)
+                // Updates enemies position
+                xData = x;
+                yData = y;
+
+                if (moveTwice == false)
                 {
-                    while (moveTwice == true)
-                    {
-                        x++;
-                        if (map.IsMapBounds(x, y) == false)
-                        {
-                            if (IsHit(player, x, y) == false)
-                            {
-                                if (map.IsFloor(x, y))
-                                {
-                                    canMove = true;
-                                }
-                            }
-                        }
-
-                        if (canMove == false)
-                        {
-                            x--;
-                            if (IsHit(player, x, y) == true)
-                            {
-                                x--;
-                            }
-                        }
-
-                        if (lastMove == true)
-                        {
-                            moveTwice = false;
-                        }
-
-                        lastMove = true;
-                    }
+                    break;
                 }
 
-                else if (direction == 3)
-                {
-                    while (moveTwice == true)
-                    {
-                        y++;
-                        if (map.IsMapBounds(x, y) == false)
-                        {
-                            if (IsHit(player, x, y) == false)
-                            {
-                                if (map.IsFloor(x, y))
-                                {
-                                    canMove = true;
-                                }
-                            }
-                        }
+                moveTwice = false;
+            }
+            
+        }
+        public void Update(Player player, Map map)
+        {
+            // Check if taken damage
+            TakeDamage(player);
 
-                        if (canMove == false)
-                        {
-                            y--;
-                            if (IsHit(player, x, y) == true)
-                            {
-                                y--;
-                            }
-                        }
+            if (IsAlive())
+            {
+                Move(map, player);
+            }
 
-                        if (lastMove == true)
-                        {
-                            moveTwice = false;
-                        }
-
-                        lastMove = true;
-                    }
-                }
+            if (IsAlive() == false)
+            {
+                xData = map.column + 1;
+                yData = map.row + 1;
             }
         }
-        protected new void Draw()
+        private void TakeDamage(Player player)
         {
-            // draws player position
-            Console.SetCursorPosition(x + 1, y + 1);
-
-            DrawChar(charGraphic, backColor, foreColor);
-            Console.CursorVisible = false;
-        
-        }
-        public new void Update(Player player, Map map)
-        {
-            IsAlive();
-
-            if (isAlive == true)
+            if (player.targetGhoul == true)
             {
-                Draw();
-                Move(map, player);                
-            }
-            else
-            {
-                xData = map.map.GetLength(0) + 1;
-                yData = map.map.GetLength(1) + 1;
+                health -= player.playerDamage;
             }
         }
     }

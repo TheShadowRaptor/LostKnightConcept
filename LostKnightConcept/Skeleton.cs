@@ -28,130 +28,27 @@ namespace LostKnightConcept
             name = "Skeleton";
         }
 
-        public new void Update(Player player, Map map)
+        public void Update(Player player, Map map)
         {
-            IsAlive();
+            // Check if taken damage
+            TakeDamage(player);
 
-            if (isAlive == true)
+            if (IsAlive())
             {
-                Draw();
                 Move(map, player);
             }
-            else
+
+            if (IsAlive() == false)
             {
-                xData = map.map.GetLength(0) + 1;
-                yData = map.map.GetLength(1) + 1;
+                xData = map.column + 1;
+                yData = map.row + 1;
             }
         }
-
-        protected new void Move(Map map, Player player)
+        private void TakeDamage(Player player)
         {
-            int direction;
-            int wait;
-            bool canMove;
-
-            canMove = false;
-
-            direction = rng.Next(0, 4);
-            wait = rng.Next(0, 2);
-
-            if (wait == 1)
+            if (player.targetSkeleton == true)
             {
-                if (direction == 0)
-                {
-                    y--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        y++;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            y++;
-                        }
-                    }
-                }
-
-                else if (direction == 1)
-                {
-                    x--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x++;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            x++;
-                        }
-                    }
-                }
-
-                else if (direction == 2)
-                {
-                    x++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x--;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            x--;
-                        }
-                    }
-                }
-
-                else if (direction == 3)
-                {
-                    y++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        y--;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            y--;
-                        }
-                    }
-                }
+                health -= player.playerDamage;
             }
         }
     }

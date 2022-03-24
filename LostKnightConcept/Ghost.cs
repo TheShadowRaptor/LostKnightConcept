@@ -25,85 +25,79 @@ namespace LostKnightConcept
             charGraphic = 'G';
             enemyGraphic = charGraphic;
             name = "Ghost";
+
+            rng = new Random(1);
         }
 
-        public new void Update(Player player, Map map)
+        public void Update(Player player, Map map)
         {
-            IsAlive();
+            // Check if taken damage
+            TakeDamage(player);
 
-            if (isAlive == true)
+            if (IsAlive())
             {
-                Draw();
                 Move(map, player);
             }
-            else
+
+            if (IsAlive() == false)
             {
-                xData = map.map.GetLength(0) + 1;
-                yData = map.map.GetLength(1) + 1;
+                xData = map.column + 1;
+                yData = map.row + 1;
             }
         }
 
         protected new void Move(Map map, Player player)
         {
+            // checks if enemy can move
+            preMoveY = y;
+            preMoveX = x;
+
+            // moves enemy with randomizer
             int direction;
             int wait;
 
-            direction = rng2.Next(0, 4);
-            wait = rng2.Next(0, 2);
+            direction = rng.Next(0, 4);
+            wait = rng.Next(0, 2);
 
             if (wait == 1)
             {
                 if (direction == 0)
                 {
-                    y--;
-                    if (map.IsMapBounds(x, y) == true)
-                    {
-                        y++;
-                    }
-                        if (IsHit(player, x, y) == true)
-                        {
-                            y++;
-                        }
+                    preMoveY--;
                 }
 
                 else if (direction == 1)
                 {
-                    x--;
-                    if (map.IsMapBounds(x, y) == true)
-                    {
-                        x++;
-                    }
-                    if (IsHit(player, x, y) == true)
-                    {
-                        x++;
-                    }
+                    preMoveY++;
                 }
 
                 else if (direction == 2)
                 {
-                    x++;
-                    if (map.IsMapBounds(x, y) == true)
-                    {
-                        x--;
-                    }
-                    if (IsHit(player, x, y) == true)
-                    {
-                        x--;
-                    }
+                    preMoveX--;
                 }
 
                 else if (direction == 3)
                 {
-                    y++;
-                    if (map.IsMapBounds(x, y) == true)
-                    {
-                        y--;
-                    }
-                    if (IsHit(player, x, y) == true)
-                    {
-                        y--;
-                    }
+                    preMoveX++;
                 }
+            }
+
+            if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                && CollideWithPlayer(player, preMoveX, preMoveY) == false
+                && player.targetGhost == false)
+            {
+                x = preMoveX;
+                y = preMoveY;
+            }
+            // Updates enemies position
+            xData = x;
+            yData = y;
+        }
+        private void TakeDamage(Player player)
+        {
+            if (player.targetGhost == true)
+            {
+                health -= player.playerDamage;
             }
         }
     }

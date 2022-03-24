@@ -15,8 +15,8 @@ namespace LostKnightConcept
         public string mapFile = "Map.txt";
         public string[] map;
 
-        protected int row;
-        protected int column;
+        public int row;
+        public int column;
 
         public Map()
         {

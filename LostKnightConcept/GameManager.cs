@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
@@ -24,19 +20,23 @@ namespace LostKnightConcept
             Player player = new Player();         
             
             // Gameloop
-            while (isGameActive)
+            while (isGameActive && player.gameover == false)
             {
                 map.DisplayMap();
                 hud.ShowHUD(map, player, skeleton, ghost, ghoul, key);
                 player.Draw();
+                skeleton.Draw();
+                ghost.Draw();
+                ghoul.Draw();
                 player.Update(map, skeleton, ghost, ghoul, door);
+                skeleton.Update(player, map);
+                ghost.Update(player, map);
+                ghoul.Update(player, map);
                 /*map.DisplayMap();
                 heart.Update(player);
                 damageUp.Update(player);
                 key.Update(player);
-                door.Update(player, key);
-                skeleton.Update(player, map);
-                ghost.Update(player, map);*/
+                door.Update(player, key);*/
 
                 Console.SetCursorPosition(0, 0);
             }

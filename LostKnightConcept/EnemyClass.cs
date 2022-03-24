@@ -7,15 +7,22 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class EnemyClass : GameCharacter
+    class EnemyClass : GameCharacters
     {
         // fields
         private const int startPosX = 5;
         private const int startPosY = 2;
 
+        protected int preMoveX;
+        protected int preMoveY;
+
+        protected Random rng;
+
         public char enemyGraphic;
 
         public int damage;
+
+        public bool targetPlayer;
         public EnemyClass()
         {
             // instatiation
@@ -23,35 +30,19 @@ namespace LostKnightConcept
             y = startPosY;
 
             rng = new Random(0);
-            rng2 = new Random(1);
-            rng3 = new Random(2);
 
             hit.SoundLocation = "Hit_Player.wav";
         }
 
-        public void Update(Player player, Map map)
-        {
-            IsAlive();
-
-            if (isAlive == true)
-            {
-                Draw();
-                Move(map, player);
-            }
-            else
-            {
-                xData = map.map.GetLength(0) + 1;
-                yData = map.map.GetLength(1) + 1;
-            }
-        }
-
         protected void Move(Map map, Player player)
         {
+            // checks if enemy can move
+            preMoveY = y;
+            preMoveX = x;
+
+            // moves enemy with randomizer
             int direction;
             int wait;
-            bool canMove;
-
-            canMove = false;
 
             direction = rng.Next(0, 4);
             wait = rng.Next(0, 2);
@@ -60,110 +51,46 @@ namespace LostKnightConcept
             {
                 if (direction == 0)
                 {
-                    y--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        y++;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            y++;
-                        }
-                    }
+                    preMoveY--;                   
                 }
 
                 else if (direction == 1)
                 {
-                    x--;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x++;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            x++;
-                        }
-                    }
+                    preMoveY++;                   
                 }
 
                 else if (direction == 2)
                 {
-                    x++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        x--;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            x--;
-                        }
-                    }
+                    preMoveX--;                  
                 }
 
                 else if (direction == 3)
                 {
-                    y++;
-                    if (map.IsMapBounds(x, y) == false)
-                    {
-                        if (IsHit(player, x, y) == false)
-                        {
-                            if (map.IsFloor(x, y))
-                            {
-                                canMove = true;
-                            }
-                        }
-                    }
-
-                    if (canMove == false)
-                    {
-                        y--;
-                        if (IsHit(player, x, y) == true)
-                        {
-                            y--;
-                        }
-                    }
+                    preMoveX++;                                   
                 }
             }
-        }
-        public bool IsHit(Player player, int x, int y)
-        {
+
+            if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                && map.IsFloor(preMoveX, preMoveY)
+                && CollideWithPlayer(player, preMoveX, preMoveY) == false
+                && player.targetSkeleton == false)
+            {
+                x = preMoveX;
+                y = preMoveY;
+            }
+            // Updates enemies position
             xData = x;
             yData = y;
+        }
+        public bool CollideWithPlayer(Player player, int x, int y)
+        {
+            xData = x;
+            yData = y;           
 
             if (player.xData == xData && player.yData == yData)
             {
                 PlaySoundHitPlayer();
-                health -= player.playerDamage;
+                targetPlayer = true;
                 return true;
             }
             return false;
@@ -172,7 +99,6 @@ namespace LostKnightConcept
         {
             hit.Load();
             hit.Play();
-        }
-        
+        }     
     }
 }

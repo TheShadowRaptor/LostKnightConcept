@@ -7,7 +7,7 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class Player : GameCharacter
+    class Player : GameCharacters
     {
         // fields
         private const int startPositionX = 1;
@@ -27,12 +27,13 @@ namespace LostKnightConcept
         public bool doorCollide;
 
         public bool targetSkeleton;
+        public bool gameover;
         public bool targetGhost;
         public bool targetGhoul;
         public Player()
         {
             // instatiation
-            health = 2;
+            health = 5;
 
             playerDamage = 1;
             x = startPositionX;
@@ -51,11 +52,22 @@ namespace LostKnightConcept
         }
 
         public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
-        {          
-            if(IsAlive() == true)
-            {        
+        {
+            // Check if taken damage
+            TakeDamage(skeleton, ghost, ghoul);
+
+            if (IsAlive() == true)
+            {
+                TakeDamage(skeleton, ghost, ghoul);
                 Move(map, skeleton, ghost, ghoul, door);
-            }               
+            }
+
+            if (IsAlive() == false)
+            {
+                xData = map.column + 1;
+                yData = map.row + 1;
+                gameover = true;
+            }
         }
                
         private void PlaySoundHitWall()
@@ -76,7 +88,6 @@ namespace LostKnightConcept
             if (skeleton.xData == xData && skeleton.yData == yData)
             {
                 PlaySoundHitEnemy();
-                health -= skeleton.damage;
                 targetSkeleton = true;
                 return true;        
             }
@@ -84,7 +95,6 @@ namespace LostKnightConcept
             if (ghost.xData == xData && ghost.yData == yData)
             {
                 PlaySoundHitEnemy();
-                health -= ghost.damage;
                 targetGhost = true;
                 return true;
             }
@@ -92,7 +102,6 @@ namespace LostKnightConcept
             if (ghoul.xData == xData && ghoul.yData == yData)
             {
                 PlaySoundHitEnemy();
-                health -= ghoul.damage;
                 targetGhoul = true;
                 return true;
             }
@@ -100,13 +109,13 @@ namespace LostKnightConcept
         }
         protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
         {
-            // moves player with button input          
-            bool inputLoop;
-            inputLoop = true;
-
             // checks if player can move
             preMoveY = y;
             preMoveX = x;
+
+            // moves player with button input          
+            bool inputLoop;
+            inputLoop = true;
 
             while (inputLoop == true)
             {
@@ -136,20 +145,41 @@ namespace LostKnightConcept
                 // =================================
                
                 // check for Collision
-                if ((map.IsMapBounds(preMoveX, preMoveY) == false) && map.IsFloor(preMoveX, preMoveY))
+                if ((map.IsMapBounds(preMoveX, preMoveY) == false) 
+                    && map.IsFloor(preMoveX, preMoveY) 
+                    && CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false)
                 {
                     x = preMoveX;
                     y = preMoveY;
                 }
-                // -------------------------------------------------
-                //if hit collision
+
                 else
                 {
                     PlaySoundHitWall();
                 }
-               
+
                 break;
             }               
         }        
+        protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        {
+            if (skeleton.targetPlayer == true)
+            {
+                health -= skeleton.damage;
+                skeleton.targetPlayer = false;
+            }
+
+            if (ghost.targetPlayer == true)
+            {
+                health -= ghost.damage;
+                ghost.targetPlayer = false;
+            }
+
+            if (ghoul.targetPlayer == true)
+            {
+                health -= ghoul.damage;
+                ghoul.targetPlayer = false;
+            }
+        }
     }  
 }
