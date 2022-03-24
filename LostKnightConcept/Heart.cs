@@ -25,7 +25,6 @@ namespace LostKnightConcept
 
         public void Update(Player player)
         {          
-            Draw();
             ItemPickedUp(player, xData, yData);
             CheckIfDead(player);
         }

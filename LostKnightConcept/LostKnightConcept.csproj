@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DamageUp.cs" />
     <Compile Include="Door.cs" />
+    <Compile Include="EnemyMananger.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="GameCharacters.cs" />
     <Compile Include="Collectables.cs" />
