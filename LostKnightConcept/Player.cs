@@ -126,22 +126,27 @@ namespace LostKnightConcept
                 if (input.Key == ConsoleKey.W)
                 {
                     preMoveY--;
+                    inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.S)
                 {
                     preMoveY++;
+                    inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.A)
                 {
                     preMoveX--;
+                    inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.D)
                 {
                     preMoveX++;
+                    inputLoop = false;
                 }
+
                 // =================================
                
                 // check for Collision
@@ -157,8 +162,6 @@ namespace LostKnightConcept
                 {
                     PlaySoundHitWall();
                 }
-
-                break;
             }               
         }        
         protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)

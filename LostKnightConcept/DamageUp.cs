@@ -8,7 +8,7 @@ namespace LostKnightConcept
 {
     class DamageUp : Collectables
     {
-        private const int startPosX = 4;
+        private const int startPosX = 3;
         private const int startPosy = 4;
         public DamageUp()
         {
@@ -25,17 +25,22 @@ namespace LostKnightConcept
 
         public void Update(Player player)
         {
-            Draw();
-            ItemPickedUp(player, xData, yData);
-            CheckIfDead(player);
+            if (isActive)
+            {
+                ItemPickedUp(player, xData, yData);
+                CheckIfDead(player);
+            }
         }
 
-        private void Draw()
+        public void Draw()
         {
-            Console.SetCursorPosition(x + 1, y + 1);
-            DrawChar(charGraphic, backColor, foreColor);
-            xData = x;
-            yData = y;
+            if (isActive)
+            {
+                Console.SetCursorPosition(x + 1, y + 1);
+                DrawChar(charGraphic, backColor, foreColor);
+                xData = x;
+                yData = y;
+            }
         }
 
         private void CheckIfDead(Player player)
