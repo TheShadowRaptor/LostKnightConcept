@@ -64,6 +64,7 @@
     <Compile Include="ResetGame.cs" />
     <Compile Include="Skeleton.cs" />
     <Compile Include="Title.cs" />
+    <Compile Include="Win.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -85,6 +86,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Title.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Win.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

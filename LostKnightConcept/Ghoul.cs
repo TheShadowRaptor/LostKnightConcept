@@ -8,8 +8,8 @@ namespace LostKnightConcept
 {
     class Ghoul : EnemyClass
     {
-        private const int startPosX = 11;
-        private const int startPosY = 1;
+        private const int startPosX = 18;
+        private const int startPosY = 5;
 
         private bool moveTwice;
 

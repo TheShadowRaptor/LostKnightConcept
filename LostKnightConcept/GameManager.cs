@@ -16,8 +16,11 @@ namespace LostKnightConcept
             ResetGame resetGame = new ResetGame();
             Map map = new Map();
             HUD hud = new HUD();
+
             Title title = new Title();
             Gameover gameover = new Gameover();
+            Win win = new Win();
+
             Door door = new Door();
             Player player = new Player();
             EnemyMananger enemyMananger = new EnemyMananger();
@@ -55,12 +58,18 @@ namespace LostKnightConcept
                     Console.SetCursorPosition(0, 0);
 
                     // Gameover
-                }
                     if (player.IsAlive() == false)
                     {
                         gameover.Draw();
                         gameover.Update(gameManager);
                     }
+
+                    if (enemyMananger.ghoul.IsAlive() == false)
+                    {
+                        win.Draw();
+                        win.Update(gameManager);
+                    }
+                }
 
             }           
         }

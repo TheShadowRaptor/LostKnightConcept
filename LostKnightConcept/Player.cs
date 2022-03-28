@@ -13,6 +13,10 @@ namespace LostKnightConcept
         private const int startPositionX = 1;
         private const int startPositionY = 1;
 
+        private const int startHealth = 5;
+
+        private const int startDamage = 1;
+
         public int resetPositionX;
         public int resetPositionY;
 
@@ -34,9 +38,9 @@ namespace LostKnightConcept
         public Player()
         {
             // instatiation
-            health = 1;
+            health = startHealth;
 
-            playerDamage = 1;
+            playerDamage = startDamage;
 
             x = startPositionX;
             y = startPositionY;

@@ -7,22 +7,21 @@ using System.IO;
 
 namespace LostKnightConcept
 {
-    class Gameover
+    class Win
     {
         public int row;
         public int column;
 
-        public string gameoverFile = "Gameover.txt";
-        public string[] gameoverWords;
+        public string winFile = "Win.txt";
+        public string[] winWords;
 
-        public Gameover()
+        public Win()
         {
-            gameoverWords = File.ReadAllLines(gameoverFile);
+            winWords = File.ReadAllLines(winFile);
 
-            row = gameoverWords.Length;
-            column = gameoverWords[0].Length;
+            row = winWords.Length;
+            column = winWords[0].Length;
         }
-
         public void Draw()
         {
             // Erase everything before gameover screen
@@ -36,12 +35,11 @@ namespace LostKnightConcept
                 for (int y = 0; y < column; y++)
                 {
                     // Draws gameover
-                    Console.Write(gameoverWords[x][y]);
+                    Console.Write(winWords[x][y]);
 
                 }
                 Console.WriteLine("");
             }
-
         }
 
         public void Update(GameManager gameManager)
