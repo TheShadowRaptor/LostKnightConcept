@@ -12,7 +12,7 @@ namespace LostKnightConcept
     {
         private string name;
         // fields
-        public string mapFile = "Map.txt";
+        
         public string[] map;
 
         public int row;
@@ -20,10 +20,12 @@ namespace LostKnightConcept
 
         public Map()
         {
+            Global global = new Global();
+
             name = "DarkPlains";
 
             // gives map array the games map
-            map = File.ReadAllLines(mapFile);
+            map = File.ReadAllLines(global.mapFile);
             row = map.Length;
             column = map[0].Length;
 

@@ -32,7 +32,7 @@ namespace LostKnightConcept
                 //Title
                 while (title.isActive)
                 {
-                    title.Draw(player);
+                    title.Draw();
                     title.Update(gameManager);
                 }
 
@@ -64,13 +64,13 @@ namespace LostKnightConcept
                         gameover.Update(gameManager);
                     }
 
+                    // Gamewin
                     if (enemyMananger.ghoul.IsAlive() == false)
                     {
                         win.Draw();
                         win.Update(gameManager);
                     }
                 }
-
             }           
         }
     }

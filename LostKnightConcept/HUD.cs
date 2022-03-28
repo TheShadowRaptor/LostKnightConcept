@@ -16,7 +16,11 @@ namespace LostKnightConcept
             Console.Write("Player name: " + player.name + " || " + "keys = " + key.keys);
             Console.WriteLine("                  ║");
             Console.Write("║");
-            Console.Write("Health = " + player.health);
+            Console.Write("Health = " + player.health + " || " + "Objective = Kill ");
+            Console.BackgroundColor = ghoul.backColor;
+            Console.ForegroundColor = ghoul.foreColor;
+            Console.Write(ghoul.enemyGraphic);
+            Console.ResetColor();
             Console.WriteLine("                                       ║");
             Console.Write("║");
             Console.Write("Damage = " + player.playerDamage);

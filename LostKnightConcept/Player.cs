@@ -71,7 +71,7 @@ namespace LostKnightConcept
                 Move(map, skeleton, ghost, ghoul, door);
             }
 
-            if (IsAlive() == false)
+            else if (IsAlive() == false)
             {
                 xData = map.column + 1;
                 yData = map.row + 1;

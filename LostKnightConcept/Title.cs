@@ -17,22 +17,22 @@ namespace LostKnightConcept
         private const int choiceOne = 0;
         private const int choiceTwo = 1;
 
-        public string titleFile = "Title.txt";
         public string[] title;
 
         public bool isActive = true;
 
         public Title()
         {
-            title = File.ReadAllLines(titleFile);
+            Global global = new Global();
+
+            title = File.ReadAllLines(global.titleFile);
 
             row = title.Length;
             column = title[0].Length;
         }
 
-        public void Draw(Player player)
+        public void Draw()
         {
-            Console.WriteLine(player.IsAlive());
             // Draws Title
             for (int x = 0; x < row; x++)
             {

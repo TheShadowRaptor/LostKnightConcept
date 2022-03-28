@@ -9,15 +9,17 @@ namespace LostKnightConcept
 {
     class Win
     {
+
         public int row;
         public int column;
-
-        public string winFile = "Win.txt";
+       
         public string[] winWords;
 
         public Win()
         {
-            winWords = File.ReadAllLines(winFile);
+            Global global = new Global();
+            
+            winWords = File.ReadAllLines(global.winFile);
 
             row = winWords.Length;
             column = winWords[0].Length;
@@ -49,16 +51,8 @@ namespace LostKnightConcept
 
         private void Input(GameManager gameManager)
         {
-            ConsoleKeyInfo input = Console.ReadKey(true);
-
-            while (true)
-            {
-                if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Spacebar)
-                {
-                    gameManager.isGameActive = false;
-                    break;
-                }
-            }
+            Console.ReadKey(true);
+            gameManager.isGameActive = false;
         }
     }
 }
