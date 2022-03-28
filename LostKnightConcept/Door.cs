@@ -23,7 +23,7 @@ namespace LostKnightConcept
         public int xData;
         public int yData;
 
-        public bool isAlive;
+        public bool isActive;
 
         public Door()
         {
@@ -36,8 +36,27 @@ namespace LostKnightConcept
             x = startPosX;
             y = startPosy;
 
-            isAlive = true;
+            isActive = true;
 
+        }
+
+        public void Update(Player player, Key key)
+        {
+            if (isActive)
+            {
+                UnlockDoor(player, key);
+            }
+        }
+
+        public void Draw()
+        {
+            if (isActive)
+            {
+                Console.SetCursorPosition(x + 1, y + 1);
+                DrawChar(charGraphic, backColor, foreColor);
+                xData = x;
+                yData = y;
+            }
         }
         public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
         {
@@ -47,30 +66,16 @@ namespace LostKnightConcept
             Console.ResetColor();
         }
 
-        public void Update(Player player, Key key)
-        {
-            Draw();
-            UnlockDoor(player, key);
-        }
-
-        private void Draw()
-        {
-            Console.SetCursorPosition(x + 1, y + 1);
-            DrawChar(charGraphic, backColor, foreColor);
-            xData = x;
-            yData = y;
-        }
-
         private void UnlockDoor(Player player, Key key)
         {
             xData = x;
             yData = y;
+
             if (player.xData == xData && player.yData == yData && key.keys > 0)
             {
                 key.keys = key.keys - 1;
-                isAlive = false;
+                isActive = false;
             }
-            else player.doorCollide = true;
         }
     }
 }

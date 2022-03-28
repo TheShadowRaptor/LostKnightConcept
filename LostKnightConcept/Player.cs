@@ -13,6 +13,9 @@ namespace LostKnightConcept
         private const int startPositionX = 1;
         private const int startPositionY = 1;
 
+        public int resetPositionX;
+        public int resetPositionY;
+
         private int preMoveX;
         private int preMoveY;
 
@@ -24,8 +27,6 @@ namespace LostKnightConcept
 
         public int playerDamage;
 
-        public bool doorCollide;
-
         public bool targetSkeleton;
         public bool gameover;
         public bool targetGhost;
@@ -33,11 +34,15 @@ namespace LostKnightConcept
         public Player()
         {
             // instatiation
-            health = 5;
+            health = 1;
 
             playerDamage = 1;
+
             x = startPositionX;
             y = startPositionY;
+
+            resetPositionX = startPositionX;
+            resetPositionY = startPositionY;
 
             backColor = ConsoleColor.DarkYellow;
             foreColor = ConsoleColor.White;
@@ -66,19 +71,65 @@ namespace LostKnightConcept
             {
                 xData = map.column + 1;
                 yData = map.row + 1;
-                gameover = true;
             }
         }
-               
-        private void PlaySoundHitWall()
+        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
         {
-            hitWall.Load();
-            hitWall.Play();
-        }
-        private void PlaySoundHitEnemy()
-        {
-            hit.Load();
-            hit.Play();
+            // checks if player can move
+            preMoveY = y;
+            preMoveX = x;
+
+            // moves player with button input          
+            bool inputLoop;
+            inputLoop = true;
+
+            while (inputLoop == true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey(true);
+
+
+                // move player ============================
+                if (input.Key == ConsoleKey.W || input.Key == ConsoleKey.UpArrow)
+                {
+                    preMoveY--;
+                    inputLoop = false;
+                }
+
+                else if (input.Key == ConsoleKey.S || input.Key == ConsoleKey.DownArrow)
+                {
+                    preMoveY++;
+                    inputLoop = false;
+                }
+
+                else if (input.Key == ConsoleKey.A || input.Key == ConsoleKey.LeftArrow)
+                {
+                    preMoveX--;
+                    inputLoop = false;
+                }
+
+                else if (input.Key == ConsoleKey.D || input.Key == ConsoleKey.RightArrow)
+                {
+                    preMoveX++;
+                    inputLoop = false;
+                }
+
+                // =================================
+
+                // check for Collision
+                if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                    && map.IsFloor(preMoveX, preMoveY)
+                    && CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false
+                    && CollidWithDoor(door, preMoveX, preMoveY) == false)
+                {
+                    x = preMoveX;
+                    y = preMoveY;
+                }
+
+                else
+                {
+                    PlaySoundHitWall();
+                }
+            }
         }
         private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
         {            
@@ -106,64 +157,18 @@ namespace LostKnightConcept
                 return true;
             }
             return false;
-        }
-        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
+        }       
+        private bool CollidWithDoor(Door door, int x, int y)
         {
-            // checks if player can move
-            preMoveY = y;
-            preMoveX = x;
+            xData = x;
+            yData = y;
 
-            // moves player with button input          
-            bool inputLoop;
-            inputLoop = true;
-
-            while (inputLoop == true)
+            if (door.xData == xData && door.yData == yData && door.isActive == true)
             {
-                ConsoleKeyInfo input = Console.ReadKey(true);
-                
-
-                // move player ============================
-                if (input.Key == ConsoleKey.W)
-                {
-                    preMoveY--;
-                    inputLoop = false;
-                }
-
-                else if (input.Key == ConsoleKey.S)
-                {
-                    preMoveY++;
-                    inputLoop = false;
-                }
-
-                else if (input.Key == ConsoleKey.A)
-                {
-                    preMoveX--;
-                    inputLoop = false;
-                }
-
-                else if (input.Key == ConsoleKey.D)
-                {
-                    preMoveX++;
-                    inputLoop = false;
-                }
-
-                // =================================
-               
-                // check for Collision
-                if ((map.IsMapBounds(preMoveX, preMoveY) == false) 
-                    && map.IsFloor(preMoveX, preMoveY) 
-                    && CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false)
-                {
-                    x = preMoveX;
-                    y = preMoveY;
-                }
-
-                else
-                {
-                    PlaySoundHitWall();
-                }
-            }               
-        }        
+                return true;
+            }
+            return false;
+        }
         protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)
         {
             if (skeleton.targetPlayer == true)
@@ -183,6 +188,16 @@ namespace LostKnightConcept
                 health -= ghoul.damage;
                 ghoul.targetPlayer = false;
             }
+        }
+        private void PlaySoundHitWall()
+        {
+            hitWall.Load();
+            hitWall.Play();
+        }
+        private void PlaySoundHitEnemy()
+        {
+            hit.Load();
+            hit.Play();
         }
     }  
 }

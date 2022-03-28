@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Key : Collectables
+    class Key : CollectableClass
     {
         private const int startPosX = 7;
         private const int startPosy = 6;

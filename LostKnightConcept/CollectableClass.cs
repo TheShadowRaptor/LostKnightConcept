@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Collectables 
+    class CollectableClass 
     {
         protected string name;
         protected char charGraphic;
@@ -24,7 +24,7 @@ namespace LostKnightConcept
 
         protected bool PickedUp;
 
-        public Collectables()
+        public CollectableClass()
         {
             
         }

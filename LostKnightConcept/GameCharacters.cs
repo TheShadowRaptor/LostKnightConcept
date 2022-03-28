@@ -18,16 +18,21 @@ namespace LostKnightConcept
         public ConsoleColor backColor;
         public ConsoleColor foreColor;
 
-        protected int x;
-        protected int y;
+        public int x;
+        public int y;
 
         protected char charGraphic;
 
         protected SoundPlayer hit = new SoundPlayer();
 
-        protected bool IsAlive()
+        public bool IsAlive()
         {
-            if (health <= 0)
+            if (health >= 1)
+            {
+                return true;
+            }
+
+            else if (health <= 0)
             {
                 health = 0;
                 return false;

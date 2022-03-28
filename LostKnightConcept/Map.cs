@@ -30,8 +30,10 @@ namespace LostKnightConcept
     }
 
         public void DisplayMap()
-        {            
+        {       
+            // resets cursor
             Console.SetCursorPosition(0, 0);
+
             //------------------Top Map Border--------------------
             Console.Write("╔");
             for (int i = 0; i < column; i++)

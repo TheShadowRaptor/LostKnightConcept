@@ -4,38 +4,65 @@ namespace LostKnightConcept
 {
     class GameManager
     {
-        bool isGameActive = true;
+        public bool isGameActive;
+        public GameManager()
+        {
+            isGameActive = true;
+        }
         public void RunGame()
         {
             //instantiation
+            GameManager gameManager = new GameManager();
+            ResetGame resetGame = new ResetGame();
             Map map = new Map();
-            EnemyMananger enemyMananger = new EnemyMananger();
             HUD hud = new HUD();
-            Heart heart = new Heart();
-            DamageUp damageUp = new DamageUp();
-            Key key = new Key();
+            Title title = new Title();
+            Gameover gameover = new Gameover();
             Door door = new Door();
-            Player player = new Player();       
-            
-            // Gameloop
-            while (isGameActive && player.gameover == false)
-            {
-                map.DisplayMap();
-                hud.ShowHUD(map, player, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, key);
-                player.Draw();
-                key.Draw();
-                heart.Draw();
-                damageUp.Draw();
-                enemyMananger.DrawEnemies();
-                player.Update(map, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, door);
-                key.Update(player);
-                heart.Update(player);
-                enemyMananger.UpdateEnemies(player, map);
-                damageUp.Update(player);
-                door.Update(player, key);
+            Player player = new Player();
+            EnemyMananger enemyMananger = new EnemyMananger();
+            CollectableManager collectableManager = new CollectableManager();
 
-                Console.SetCursorPosition(0, 0);
-            }
+            // Gameloop
+            while (gameManager.isGameActive) 
+            {
+                //Title
+                while (title.isActive)
+                {
+                    title.Draw(player);
+                    title.Update(gameManager);
+                }
+
+                if (gameManager.isGameActive)
+                {
+                    // Draw UI
+                    map.DisplayMap();
+                    hud.ShowHUD(map, player, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, collectableManager.key);
+
+                    // Draw GameObjects
+                    collectableManager.DrawCollectables();
+                    player.Draw();
+                    enemyMananger.DrawEnemies();
+                    door.Draw();
+
+                    // Update GameObjects
+                    collectableManager.UpdateCollectables(player);
+                    player.Update(map, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, door);
+                    enemyMananger.UpdateEnemies(player, map);
+                    door.Update(player, collectableManager.key);
+
+                    // Reset Cursor
+                    Console.SetCursorPosition(0, 0);
+
+                    // Gameover
+                }
+                    if (player.IsAlive() == false)
+                    {
+                        gameover.Draw();
+                        gameover.Update(gameManager);
+                    }
+
+            }           
         }
     }
 }
