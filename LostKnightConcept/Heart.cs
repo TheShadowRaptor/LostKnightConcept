@@ -13,7 +13,7 @@ namespace LostKnightConcept
         public Heart()
         {
             name = "Heart";
-            charGraphic = '♥';
+            graphic = "♥";
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Red;
@@ -21,35 +21,6 @@ namespace LostKnightConcept
             x = startPosX;
             y = startPosy;
 
-        }
-
-        public void Update(Player player)
-        {   
-            if (isActive)
-            {
-                ItemPickedUp(player, xData, yData);
-                CheckIfPickedUp(player);
-            }           
-        }
-
-        public void Draw()
-        {
-            if (isActive)
-            {
-                Console.SetCursorPosition(x + 1, y + 1);
-                DrawChar(charGraphic, backColor, foreColor);
-                xData = x;
-                yData = y;
-            }          
-        }
-
-        private void CheckIfPickedUp(Player player)
-        {
-            if (PickedUp == true)
-            {
-                player.health = player.health + 1;
-                isActive = false;
-            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace LostKnightConcept
 {
     class HUD
     {
-        public void ShowHUD(Map map, Player player, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Key key)
+        public void ShowHUD(Map map, Player player, Key key)
         {
             Console.SetCursorPosition(0, map.row + 3);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
@@ -16,16 +16,16 @@ namespace LostKnightConcept
             Console.Write("Player name: " + player.name + " || " + "keys = " + key.keys);
             Console.WriteLine("                  ║");
             Console.Write("║");
-            Console.Write("Health = " + player.health + " || " + "Objective = Kill ");
+            /*Console.Write("Health = " + player.health + " || " + "Objective = Kill ");
             Console.BackgroundColor = ghoul.backColor;
             Console.ForegroundColor = ghoul.foreColor;
-            Console.Write(ghoul.enemyGraphic);
+            Console.Write(ghoul.enemyGraphic);*/
             Console.ResetColor();
             Console.WriteLine("                                       ║");
             Console.Write("║");
             Console.Write("Damage = " + player.playerDamage);
             Console.WriteLine("                                       ║");
-            if (player.targetSkeleton == true)
+            /*if (player.targetSkeleton == true)
             {
                 Console.WriteLine("");
                 Console.WriteLine("║Target name: " + skeleton.name + " health = " + skeleton.health);
@@ -68,15 +68,15 @@ namespace LostKnightConcept
                 Console.WriteLine("║");
                 Console.WriteLine("║╚═╝");
                 player.targetGhoul = false;
-            }
-            else
-            {
+            }*/
+            /*else
+            {*/
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
-            }
+            /*}*/
             Console.WriteLine("╚═════════════════════════════════════════════════╝");
         }
     }

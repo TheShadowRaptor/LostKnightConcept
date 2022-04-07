@@ -26,6 +26,9 @@ namespace LostKnightConcept
             EnemyMananger enemyMananger = new EnemyMananger();
             CollectableManager collectableManager = new CollectableManager();
 
+            Camera camera = new Camera();
+            Render render = new Render(camera);
+
             // Gameloop
             while (gameManager.isGameActive) 
             {
@@ -39,20 +42,22 @@ namespace LostKnightConcept
                 if (gameManager.isGameActive)
                 {
                     // Draw UI
-                    map.DisplayMap();
-                    hud.ShowHUD(map, player, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, collectableManager.key);
+                    map.DisplayMap(render);
+                    hud.ShowHUD(map, player, collectableManager.key);
 
                     // Draw GameObjects
-                    collectableManager.DrawCollectables();
-                    player.Draw();
-                    enemyMananger.DrawEnemies();
+                    collectableManager.Draw(render);
+                    player.Draw(render);
+                    /*enemyMananger.Draw(render, map);*/
                     door.Draw();
 
                     // Update GameObjects
-                    collectableManager.UpdateCollectables(player);
-                    player.Update(map, enemyMananger.skeleton, enemyMananger.ghost, enemyMananger.ghoul, door);
-                    enemyMananger.UpdateEnemies(player, map);
+                    collectableManager.Update(player);
+                    player.Update(map, door);
+                    camera.Update(player);
+                    /*enemyMananger.UpdateEnemies(player, map);*/
                     door.Update(player, collectableManager.key);
+
 
                     // Reset Cursor
                     Console.SetCursorPosition(0, 0);
@@ -65,11 +70,11 @@ namespace LostKnightConcept
                     }
 
                     // Gamewin
-                    if (enemyMananger.ghoul.IsAlive() == false)
+                    /*if (enemyMananger.ghoul.IsAlive() == false)
                     {
                         win.Draw();
                         win.Update(gameManager);
-                    }
+                    }*/
                 }
             }           
         }

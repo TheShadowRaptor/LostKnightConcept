@@ -7,7 +7,7 @@ using System.Media;
 
 namespace LostKnightConcept
 {
-    class EnemyClass : GameCharacters
+    class Enemy : GameCharacters
     {
         // fields
         private const int startPosX = 5;
@@ -18,12 +18,13 @@ namespace LostKnightConcept
 
         protected Random rng;
 
-        public char enemyGraphic;
+        public string graphic;
 
-        public int damage;
+        public int enemyDamage;
+        public string enemyName;
 
         public bool targetPlayer;
-        public EnemyClass()
+        public Enemy()
         {
             // instatiation
             x = startPosX;
@@ -33,8 +34,14 @@ namespace LostKnightConcept
 
             hit.SoundLocation = "Hit_Player.wav";
         }
-
-        protected void Move(Map map, Player player)
+        public void SetEnemy(int x, int y, string name, Render render)
+        {
+            enemyName = name;
+            this.x = x;
+            this.y = y;
+            render.Draw(x, y, graphic, foreColor, backColor);           
+        }
+        public void Move(Map map, Player player)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -99,6 +106,26 @@ namespace LostKnightConcept
         {
             hit.Load();
             hit.Play();
-        }     
+        }
+        private void TakeDamage(Player player)
+        {
+            if (player.targetSkeleton == true)
+            {
+                health -= player.playerDamage;
+            }
+        }
+        public void Update(Player player, Map map)
+        {
+            if (IsAlive())
+            {
+                Move(map, player);
+            }
+
+            if (IsAlive() == false)
+            {
+                xData = map.column + 1;
+                yData = map.row + 1;
+            }
+        }
     }
 }

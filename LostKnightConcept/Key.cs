@@ -15,7 +15,7 @@ namespace LostKnightConcept
         public Key()
         {
             name = "Key";
-            charGraphic = 'F';
+            graphic = "F";
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Yellow;
@@ -23,35 +23,6 @@ namespace LostKnightConcept
             x = startPosX;
             y = startPosy;
 
-        }
-
-        public void Update(Player player)
-        {
-            if (isActive)
-            {
-                ItemPickedUp(player, xData, yData);
-                CheckIfDead(player);
-            }
-        }
-
-        public void Draw()
-        {
-            if (isActive)
-            {
-                Console.SetCursorPosition(x + 1, y + 1);
-                DrawChar(charGraphic, backColor, foreColor);
-                xData = x;
-                yData = y;
-            }
-        }
-
-        private void CheckIfDead(Player player)
-        {
-            if (PickedUp == true)
-            {
-                keys = keys + 1;
-                isActive = false;
-            }
         }
     }
 }

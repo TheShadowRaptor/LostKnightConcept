@@ -9,7 +9,7 @@ namespace LostKnightConcept
     class CollectableClass 
     {
         protected string name;
-        protected char charGraphic;
+        protected string graphic;
 
         protected ConsoleColor backColor;
         protected ConsoleColor foreColor;
@@ -36,12 +36,26 @@ namespace LostKnightConcept
                 PickedUp = true;
             }
         }
-        public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
+        public void Draw(Render render)
         {
-            Console.BackgroundColor = backColor;
-            Console.ForegroundColor = foreColor;
-            Console.Write(charGraphic);
-            Console.ResetColor();
+            render.Draw(x, y, graphic, foreColor, backColor);
+        }
+
+        public void Update(Player player)
+        {
+            if (isActive)
+            {
+                ItemPickedUp(player, xData, yData);
+                CheckIfDead(player);
+            }
+        }
+
+        private void CheckIfDead(Player player)
+        {
+            if (PickedUp == true)
+            {
+                isActive = false;
+            }
         }
     }
 }

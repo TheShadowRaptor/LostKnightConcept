@@ -29,16 +29,16 @@ namespace LostKnightConcept
             row = map.Length;
             column = map[0].Length;
 
-    }
-
-        public void DisplayMap()
+        }
+        
+        public void DisplayMap(Render render)
         {       
             // resets cursor
             Console.SetCursorPosition(0, 0);
 
             //------------------Top Map Border--------------------
             Console.Write("╔");
-            for (int i = 0; i < column; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Console.Write("═");
             }
@@ -48,17 +48,26 @@ namespace LostKnightConcept
 
             //------------------------Map-------------------------         
 
-            for (int x = 0; x < row; x++)
+            for (int x = 0; x < 20; x++)
             {
                 Console.Write("║");
 
-                for (int y = 0; y < column; y++)
+                for (int y = 0; y < 20; y++)
                 {
                     // colour the Map
                     ColourMap(x, y);
 
                     // draws map
-                    Console.Write(map[x][y]);
+                    try
+                    {
+                        render.MapDraw(y, x, map[x + render.camera.x][y + render.camera.y]);
+
+                    }
+                    catch
+                    {
+                        Console.WriteLine((x) + "" + (y));
+                        Console.ReadKey(true);                    
+                    }
 
                     // resets colour
                     Console.ResetColor();
@@ -70,7 +79,7 @@ namespace LostKnightConcept
 
             //------------------Bottom Map Border-----------------
             Console.Write("╚");
-            for (int i = 0; i < column; i++)
+            for (int i = 0; i < 20; i++)
             {
                 Console.Write("═");
             }
@@ -85,8 +94,8 @@ namespace LostKnightConcept
             // colours spacific char in the map array
             if (map[x][y] == '*')
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.BackgroundColor = ConsoleColor.DarkGray;
+                /*Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.BackgroundColor = ConsoleColor.DarkGray;*/
             }
         }
         public bool IsMapBounds(int x, int y)

@@ -43,22 +43,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Camera.cs" />
+    <Compile Include="EnemyPosition.cs" />
+    <Compile Include="Ghost.cs" />
+    <Compile Include="Ghoul.cs" />
+    <Compile Include="Render.cs" />
     <Compile Include="CollectableManager.cs" />
     <Compile Include="DamageUp.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="EnemyMananger.cs" />
     <Compile Include="Gameover.cs" />
-    <Compile Include="Ghost.cs" />
     <Compile Include="GameCharacters.cs" />
     <Compile Include="CollectableClass.cs" />
     <Compile Include="GameManager.cs" />
-    <Compile Include="Ghoul.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="Heart.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Map.cs" />
-    <Compile Include="EnemyClass.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

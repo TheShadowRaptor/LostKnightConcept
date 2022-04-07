@@ -13,43 +13,13 @@ namespace LostKnightConcept
         public DamageUp()
         {
             name = "DamageUp";
-            charGraphic = '+';
+            graphic = "+";
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.White;
 
             x = startPosX;
             y = startPosy;
-
-        }
-
-        public void Update(Player player)
-        {
-            if (isActive)
-            {
-                ItemPickedUp(player, xData, yData);
-                CheckIfDead(player);
-            }
-        }
-
-        public void Draw()
-        {
-            if (isActive)
-            {
-                Console.SetCursorPosition(x + 1, y + 1);
-                DrawChar(charGraphic, backColor, foreColor);
-                xData = x;
-                yData = y;
-            }
-        }
-
-        private void CheckIfDead(Player player)
-        {
-            if (PickedUp == true)
-            {
-                player.playerDamage = player.playerDamage + 1;
-                isActive = false;
-            }
-        }
+        }       
     }
 }

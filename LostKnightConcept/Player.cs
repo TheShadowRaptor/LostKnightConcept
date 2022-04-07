@@ -10,8 +10,8 @@ namespace LostKnightConcept
     class Player : GameCharacters
     {
         // fields
-        private const int startPositionX = 1;
-        private const int startPositionY = 1;
+        private const int startPositionX = 10;
+        private const int startPositionY = 10;
 
         private const int startHealth = 5;
 
@@ -23,9 +23,12 @@ namespace LostKnightConcept
         private int preMoveX;
         private int preMoveY;
 
+        public int OffsetX;
+        public int OffsetY;
+
         private SoundPlayer hitWall = new SoundPlayer();      
         
-        public char playerGraphic;
+        public string playerGraphic;
 
         public bool showTarget;
 
@@ -45,30 +48,38 @@ namespace LostKnightConcept
             x = startPositionX;
             y = startPositionY;
 
+            preMoveX = x;
+            preMoveY = y;
+
             resetPositionX = startPositionX;
             resetPositionY = startPositionY;
 
             backColor = ConsoleColor.DarkYellow;
             foreColor = ConsoleColor.White;
 
-            charGraphic = 'P';
-            playerGraphic = charGraphic;
+            characterGraphic = "P";
+            playerGraphic = characterGraphic;
             name = "Guille";
 
             hit.SoundLocation = "Hit_Enemy.wav";
             hitWall.SoundLocation = "Hit_Wall.wav";
             showTarget = false;
         }
+        
+        public void Draw(Render render)
+        {
+            render.Draw(x, y, characterGraphic, foreColor, backColor);
+        }
 
-        public void Update(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
+        public void Update(Map map, Door door)
         {
             // Check if taken damage
-            TakeDamage(skeleton, ghost, ghoul);
+            /*TakeDamage(skeleton);*/
 
             if (IsAlive() == true)
             {
-                TakeDamage(skeleton, ghost, ghoul);
-                Move(map, skeleton, ghost, ghoul, door);
+                /*TakeDamage(skeleton);*/
+                Move(map, /*skeleton*/ door);
             }
 
             else if (IsAlive() == false)
@@ -77,11 +88,11 @@ namespace LostKnightConcept
                 yData = map.row + 1;
             }
         }
-        protected void Move(Map map, Skeleton skeleton, Ghost ghost, Ghoul ghoul, Door door)
+        protected void Move(Map map, /*Skeleton skeleton*/ Door door)
         {
             // checks if player can move
-            preMoveY = y;
-            preMoveX = x;
+            /*preMoveY = y;
+            preMoveX = x;*/
 
             // moves player with button input          
             bool inputLoop;
@@ -122,11 +133,13 @@ namespace LostKnightConcept
                 // check for Collision
                 if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                     && map.IsFloor(preMoveX, preMoveY)
-                    && CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false
+                    /*&& CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false*/
                     && CollidWithDoor(door, preMoveX, preMoveY) == false)
                 {
-                    x = preMoveX;
-                    y = preMoveY;
+                    /*x = preMoveX;
+                    y = preMoveY;*/
+                    OffsetX = preMoveX;
+                    OffsetY = preMoveY;
                 }
 
                 else
@@ -135,7 +148,7 @@ namespace LostKnightConcept
                 }
             }
         }
-        private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
+        /*private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
         {            
             xData = x;
             yData = y;
@@ -146,22 +159,9 @@ namespace LostKnightConcept
                 targetSkeleton = true;
                 return true;        
             }
-
-            if (ghost.xData == xData && ghost.yData == yData)
-            {
-                PlaySoundHitEnemy();
-                targetGhost = true;
-                return true;
-            }
-
-            if (ghoul.xData == xData && ghoul.yData == yData)
-            {
-                PlaySoundHitEnemy();
-                targetGhoul = true;
-                return true;
-            }
             return false;
-        }       
+        }*/
+        
         private bool CollidWithDoor(Door door, int x, int y)
         {
             xData = x;
@@ -173,26 +173,15 @@ namespace LostKnightConcept
             }
             return false;
         }
-        protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        /*protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)
         {
             if (skeleton.targetPlayer == true)
             {
                 health -= skeleton.damage;
                 skeleton.targetPlayer = false;
             }
+        }*/
 
-            if (ghost.targetPlayer == true)
-            {
-                health -= ghost.damage;
-                ghost.targetPlayer = false;
-            }
-
-            if (ghoul.targetPlayer == true)
-            {
-                health -= ghoul.damage;
-                ghoul.targetPlayer = false;
-            }
-        }
         private void PlaySoundHitWall()
         {
             hitWall.Load();

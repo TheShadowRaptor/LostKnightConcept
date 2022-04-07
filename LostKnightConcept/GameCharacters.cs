@@ -21,7 +21,7 @@ namespace LostKnightConcept
         public int x;
         public int y;
 
-        protected char charGraphic;
+        protected string characterGraphic;
 
         protected SoundPlayer hit = new SoundPlayer();
 
@@ -38,17 +38,6 @@ namespace LostKnightConcept
                 return false;
             }
             return true;
-        }
-        public void Draw()
-        {
-            if (IsAlive())
-            {
-                // draws char position if alive
-                Console.SetCursorPosition(x + 1, y + 1);
-
-                DrawChar(charGraphic, backColor, foreColor);
-                Console.CursorVisible = false;
-            }   
         }
 
         public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
