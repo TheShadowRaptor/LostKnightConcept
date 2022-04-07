@@ -110,7 +110,7 @@ namespace LostKnightConcept
         public bool IsFloor(int x, int y)
         {
             //Inner map bounds
-            if (map[y][x] == '*')
+            if (map[x][y] == '*')
             {
                 return true;
             }

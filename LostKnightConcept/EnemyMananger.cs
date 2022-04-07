@@ -40,11 +40,11 @@ namespace LostKnightConcept
             }
         }
 
-        public void UpdateEnemies(Player player, Map map)
+        public void UpdateEnemies(Player player, Map map, Render render)
         {
             for (int i = 0; i < maxEnemies; i++)
             {
-                enemy[i].Move(map, player);
+                enemy[i].Move(map, player, render);
             }
         }       
     }

@@ -91,8 +91,8 @@ namespace LostKnightConcept
         protected void Move(Map map, /*Skeleton skeleton*/ Door door)
         {
             // checks if player can move
-            /*preMoveY = y;
-            preMoveX = x;*/
+            preMoveY = y;
+            preMoveX = x;
 
             // moves player with button input          
             bool inputLoop;
@@ -135,12 +135,10 @@ namespace LostKnightConcept
                     && map.IsFloor(preMoveX, preMoveY)
                     /*&& CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false*/
                     && CollidWithDoor(door, preMoveX, preMoveY) == false)
-                {
-                    /*x = preMoveX;
-                    y = preMoveY;*/
-                    OffsetX = preMoveX;
-                    OffsetY = preMoveY;
-                }
+                    {
+                        x = preMoveX;
+                        y = preMoveY;
+                    }
 
                 else
                 {

@@ -11,13 +11,10 @@ namespace LostKnightConcept
         public int x;
         public int y;
 
-        public int xstart = 12;
-        public int Ystart = 12;
-
         public void Update(Player player)
         {
-            y = player.OffsetX;
-            x = player.OffsetY;
+            y = player.x;
+            x = player.y;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace LostKnightConcept
             this.y = y;
             render.Draw(x, y, graphic, foreColor, backColor);           
         }
-        public void Move(Map map, Player player)
+        public void Move(Map map, Player player, Render render)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -114,11 +114,11 @@ namespace LostKnightConcept
                 health -= player.playerDamage;
             }
         }
-        public void Update(Player player, Map map)
+        public void Update(Player player, Map map, Render render)
         {
             if (IsAlive())
             {
-                Move(map, player);
+                Move(map, player, render);
             }
 
             if (IsAlive() == false)

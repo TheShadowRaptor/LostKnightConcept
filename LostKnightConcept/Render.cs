@@ -20,6 +20,7 @@ namespace LostKnightConcept
             Console.BackgroundColor = backGroundColor;
             Console.Write(character);
             Console.ResetColor();
+            Console.SetCursorPosition(0, 0);
         }
 
         public void MapDraw(int worldX, int worldY, char character)
@@ -30,6 +31,8 @@ namespace LostKnightConcept
             int screenY = worldY + 1;
 
             // range checking for on-screen coords
+            /*if (screenX > Console.WindowWidth / 2) return;
+            if (screenY > Console.WindowHeight / 2) return;*/
             if (screenX < 0) return;
             if (screenY < 0) return;
 

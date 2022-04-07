@@ -41,26 +41,22 @@ namespace LostKnightConcept
 
                 if (gameManager.isGameActive)
                 {
-                    // Draw UI
+                    // Draw UI                  
                     map.DisplayMap(render);
                     hud.ShowHUD(map, player, collectableManager.key);
 
                     // Draw GameObjects
-                    collectableManager.Draw(render);
+                   /* collectableManager.Draw(render);*/
                     player.Draw(render);
                     /*enemyMananger.Draw(render, map);*/
-                    door.Draw();
+                    /*door.Draw();*/
 
                     // Update GameObjects
-                    collectableManager.Update(player);
+                    /*collectableManager.Update(player);*/
                     player.Update(map, door);
                     camera.Update(player);
                     /*enemyMananger.UpdateEnemies(player, map);*/
-                    door.Update(player, collectableManager.key);
-
-
-                    // Reset Cursor
-                    Console.SetCursorPosition(0, 0);
+                    /*door.Update(player, collectableManager.key);*/
 
                     // Gameover
                     if (player.IsAlive() == false)
