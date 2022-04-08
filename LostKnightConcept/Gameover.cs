@@ -21,8 +21,8 @@ namespace LostKnightConcept
 
             gameoverWords = File.ReadAllLines(global.gameoverFile);
 
-            row = gameoverWords.Length;
-            column = gameoverWords[0].Length;
+            //row = gameoverWords.Length;
+            //column = gameoverWords[0].Length;
         }
 
         public void Draw()

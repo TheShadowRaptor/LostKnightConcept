@@ -123,8 +123,8 @@ namespace LostKnightConcept
 
             if (IsAlive() == false)
             {
-                xData = map.column + 1;
-                yData = map.row + 1;
+                xData = map.row + 1;
+                yData = map.colume + 1;
             }
         }
     }

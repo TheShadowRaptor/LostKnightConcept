@@ -10,8 +10,8 @@ namespace LostKnightConcept
     class Player : GameCharacters
     {
         // fields
-        private const int startPositionX = 10;
-        private const int startPositionY = 10;
+        private int startPositionX;
+        private int startPositionY;
 
         private const int startHealth = 5;
 
@@ -23,8 +23,8 @@ namespace LostKnightConcept
         private int preMoveX;
         private int preMoveY;
 
-        public int OffsetX;
-        public int OffsetY;
+        //public int OffsetX;
+        //public int OffsetY;
 
         private SoundPlayer hitWall = new SoundPlayer();      
         
@@ -40,10 +40,14 @@ namespace LostKnightConcept
         public bool targetGhoul;
         public Player()
         {
+            Global global = new Global();
+
             // instatiation
             health = startHealth;
 
             playerDamage = startDamage;
+            startPositionX = global.mapRenderSizeY / 2;
+            startPositionY = global.mapRenderSizeX / 2;
 
             x = startPositionX;
             y = startPositionY;
@@ -71,7 +75,7 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor);
         }
 
-        public void Update(Map map, Door door)
+        public void Update(Map map, Door door, Render render)
         {
             // Check if taken damage
             /*TakeDamage(skeleton);*/
@@ -79,16 +83,16 @@ namespace LostKnightConcept
             if (IsAlive() == true)
             {
                 /*TakeDamage(skeleton);*/
-                Move(map, /*skeleton*/ door);
+                Move(map, /*skeleton*/ door, render);
             }
 
             else if (IsAlive() == false)
             {
-                xData = map.column + 1;
-                yData = map.row + 1;
+                xData = map.row + 1;
+                yData = map.colume + 1;
             }
         }
-        protected void Move(Map map, /*Skeleton skeleton*/ Door door)
+        protected void Move(Map map, /*Skeleton skeleton*/ Door door, Render render)
         {
             // checks if player can move
             preMoveY = y;
@@ -107,43 +111,35 @@ namespace LostKnightConcept
                 if (input.Key == ConsoleKey.W || input.Key == ConsoleKey.UpArrow)
                 {
                     preMoveY--;
+                    if (CheckMove(map, door)) render.camera.preOffSetX--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.S || input.Key == ConsoleKey.DownArrow)
                 {
                     preMoveY++;
+                    if (CheckMove(map, door)) render.camera.preOffSetX++;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.A || input.Key == ConsoleKey.LeftArrow)
                 {
                     preMoveX--;
+                    if (CheckMove(map, door)) render.camera.preOffSetY--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.D || input.Key == ConsoleKey.RightArrow)
                 {
                     preMoveX++;
+                    if (CheckMove(map, door)) render.camera.preOffSetY++;
                     inputLoop = false;
                 }
 
                 // =================================
 
                 // check for Collision
-                if ((map.IsMapBounds(preMoveX, preMoveY) == false)
-                    && map.IsFloor(preMoveX, preMoveY)
-                    /*&& CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false*/
-                    && CollidWithDoor(door, preMoveX, preMoveY) == false)
-                    {
-                        x = preMoveX;
-                        y = preMoveY;
-                    }
-
-                else
-                {
-                    PlaySoundHitWall();
-                }
+                render.CheckCameraScroll(map, render);
             }
         }
         /*private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
@@ -159,6 +155,27 @@ namespace LostKnightConcept
             }
             return false;
         }*/
+
+        private bool CheckMove(Map map, Door door)
+        {
+            if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                    && map.IsFloor(preMoveX, preMoveY)
+                    /*&& CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false*/
+                    && CollidWithDoor(door, preMoveX, preMoveY) == false)
+                    {               
+
+                        x = preMoveX;
+                        y = preMoveY;
+
+                        return true;
+                    }
+
+            else
+            {
+                PlaySoundHitWall();
+                return false;
+            }
+        }
         
         private bool CollidWithDoor(Door door, int x, int y)
         {

@@ -10,7 +10,7 @@ namespace LostKnightConcept
     {
         public void ShowHUD(Map map, Player player, Key key)
         {
-            Console.SetCursorPosition(0, map.row + 3);
+            Console.SetCursorPosition(0, + 18);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
             Console.Write("║");
             Console.Write("Player name: " + player.name + " || " + "keys = " + key.keys);
@@ -21,7 +21,7 @@ namespace LostKnightConcept
             Console.ForegroundColor = ghoul.foreColor;
             Console.Write(ghoul.enemyGraphic);*/
             Console.ResetColor();
-            Console.WriteLine("                                       ║");
+            Console.WriteLine("                                                 ║");
             Console.Write("║");
             Console.Write("Damage = " + player.playerDamage);
             Console.WriteLine("                                       ║");

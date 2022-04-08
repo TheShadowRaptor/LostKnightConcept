@@ -15,8 +15,11 @@ namespace LostKnightConcept
         
         public string[] map;
 
+        public int colume;
         public int row;
-        public int column;
+
+        private int mapRenderSizeX;
+        private int mapRenderSizeY;
 
         public Map()
         {
@@ -26,9 +29,12 @@ namespace LostKnightConcept
 
             // gives map array the games map
             map = File.ReadAllLines(global.mapFile);
-            row = map.Length;
-            column = map[0].Length;
 
+            colume = map.Length;
+            row = map[0].Length;
+
+            mapRenderSizeX = global.mapRenderSizeX;
+            mapRenderSizeY = global.mapRenderSizeY;
         }
         
         public void DisplayMap(Render render)
@@ -38,7 +44,7 @@ namespace LostKnightConcept
 
             //------------------Top Map Border--------------------
             Console.Write("╔");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < mapRenderSizeY; i++)
             {
                 Console.Write("═");
             }
@@ -48,11 +54,11 @@ namespace LostKnightConcept
 
             //------------------------Map-------------------------         
 
-            for (int x = 0; x < 20; x++)
+            for (int x = 0; x < mapRenderSizeX; x++)
             {
                 Console.Write("║");
 
-                for (int y = 0; y < 20; y++)
+                for (int y = 0; y < mapRenderSizeY; y++)
                 {
                     // colour the Map
                     ColourMap(x, y);
@@ -60,7 +66,7 @@ namespace LostKnightConcept
                     // draws map
                     try
                     {
-                        render.MapDraw(y, x, map[x + render.camera.x][y + render.camera.y]);
+                        render.MapDraw(y, x, map[x + render.camera.offsetX][y + render.camera.offsetY]);
 
                     }
                     catch
@@ -79,7 +85,7 @@ namespace LostKnightConcept
 
             //------------------Bottom Map Border-----------------
             Console.Write("╚");
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < mapRenderSizeY; i++)
             {
                 Console.Write("═");
             }
@@ -100,9 +106,26 @@ namespace LostKnightConcept
         }
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= column || y >= row || x < 0 || y < 0)
-            {
+            if (x >= row || y >= colume || x < 0 || y < 0)
+            {               
                return true;
+            }
+            return false;
+        }
+
+        public bool CheckCameraBoundX(int x, Render render)
+        {
+            if (x >= colume / 4 || x < 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool CheckCameraBoundY(int y, Render render)
+        {
+            if (y >= row  || y < 0)
+            {
+                return true;
             }
             return false;
         }
@@ -110,7 +133,7 @@ namespace LostKnightConcept
         public bool IsFloor(int x, int y)
         {
             //Inner map bounds
-            if (map[x][y] == '*')
+            if (map[y][x] == '*')
             {
                 return true;
             }

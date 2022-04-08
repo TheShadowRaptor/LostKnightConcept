@@ -8,13 +8,15 @@ namespace LostKnightConcept
 {
     class Camera
     {
-        public int x;
-        public int y;
+        public int preOffSetX = 0;
+        public int preOffSetY = 0;
+
+        public int offsetX = 0;
+        public int offsetY = 0;
 
         public void Update(Player player)
         {
-            y = player.x;
-            x = player.y;
+            
         }
     }
 }
