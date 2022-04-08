@@ -34,7 +34,15 @@ namespace LostKnightConcept
 
             hit.SoundLocation = "Hit_Player.wav";
         }
+<<<<<<< HEAD
+<<<<<<< HEAD
         public void Draw(int x, int y, string name, Render render, Map map)
+=======
+        public void SetEnemy(int x, int y, string name, Render render)
+>>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
+=======
+        public void SetEnemy(int x, int y, string name, Render render)
+>>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
         {
             enemyName = name;
             this.x = x;

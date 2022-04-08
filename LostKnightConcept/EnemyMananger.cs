@@ -30,13 +30,25 @@ namespace LostKnightConcept
             }
         }
 
-        public void Draw(Render render, Map map, Global global)
+        public void Draw(Render render, Map map)
         {
             for (int i = 0; i < maxEnemies; i++)
             {               
+<<<<<<< HEAD
+<<<<<<< HEAD
                 if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, global) == true )
                 {
                     enemy[i].Draw(posX + i, posY + i, enemy[i].name, render, map); 
+=======
+                if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, render) == true )
+                {                   
+                    enemy[i].SetEnemy(posX, posY, enemy[i].name, render);
+>>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
+=======
+                if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, render) == true )
+                {                   
+                    enemy[i].SetEnemy(posX, posY, enemy[i].name, render);
+>>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
                 }
                 else return;
             }

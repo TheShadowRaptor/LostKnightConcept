@@ -75,7 +75,7 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor, map);
         }
 
-        public void Update(Map map, Door door, Render render, Global global)
+        public void Update(Map map, Door door, Render render)
         {
             // Check if taken damage
             /*TakeDamage(skeleton);*/
@@ -83,7 +83,7 @@ namespace LostKnightConcept
             if (IsAlive() == true)
             {
                 /*TakeDamage(skeleton);*/
-                Move(map, /*skeleton*/ door, render, global);
+                Move(map, /*skeleton*/ door, render);
             }
 
             else if (IsAlive() == false)
@@ -92,7 +92,7 @@ namespace LostKnightConcept
                 yData = map.colume + 1;
             }
         }
-        protected void Move(Map map, /*Skeleton skeleton*/ Door door, Render render, Global global)
+        protected void Move(Map map, /*Skeleton skeleton*/ Door door, Render render)
         {
             // checks if player can move
             preMoveY = y;
@@ -139,7 +139,7 @@ namespace LostKnightConcept
                 // =================================
 
                 // check for Collision
-                render.CheckCameraScroll(map, global);
+                render.CheckCameraScroll(map, render);
             }
         }
         /*private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
