@@ -24,9 +24,6 @@ namespace LostKnightConcept
             enemy = new Enemy[maxEnemies];
             for (int i = 0; i < maxEnemies; i++)
             {
-                posX = rngX.Next(0, map.row);
-                posY = rngY.Next(0, map.colume);
-
                 if (i < SkeletonCount) enemy[i] = new Skeleton();
                 else if (i == maxNumber) enemy[i] = new Ghoul();
                 else enemy[i] = new Ghost();               
@@ -38,8 +35,8 @@ namespace LostKnightConcept
             for (int i = 0; i < maxEnemies; i++)
             {               
                 if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, global) == true )
-                {                   
-                    enemy[i].Draw(posX, posY, enemy[i].name, render);
+                {
+                    enemy[i].Draw(posX + i, posY + i, enemy[i].name, render, map); 
                 }
                 else return;
             }

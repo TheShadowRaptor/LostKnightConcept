@@ -12,11 +12,11 @@ namespace LostKnightConcept
         public DamageUp damageUp = new DamageUp();
         public Key key = new Key();
 
-        public void Draw(Render render)
+        public void Draw(Render render, Map map)
         {
-            key.Draw(render);
-            heart.Draw(render);
-            damageUp.Draw(render);
+            key.Draw(render, map);
+            heart.Draw(render, map);
+            damageUp.Draw(render, map);
         }
 
         public void Update(Player player)

@@ -36,9 +36,9 @@ namespace LostKnightConcept
                 PickedUp = true;
             }
         }
-        public void Draw(Render render)
+        public void Draw(Render render, Map map)
         {
-            render.Draw(x, y, graphic, foreColor, backColor);
+            render.Draw(x, y, graphic, foreColor, backColor, map);
         }
 
         public void Update(Player player)

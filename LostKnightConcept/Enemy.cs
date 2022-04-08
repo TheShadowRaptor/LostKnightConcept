@@ -34,12 +34,12 @@ namespace LostKnightConcept
 
             hit.SoundLocation = "Hit_Player.wav";
         }
-        public void Draw(int x, int y, string name, Render render)
+        public void Draw(int x, int y, string name, Render render, Map map)
         {
             enemyName = name;
             this.x = x;
             this.y = y;
-            render.Draw(x, y, graphic, foreColor, backColor);           
+            render.Draw(x, y, graphic, foreColor, backColor, map);           
         }
         public void Move(Map map, Player player, Render render)
         {

@@ -15,12 +15,15 @@ namespace LostKnightConcept
         }
         public void Draw(int x, int y, string character, ConsoleColor foreGroundColor, ConsoleColor backGroundColor, Map map)
         {
-            Console.SetCursorPosition(x - camera.offsetY + 1, y - camera.offsetX + 1);
-            Console.ForegroundColor = foreGroundColor;
-            Console.BackgroundColor = backGroundColor;
-            Console.Write(character);
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
+            if (map.IsMapBounds(x, y) == false)
+            {
+                Console.SetCursorPosition(x - camera.offsetY + 1, y - camera.offsetX + 1);
+                Console.ForegroundColor = foreGroundColor;
+                Console.BackgroundColor = backGroundColor;
+                Console.Write(character);
+                Console.ResetColor();
+                Console.SetCursorPosition(0, 0);
+            }
         }
 
         public void MapDraw(int worldX, int worldY, char character)

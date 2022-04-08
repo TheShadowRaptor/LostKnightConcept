@@ -51,8 +51,8 @@ namespace LostKnightConcept
 
                     // Draw GameObjects
                    /* collectableManager.Draw(render);*/
-                    player.Draw(render);
-                    /*enemyMananger.Draw(render, map);*/
+                    player.Draw(render, map);
+                    /*enemyMananger.Draw(render, map, global);*/
                     /*door.Draw();*/
 
                     // Update GameObjects

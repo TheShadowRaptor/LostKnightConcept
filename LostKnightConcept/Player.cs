@@ -70,9 +70,9 @@ namespace LostKnightConcept
             showTarget = false;
         }
         
-        public void Draw(Render render)
+        public void Draw(Render render, Map map)
         {
-            render.Draw(x, y, characterGraphic, foreColor, backColor);
+            render.Draw(x, y, characterGraphic, foreColor, backColor, map);
         }
 
         public void Update(Map map, Door door, Render render, Global global)
