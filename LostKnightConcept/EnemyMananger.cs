@@ -24,41 +24,33 @@ namespace LostKnightConcept
             enemy = new Enemy[maxEnemies];
             for (int i = 0; i < maxEnemies; i++)
             {
+                posX = rngX.Next(0, map.row);
+                posY = rngY.Next(0, map.colume);
+
                 if (i < SkeletonCount) enemy[i] = new Skeleton();
                 else if (i == maxNumber) enemy[i] = new Ghoul();
                 else enemy[i] = new Ghost();               
             }
         }
 
-        public void Draw(Render render, Map map)
+        public void Draw(Render render, Map map, Global global)
         {
             for (int i = 0; i < maxEnemies; i++)
             {               
-<<<<<<< HEAD
-<<<<<<< HEAD
-                if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, global) == true )
-                {
-                    enemy[i].Draw(posX + i, posY + i, enemy[i].name, render, map); 
-=======
-                if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, render) == true )
+                if (map.CheckCameraBoundX(posX, global) == true && map.CheckCameraBoundY(posY, global) == true)
                 {                   
-                    enemy[i].SetEnemy(posX, posY, enemy[i].name, render);
->>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
-=======
-                if (map.IsFloor(posX, posY) == true && map.CheckCameraBoundX(posX, render) == true )
-                {                   
-                    enemy[i].SetEnemy(posX, posY, enemy[i].name, render);
->>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
+                    enemy[i].Draw(posX, posY, enemy[i].name, render);
                 }
                 else return;
             }
         }
 
-        public void UpdateEnemies(Player player, Map map, Render render)
+        public void UpdateEnemies(Player player, Map map, Render render, Global global)
         {
             for (int i = 0; i < maxEnemies; i++)
             {
                 enemy[i].Move(map, player, render);
+
             }
         }       
     }

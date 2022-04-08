@@ -12,6 +12,7 @@ namespace LostKnightConcept
         public void RunGame()
         {
             //instantiation
+            Global global = new Global();
             GameManager gameManager = new GameManager();
             ResetGame resetGame = new ResetGame();
             
@@ -50,24 +51,16 @@ namespace LostKnightConcept
 
                     // Draw GameObjects
                    /* collectableManager.Draw(render);*/
-<<<<<<< HEAD
-                    player.Draw(render, map);
-                    /*enemyMananger.Draw(render, map, global);*/
-=======
                     player.Draw(render);
-                    enemyMananger.Draw(render, map);
-<<<<<<< HEAD
->>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
-=======
->>>>>>> parent of 061f1dc ([FIXED] Camera Guard Clause)
+                    enemyMananger.Draw(render, map, global);
                     /*door.Draw();*/
 
                     // Update GameObjects
                     /*collectableManager.Update(player);*/
-                    player.Update(map, door, render);
+                    player.Update(map, door, render, global);
                     camera.Update(player);
 
-                    enemyMananger.UpdateEnemies(player, map, render);
+                    enemyMananger.UpdateEnemies(player, map, render, global);
                     /*door.Update(player, collectableManager.key);*/
 
                     // Gameover
