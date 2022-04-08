@@ -34,7 +34,7 @@ namespace LostKnightConcept
 
             hit.SoundLocation = "Hit_Player.wav";
         }
-        public void SetEnemy(int x, int y, string name, Render render)
+        public void Draw(int x, int y, string name, Render render)
         {
             enemyName = name;
             this.x = x;

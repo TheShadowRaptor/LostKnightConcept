@@ -13,7 +13,7 @@ namespace LostKnightConcept
         {
             this.camera = camera;
         }
-        public void Draw(int x, int y, string character, ConsoleColor foreGroundColor, ConsoleColor backGroundColor)
+        public void Draw(int x, int y, string character, ConsoleColor foreGroundColor, ConsoleColor backGroundColor, Map map)
         {
             Console.SetCursorPosition(x - camera.offsetY + 1, y - camera.offsetX + 1);
             Console.ForegroundColor = foreGroundColor;
@@ -34,20 +34,20 @@ namespace LostKnightConcept
             /*if (screenX > Console.WindowWidth) return;
             if (screenY > Console.WindowHeight) return;
             if (screenX < 0) return;
-            if (screenY < 0) return;*/
-
+            if (screenY < 0) return;
+*/
             Console.SetCursorPosition(screenX + 1, screenY + 1);
             Console.Write(character);
         }
 
-        public void CheckCameraScroll(Map map, Render render)
+        public void CheckCameraScroll(Map map, Global global)
         {
-            if ((map.CheckCameraBoundX(camera.preOffSetX, render) == false))
+            if ((map.CheckCameraBoundX(camera.preOffSetX, global) == false))
             {
                 camera.offsetX = camera.preOffSetX;
             }
 
-            if ((map.CheckCameraBoundY(camera.preOffSetY, render) == false))
+            if ((map.CheckCameraBoundY(camera.preOffSetY, global) == false))
             {
                 camera.offsetY = camera.preOffSetY;
 

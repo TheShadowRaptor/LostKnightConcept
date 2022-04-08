@@ -30,8 +30,8 @@ namespace LostKnightConcept
             // gives map array the games map
             map = File.ReadAllLines(global.mapFile);
 
-            colume = map.Length;
-            row = map[0].Length;
+            colume = map[0].Length;
+            row = map.Length;
 
             mapRenderSizeX = global.mapRenderSizeX;
             mapRenderSizeY = global.mapRenderSizeY;
@@ -53,7 +53,6 @@ namespace LostKnightConcept
             //----------------------------------------------------
 
             //------------------------Map-------------------------         
-
             for (int x = 0; x < mapRenderSizeX; x++)
             {
                 Console.Write("║");
@@ -66,7 +65,9 @@ namespace LostKnightConcept
                     // draws map
                     try
                     {
+                        
                         render.MapDraw(y, x, map[x + render.camera.offsetX][y + render.camera.offsetY]);
+                        
 
                     }
                     catch
@@ -113,17 +114,18 @@ namespace LostKnightConcept
             return false;
         }
 
-        public bool CheckCameraBoundX(int x, Render render)
+        public bool CheckCameraBoundX(int x, Global global)
         {
-            if (x >= colume / 4 || x < 0)
+            
+            if (x >= row - global.mapRenderSizeX + 1 || x < 0)
             {
                 return true;
             }
             return false;
         }
-        public bool CheckCameraBoundY(int y, Render render)
-        {
-            if (y >= row  || y < 0)
+        public bool CheckCameraBoundY(int y, Global global)
+        {           
+            if (y >= colume  - mapRenderSizeY + 1 || y < 0)
             {
                 return true;
             }
