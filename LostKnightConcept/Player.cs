@@ -139,7 +139,7 @@ namespace LostKnightConcept
                 // =================================
 
                 // check for Collision
-                render.CheckCameraScroll(map, global);
+                render.CheckCameraScroll(map);
             }
         }
         /*private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)

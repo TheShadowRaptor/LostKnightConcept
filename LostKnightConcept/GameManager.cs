@@ -29,7 +29,7 @@ namespace LostKnightConcept
             CollectableManager collectableManager = new CollectableManager();
 
             Camera camera = new Camera();
-            Render render = new Render(camera);
+            Render render = new Render(camera, global);
 
             HUD hud = new HUD();
 
@@ -60,7 +60,7 @@ namespace LostKnightConcept
                     player.Update(map, door, render, global);
                     camera.Update(player);
 
-                    enemyMananger.UpdateEnemies(player, map, render, global);
+                    enemyMananger.Update(player, map, render, global);
                     /*door.Update(player, collectableManager.key);*/
 
                     // Gameover

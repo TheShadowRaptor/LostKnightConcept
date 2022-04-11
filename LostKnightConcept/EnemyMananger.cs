@@ -10,8 +10,9 @@ namespace LostKnightConcept
     {
         public Enemy[] enemy;
 
-        int maxEnemies = 50;
-        int SkeletonCount = 25;
+        int maxEnemies = 5;
+        int SkeletonCount = 2;
+
         int posX;
         int posY;
 
@@ -22,30 +23,27 @@ namespace LostKnightConcept
         {
             int maxNumber = maxEnemies - 1;
             enemy = new Enemy[maxEnemies];
+
             for (int i = 0; i < maxEnemies; i++)
             {
-                posX = rngX.Next(0, map.row);
-                posY = rngY.Next(0, map.colume);
+                posX = rngX.Next(0, map.colume);
+                posY = rngY.Next(0, map.row);
 
                 if (i < SkeletonCount) enemy[i] = new Skeleton();
                 else if (i == maxNumber) enemy[i] = new Ghoul();
-                else enemy[i] = new Ghost();               
+                else enemy[i] = new Ghost();         
             }
         }
 
         public void Draw(Render render, Map map, Global global)
         {
             for (int i = 0; i < maxEnemies; i++)
-            {               
-                if (map.CheckCameraBoundX(posX, global) == true && map.CheckCameraBoundY(posY, global) == true)
-                {                   
-                    enemy[i].Draw(posX, posY, enemy[i].name, render);
-                }
-                else return;
+            {                                             
+                enemy[i].Draw(posX, posY, enemy[i].name, render);            
             }
         }
 
-        public void UpdateEnemies(Player player, Map map, Render render, Global global)
+        public void Update(Player player, Map map, Render render, Global global)
         {
             for (int i = 0; i < maxEnemies; i++)
             {
