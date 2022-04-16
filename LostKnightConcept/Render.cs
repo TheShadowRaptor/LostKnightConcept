@@ -13,6 +13,7 @@ namespace LostKnightConcept
 
         int screenX;
         int screenY;
+
         public Render(Camera camera, Global global)
         {
             this.camera = camera;
@@ -23,7 +24,7 @@ namespace LostKnightConcept
             int posX = x - camera.offsetY + 1;
             int posY = y - camera.offsetX + 1;
 
-            if(posX < global.mapRenderSizeY && posX > -global.mapRenderSizeY && posY < global.mapRenderSizeX && posY > -global.mapRenderSizeX)
+            if(posX < screenX && posX > 0 && posY < screenY && posY > 0)
             {
                 Console.SetCursorPosition(posX, posY);
                 Console.ForegroundColor = foreGroundColor;

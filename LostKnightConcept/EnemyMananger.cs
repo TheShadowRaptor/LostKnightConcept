@@ -13,11 +13,10 @@ namespace LostKnightConcept
         int maxEnemies = 5;
         int SkeletonCount = 2;
 
-        int posX;
-        int posY;
+        int x;
+        int y;
 
-        private Random rngX = new Random (0);
-        private Random rngY = new Random (1);
+        protected Random rng = new Random();
 
         public EnemyMananger(Map map)
         {
@@ -26,20 +25,21 @@ namespace LostKnightConcept
 
             for (int i = 0; i < maxEnemies; i++)
             {
-                posX = rngX.Next(0, map.colume);
-                posY = rngY.Next(0, map.row);
-
                 if (i < SkeletonCount) enemy[i] = new Skeleton();
                 else if (i == maxNumber) enemy[i] = new Ghoul();
-                else enemy[i] = new Ghost();         
+                else enemy[i] = new Ghost();
+
+                enemy[i].x = rng.Next(1, map.colume);
+                enemy[i].y = rng.Next(1, map.row);
             }
         }
 
         public void Draw(Render render, Map map, Global global)
         {
+
             for (int i = 0; i < maxEnemies; i++)
-            {                                             
-                enemy[i].Draw(posX, posY, enemy[i].name, render);            
+            {
+                enemy[i].Draw(enemy[i].name, render);
             }
         }
 

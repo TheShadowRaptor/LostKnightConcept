@@ -10,36 +10,32 @@ namespace LostKnightConcept
     class Enemy : GameCharacters
     {
         // fields
-        private const int startPosX = 5;
-        private const int startPosY = 2;
-
         protected int preMoveX;
         protected int preMoveY;
 
-        protected Random rng;
-
         public string graphic;
+
+        protected Random rng = new Random();
 
         public int enemyDamage;
         public string enemyName;
 
         public bool targetPlayer;
+
         public Enemy()
         {
             // instatiation
-            x = startPosX;
-            y = startPosY;
-
-            rng = new Random(0);
-
             hit.SoundLocation = "Hit_Player.wav";
         }
-        public void Draw(int x, int y, string name, Render render)
+
+        public void Draw(string name, Render render)
         {
             enemyName = name;
-            this.x = x;
-            this.y = y;
-            render.Draw(x, y, graphic, foreColor, backColor);           
+            render.Draw(x, y, graphic, foreColor, backColor);
+
+/*            Console.WriteLine(x + "," + y);
+            Console.ReadKey(true); */              
+            
         }
         public void Move(Map map, Player player, Render render)
         {
