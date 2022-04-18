@@ -24,7 +24,7 @@ namespace LostKnightConcept
             int posX = x - camera.offsetY + 1;
             int posY = y - camera.offsetX + 1;
 
-            if(posX < screenX && posX > 0 && posY < screenY && posY > 0)
+            if(posX < screenX + 1 && posX > 0 && posY < screenY + 1 && posY > 0)
             {
                 Console.SetCursorPosition(posX, posY);
                 Console.ForegroundColor = foreGroundColor;

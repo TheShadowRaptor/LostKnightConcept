@@ -14,13 +14,15 @@ namespace LostKnightConcept
             Door door = new Door();
             Player player = new Player();
             Map map = new Map();
-            EnemyMananger enemyMananger = new EnemyMananger(map);
+            Global global = new Global();
+
+            EnemyMananger enemyMananger = new EnemyMananger(map, global);
             CollectableManager collectableManager = new CollectableManager();
 
             //player
             player.health = 5;
 
-            player.playerDamage = 1;
+            player.damage = 1;
             player.x = player.resetPositionX;
             player.y = player.resetPositionY;
 

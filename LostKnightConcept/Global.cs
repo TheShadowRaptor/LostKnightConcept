@@ -24,6 +24,8 @@ namespace LostKnightConcept
         public int mapRenderSizeX;
         public int mapRenderSizeY;
 
+        public Random rng = new Random();
+
         public Global()
         {
             winFile = winData;

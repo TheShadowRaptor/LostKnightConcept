@@ -1,55 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
     class EnemyMananger 
     {
-        public Enemy[] enemy;
-
-        int maxEnemies = 5;
+        public int maxEnemies = 5;
         int SkeletonCount = 2;
 
-        int x;
-        int y;
+        public Enemy[] enemy;
 
-        protected Random rng = new Random();
-
-        public EnemyMananger(Map map)
+        public EnemyMananger(Map map, Global global)
         {
             int maxNumber = maxEnemies - 1;
             enemy = new Enemy[maxEnemies];
 
-            for (int i = 0; i < maxEnemies; i++)
+            for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                if (i < SkeletonCount) enemy[i] = new Skeleton();
-                else if (i == maxNumber) enemy[i] = new Ghoul();
-                else enemy[i] = new Ghost();
+                if (currentEnemy < SkeletonCount) enemy[currentEnemy] = new Skeleton();
+                else if (currentEnemy == maxNumber) enemy[currentEnemy] = new Ghoul();
+                else enemy[currentEnemy] = new Ghost();
 
-                enemy[i].x = rng.Next(1, map.colume);
-                enemy[i].y = rng.Next(1, map.row);
+                enemy[currentEnemy].x = global.rng.Next(1, /*map.colume*/ 10);
+                enemy[currentEnemy].y = global.rng.Next(1, /*map.row*/ 10);
             }
         }
 
-        public void Draw(Render render, Map map, Global global)
+        public void Draw(Render render, Map map)
         {
 
-            for (int i = 0; i < maxEnemies; i++)
+            for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[i].Draw(enemy[i].name, render);
+                enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
             }
         }
 
         public void Update(Player player, Map map, Render render, Global global)
         {
-            for (int i = 0; i < maxEnemies; i++)
+            for (int currentEnemy  = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[i].Move(map, player, render);
-
-            }
+                enemy[currentEnemy].Update(player, map, render, enemy, maxEnemies, global);
+            }          
         }       
     }
 }

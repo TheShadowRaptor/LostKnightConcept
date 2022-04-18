@@ -13,11 +13,11 @@ namespace LostKnightConcept
         protected int preMoveX;
         protected int preMoveY;
 
+        public int currentTarget;
+
         public string graphic;
 
-        protected Random rng = new Random();
 
-        public int enemyDamage;
         public string enemyName;
 
         public bool targetPlayer;
@@ -31,13 +31,10 @@ namespace LostKnightConcept
         public void Draw(string name, Render render)
         {
             enemyName = name;
-            render.Draw(x, y, graphic, foreColor, backColor);
-
-/*            Console.WriteLine(x + "," + y);
-            Console.ReadKey(true); */              
+            render.Draw(x, y, graphic, foreColor, backColor);           
             
         }
-        public void Move(Map map, Player player, Render render)
+        public void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -47,8 +44,8 @@ namespace LostKnightConcept
             int direction;
             int wait;
 
-            direction = rng.Next(0, 4);
-            wait = rng.Next(0, 2);
+            direction = global.rng.Next(0, 4);
+            wait = global.rng.Next(0, 2);
 
             if (wait == 1)
             {
@@ -76,7 +73,8 @@ namespace LostKnightConcept
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && map.IsFloor(preMoveX, preMoveY)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                && player.targetSkeleton == false)
+                /*&& CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false*/
+                && player.targetEnemy == false)
             {
                 x = preMoveX;
                 y = preMoveY;
@@ -85,7 +83,7 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
         }
-        public bool CollideWithPlayer(Player player, int x, int y)
+        protected bool CollideWithPlayer(Player player, int x, int y)
         {
             xData = x;
             yData = y;           
@@ -98,29 +96,49 @@ namespace LostKnightConcept
             }
             return false;
         }
-        private void PlaySoundHitPlayer()
+        protected bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
+        {
+            xData = x;
+            yData = y;
+
+            for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
+            {
+                if (enemy[currentTarget].xData == xData && enemy[currentTarget].yData == yData)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected void PlaySoundHitPlayer()
         {
             hit.Load();
             hit.Play();
         }
-        private void TakeDamage(Player player)
+        protected void CheckIfHit(Player player, Enemy[] enemy)
         {
-            if (player.targetSkeleton == true)
+            if (player.targetEnemy == true)
             {
-                health -= player.playerDamage;
+                enemy[player.currentTarget].health -= player.damage;
+                /*health -= player.damage;*/
             }
         }
-        public void Update(Player player, Map map, Render render)
+        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, Global global)
         {
             if (IsAlive())
             {
-                Move(map, player, render);
+                CheckIfHit(player, enemy);
+                Move(map, player, render, enemy, maxEnemies, global);
             }
 
             if (IsAlive() == false)
             {
                 xData = map.row + 1;
                 yData = map.colume + 1;
+
+                x = xData;
+                y = yData;
             }
         }
     }

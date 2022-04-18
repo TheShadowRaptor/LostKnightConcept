@@ -60,21 +60,11 @@ namespace LostKnightConcept
                 for (int y = 0; y < mapRenderSizeY; y++)
                 {
                     // colour the Map
-                    ColourMap(x, y);
+                    ColourMap(x, y, render);
 
-                    // draws map
-                    try
-                    {
-                        
-                        render.MapDraw(y, x, map[x + render.camera.offsetX][y + render.camera.offsetY]);
-                        
+                    // draws map             
+                    render.MapDraw(y, x, map[x + render.camera.offsetX][y + render.camera.offsetY]);
 
-                    }
-                    catch
-                    {
-                        Console.WriteLine((x) + "" + (y));
-                        Console.ReadKey(true);                    
-                    }
 
                     // resets colour
                     Console.ResetColor();
@@ -96,14 +86,21 @@ namespace LostKnightConcept
             //----------------------------------------------------            
         }
 
-        public void ColourMap(int x, int y)
+        public void ColourMap(int x, int y, Render render)
         {
             // colours spacific char in the map array
-            if (map[x][y] == '*')
+            if (map[x + render.camera.offsetX][y + render.camera.offsetY] == '*')
             {
-                /*Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.BackgroundColor = ConsoleColor.DarkGray;*/
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
             }
+
+            if (map[x + render.camera.offsetX][y + render.camera.offsetY] == '^')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+            }
+
         }
         public bool IsMapBounds(int x, int y)
         {

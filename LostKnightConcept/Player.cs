@@ -32,12 +32,10 @@ namespace LostKnightConcept
 
         public bool showTarget;
 
-        public int playerDamage;
+        public int currentTarget;
 
-        public bool targetSkeleton;
+        public bool targetEnemy;
         public bool gameover;
-        public bool targetGhost;
-        public bool targetGhoul;
         public Player()
         {
             Global global = new Global();
@@ -45,7 +43,8 @@ namespace LostKnightConcept
             // instatiation
             health = startHealth;
 
-            playerDamage = startDamage;
+            damage = startDamage;
+
             startPositionX = global.mapRenderSizeY / 2;
             startPositionY = global.mapRenderSizeX / 2;
 
@@ -75,15 +74,15 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor);
         }
 
-        public void Update(Map map, Door door, Render render, Global global)
+        public void Update(Map map, Door door, Render render, Global global, Enemy[] enemy, int maxEnemies)
         {
             // Check if taken damage
-            /*TakeDamage(skeleton);*/
+            CheckIfHit(enemy, maxEnemies);
 
             if (IsAlive() == true)
             {
-                /*TakeDamage(skeleton);*/
-                Move(map, /*skeleton*/ door, render, global);
+                CheckIfHit(enemy, maxEnemies);
+                Move(map, enemy, door, render, global, maxEnemies);
             }
 
             else if (IsAlive() == false)
@@ -92,7 +91,7 @@ namespace LostKnightConcept
                 yData = map.colume + 1;
             }
         }
-        protected void Move(Map map, /*Skeleton skeleton*/ Door door, Render render, Global global)
+        protected void Move(Map map, Enemy[] enemy, Door door, Render render, Global global, int maxEnemies)
         {
             // checks if player can move
             preMoveY = y;
@@ -111,28 +110,28 @@ namespace LostKnightConcept
                 if (input.Key == ConsoleKey.W || input.Key == ConsoleKey.UpArrow)
                 {
                     preMoveY--;
-                    if (CheckMove(map, door)) render.camera.preOffSetX--;
+                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetX--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.S || input.Key == ConsoleKey.DownArrow)
                 {
                     preMoveY++;
-                    if (CheckMove(map, door)) render.camera.preOffSetX++;
+                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetX++;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.A || input.Key == ConsoleKey.LeftArrow)
                 {
                     preMoveX--;
-                    if (CheckMove(map, door)) render.camera.preOffSetY--;
+                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetY--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.D || input.Key == ConsoleKey.RightArrow)
                 {
                     preMoveX++;
-                    if (CheckMove(map, door)) render.camera.preOffSetY++;
+                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetY++;
                     inputLoop = false;
                 }
 
@@ -142,26 +141,29 @@ namespace LostKnightConcept
                 render.CheckCameraScroll(map);
             }
         }
-        /*private bool CollidWithEnemy(Skeleton skeleton, Ghost ghost, Ghoul ghoul, int x, int y)
-        {            
+        private bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
+        {
             xData = x;
             yData = y;
 
-            if (skeleton.xData == xData && skeleton.yData == yData)
+            for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
             {
-                PlaySoundHitEnemy();
-                targetSkeleton = true;
-                return true;        
+                if (enemy[currentTarget].xData == xData && enemy[currentTarget].yData == yData)
+                {
+                    PlaySoundHitEnemy();
+                    targetEnemy = true;
+                    return true;
+                }
             }
             return false;
-        }*/
+        }
 
-        private bool CheckMove(Map map, Door door)
+        private bool CheckMove(Map map, Door door, Enemy[] enemy, int maxEnemies)
         {
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                     && map.IsFloor(preMoveX, preMoveY)
-                    /*&& CollidWithEnemy(skeleton, ghost, ghoul, preMoveX, preMoveY) == false*/
-                    && CollidWithDoor(door, preMoveX, preMoveY) == false)
+                    && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
+                    && CollideWithDoor(door, preMoveX, preMoveY) == false)
                     {               
 
                         x = preMoveX;
@@ -177,7 +179,7 @@ namespace LostKnightConcept
             }
         }
         
-        private bool CollidWithDoor(Door door, int x, int y)
+        private bool CollideWithDoor(Door door, int x, int y)
         {
             xData = x;
             yData = y;
@@ -188,14 +190,17 @@ namespace LostKnightConcept
             }
             return false;
         }
-        /*protected void TakeDamage(Skeleton skeleton, Ghost ghost, Ghoul ghoul)
+        protected void CheckIfHit(Enemy[] enemy, int maxEnemies)
         {
-            if (skeleton.targetPlayer == true)
+            for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                health -= skeleton.damage;
-                skeleton.targetPlayer = false;
+                if (enemy[currentEnemy].targetPlayer == true)
+                {
+                    health -= enemy[currentEnemy].damage;
+                    enemy[currentEnemy].targetPlayer = false;
+                }
             }
-        }*/
+        }
 
         private void PlaySoundHitWall()
         {

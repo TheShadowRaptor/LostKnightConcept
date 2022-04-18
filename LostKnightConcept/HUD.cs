@@ -8,7 +8,7 @@ namespace LostKnightConcept
 {
     class HUD
     {
-        public void ShowHUD(Map map, Player player, Key key)
+        public void ShowHUD(Map map, Player player, Key key, Enemy[] enemy, int currentEnemy)
         {
             Console.SetCursorPosition(0, + 18);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
@@ -23,24 +23,24 @@ namespace LostKnightConcept
             Console.ResetColor();
             Console.WriteLine("                                                 ║");
             Console.Write("║");
-            Console.Write("Damage = " + player.playerDamage);
+            Console.Write("Damage = " + player.damage);
             Console.WriteLine("                                       ║");
-            /*if (player.targetSkeleton == true)
+            if (player.targetEnemy == true)
             {
                 Console.WriteLine("");
-                Console.WriteLine("║Target name: " + skeleton.name + " health = " + skeleton.health);
+                Console.WriteLine("║Target name: " + enemy[currentEnemy].name + " health = " + enemy[currentEnemy].health);
                 Console.WriteLine("║╔═╗");
                 Console.Write("║║");
-                Console.BackgroundColor = skeleton.backColor;
-                Console.ForegroundColor = skeleton.foreColor;
-                Console.Write((skeleton.enemyGraphic));
+                Console.BackgroundColor = enemy[currentEnemy].backColor;
+                Console.ForegroundColor = enemy[currentEnemy].foreColor;
+                Console.Write((enemy[currentEnemy].graphic));
                 Console.ResetColor();
                 Console.WriteLine("║");
                 Console.WriteLine("║╚═╝");
-                player.targetSkeleton = false;
+                player.targetEnemy = false;
             }
 
-            else if (player.targetGhost == true)
+            /*else if (player.targetGhost == true)
             {
                 Console.WriteLine("");
                 Console.WriteLine("║Target name: " + ghost.name + " health = " + ghost.health);
@@ -71,7 +71,7 @@ namespace LostKnightConcept
             }*/
             /*else
             {*/
-                Console.WriteLine("║                                                 ║");
+            Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
                 Console.WriteLine("║                                                 ║");
