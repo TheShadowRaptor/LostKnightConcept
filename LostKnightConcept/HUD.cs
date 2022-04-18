@@ -8,7 +8,7 @@ namespace LostKnightConcept
 {
     class HUD
     {
-        public void ShowHUD(Map map, Player player, Key key, Enemy[] enemy, int currentEnemy)
+        public void ShowHUD(Map map, Player player, Key key, Enemy[] enemy, int currentEnemy, int maxEnemies)
         {
             Console.SetCursorPosition(0, + 18);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
@@ -16,12 +16,12 @@ namespace LostKnightConcept
             Console.Write("Player name: " + player.name + " || " + "keys = " + key.keys);
             Console.WriteLine("                  ║");
             Console.Write("║");
-            /*Console.Write("Health = " + player.health + " || " + "Objective = Kill ");
-            Console.BackgroundColor = ghoul.backColor;
-            Console.ForegroundColor = ghoul.foreColor;
-            Console.Write(ghoul.enemyGraphic);*/
+            Console.Write("Health = " + player.health + " || " + "Objective = Kill ");
+            Console.BackgroundColor = enemy[maxEnemies - 1].backColor;
+            Console.ForegroundColor = enemy[maxEnemies - 1].foreColor;
+            Console.Write(enemy[maxEnemies - 1].graphic);
             Console.ResetColor();
-            Console.WriteLine("                                                 ║");
+            Console.WriteLine("                 ║");
             Console.Write("║");
             Console.Write("Damage = " + player.damage);
             Console.WriteLine("                                       ║");
@@ -39,45 +39,16 @@ namespace LostKnightConcept
                 Console.WriteLine("║╚═╝");
                 player.targetEnemy = false;
             }
-
-            /*else if (player.targetGhost == true)
+            else
             {
-                Console.WriteLine("");
-                Console.WriteLine("║Target name: " + ghost.name + " health = " + ghost.health);
-                Console.WriteLine("║╔═╗");
-                Console.Write("║║");
-                Console.BackgroundColor = ghost.backColor;
-                Console.ForegroundColor = ghost.foreColor;
-                Console.Write((ghost.enemyGraphic));
-                Console.ResetColor();
-                Console.WriteLine("║");
-                Console.WriteLine("║╚═╝");
-                player.targetGhost = false;
+                Console.WriteLine("║                                                 ║");
+                    Console.WriteLine("║                                                 ║");
+                    Console.WriteLine("║                                                 ║");
+                    Console.WriteLine("║                                                 ║");
+                    Console.WriteLine("║                                                 ║");
+                /*}*/
+                Console.WriteLine("╚═════════════════════════════════════════════════╝");
             }
-
-            else if (player.targetGhoul == true)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("║Target name: " + ghoul.name + " health = " + ghoul.health);
-                Console.WriteLine("║╔═╗");
-                Console.Write("║║");
-                Console.BackgroundColor = ghoul.backColor;
-                Console.ForegroundColor = ghoul.foreColor;
-                Console.Write((ghoul.enemyGraphic));
-                Console.ResetColor();
-                Console.WriteLine("║");
-                Console.WriteLine("║╚═╝");
-                player.targetGhoul = false;
-            }*/
-            /*else
-            {*/
-            Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-                Console.WriteLine("║                                                 ║");
-            /*}*/
-            Console.WriteLine("╚═════════════════════════════════════════════════╝");
         }
     }
 }

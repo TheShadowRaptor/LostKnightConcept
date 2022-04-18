@@ -73,7 +73,7 @@ namespace LostKnightConcept
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && map.IsFloor(preMoveX, preMoveY)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                /*&& CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false*/
+                && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
                 && player.targetEnemy == false)
             {
                 x = preMoveX;
@@ -88,7 +88,7 @@ namespace LostKnightConcept
             xData = x;
             yData = y;           
 
-            if (player.xData == xData && player.yData == yData)
+            if (xData == player.xData && yData == player.yData)
             {
                 PlaySoundHitPlayer();
                 targetPlayer = true;
@@ -101,13 +101,12 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
 
-            for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
+
+            if (xData == enemy[currentTarget].xData && yData == enemy[currentTarget].yData)
             {
-                if (enemy[currentTarget].xData == xData && enemy[currentTarget].yData == yData)
-                {
-                    return true;
-                }
+                return true;
             }
+
             return false;
         }
 

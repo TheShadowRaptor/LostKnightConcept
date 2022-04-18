@@ -57,7 +57,7 @@ namespace LostKnightConcept
 
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-               /* && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false*/
+                && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
                 && player.targetEnemy == false)
             {
                 x = preMoveX;

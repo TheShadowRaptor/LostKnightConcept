@@ -13,8 +13,8 @@ namespace LostKnightConcept
         private const string titleData = "Title.txt";
         private const string gameoverData = "Gameover.txt";
 
-        private const int mapRenderSizeDataX = 15;
-        private const int mapRenderSizeDataY = 30;
+        private const int mapRenderSizeDataX = 10;
+        private const int mapRenderSizeDataY = 25;
 
         public string winFile;
         public string mapFile;
