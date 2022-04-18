@@ -16,7 +16,7 @@ namespace LostKnightConcept
             Map map = new Map();
             Global global = new Global();
 
-            EnemyMananger enemyMananger = new EnemyMananger(map, global);
+            EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
             CollectableManager collectableManager = new CollectableManager();
 
             //player

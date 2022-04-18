@@ -77,11 +77,11 @@ namespace LostKnightConcept
         public void Update(Map map, Door door, Render render, Global global, Enemy[] enemy, int maxEnemies)
         {
             // Check if taken damage
-            CheckIfHit(enemy, maxEnemies);
+            CheckIfDamaged(enemy, maxEnemies);
 
             if (IsAlive() == true)
             {
-                CheckIfHit(enemy, maxEnemies);
+                CheckIfDamaged(enemy, maxEnemies);
                 Move(map, enemy, door, render, global, maxEnemies);
             }
 
@@ -190,7 +190,7 @@ namespace LostKnightConcept
             }
             return false;
         }
-        protected void CheckIfHit(Enemy[] enemy, int maxEnemies)
+        protected void CheckIfDamaged(Enemy[] enemy, int maxEnemies)
         {
             for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
             {

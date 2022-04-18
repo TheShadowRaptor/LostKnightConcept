@@ -13,8 +13,6 @@ namespace LostKnightConcept
         protected int preMoveX;
         protected int preMoveY;
 
-        public int currentTarget;
-
         public string graphic;
 
 
@@ -34,7 +32,7 @@ namespace LostKnightConcept
             render.Draw(x, y, graphic, foreColor, backColor);           
             
         }
-        public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
+        public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, int currentEnemy, Global global)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -73,7 +71,7 @@ namespace LostKnightConcept
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && map.IsFloor(preMoveX, preMoveY)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
+                /*&& CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies, currentEnemy) == false*/
                 && player.targetEnemy == false)
             {
                 x = preMoveX;
@@ -83,7 +81,7 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
         }
-        protected bool CollideWithPlayer(Player player, int x, int y)
+        public bool CollideWithPlayer(Player player, int x, int y)
         {
             xData = x;
             yData = y;           
@@ -96,13 +94,12 @@ namespace LostKnightConcept
             }
             return false;
         }
-        protected bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
+        public bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies, int currentEnemy)
         {
             xData = x;
             yData = y;
 
-
-            if (xData == enemy[currentTarget].xData && yData == enemy[currentTarget].yData)
+            if (xData == enemy[currentEnemy].xData && yData == enemy[currentEnemy].yData)
             {
                 return true;
             }
@@ -115,7 +112,7 @@ namespace LostKnightConcept
             hit.Load();
             hit.Play();
         }
-        protected void CheckIfHit(Player player, Enemy[] enemy)
+        protected void CheckIfDamaged(Player player, Enemy[] enemy)
         {
             if (player.targetEnemy == true)
             {
@@ -123,12 +120,12 @@ namespace LostKnightConcept
                 /*health -= player.damage;*/
             }
         }
-        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, Global global)
+        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, int currentEnemy, Global global)
         {
             if (IsAlive())
             {
-                CheckIfHit(player, enemy);
-                Move(map, player, render, enemy, maxEnemies, global);
+                CheckIfDamaged(player, enemy);
+                Move(map, player, render, enemy, maxEnemies, currentEnemy, global);
             }
 
             if (IsAlive() == false)

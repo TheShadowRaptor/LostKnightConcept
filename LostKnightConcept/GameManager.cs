@@ -25,7 +25,7 @@ namespace LostKnightConcept
             Door door = new Door();
             Player player = new Player();
             Map map = new Map();
-            EnemyMananger enemyMananger = new EnemyMananger(map, global);
+            EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
             CollectableManager collectableManager = new CollectableManager();
 
             Camera camera = new Camera();
@@ -71,11 +71,11 @@ namespace LostKnightConcept
                     }
 
                     // Gamewin
-                    /*if (enemyMananger.ghoul.IsAlive() == false)
+                    if (enemyMananger.enemy[enemyMananger.maxEnemies - 1].IsAlive() == false)
                     {
                         win.Draw();
                         win.Update(gameManager);
-                    }*/
+                    }
                 }
             }           
         }
