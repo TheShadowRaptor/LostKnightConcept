@@ -104,7 +104,7 @@ namespace LostKnightConcept
         }
         public bool IsMapBounds(int x, int y)
         {
-            if (x >= colume || y >= row || x < 0 || y < 0)
+            if (x >= colume + 1 || y >= row + 1 || x < 1 || y < 1)
             {               
                return true;
             }

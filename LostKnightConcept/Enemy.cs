@@ -34,7 +34,7 @@ namespace LostKnightConcept
             render.Draw(x, y, graphic, foreColor, backColor);           
             
         }
-        public void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
+        public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
         {
             // checks if enemy can move
             preMoveY = y;

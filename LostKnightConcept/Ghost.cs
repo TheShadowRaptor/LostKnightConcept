@@ -19,7 +19,7 @@ namespace LostKnightConcept
         }
 
         //Ghost movement (Can go through walls)
-        public new void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
+        public override void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, Global global)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -57,7 +57,7 @@ namespace LostKnightConcept
 
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
+               /* && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false*/
                 && player.targetEnemy == false)
             {
                 x = preMoveX;
