@@ -51,8 +51,16 @@ namespace LostKnightConcept
 
         private void Input(GameManager gameManager)
         {
-            Console.ReadKey(true);
-            gameManager.isGameActive = false;
+            while (true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey(true);
+
+                if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Spacebar)
+                {
+                    gameManager.isGameActive = false;
+                    break;
+                }
+            }
         }
     }
 }

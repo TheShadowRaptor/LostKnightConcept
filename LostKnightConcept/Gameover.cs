@@ -21,8 +21,8 @@ namespace LostKnightConcept
 
             gameoverWords = File.ReadAllLines(global.gameoverFile);
 
-            //row = gameoverWords.Length;
-            //column = gameoverWords[0].Length;
+            row = gameoverWords.Length;
+            column = gameoverWords[0].Length;
         }
 
         public void Draw()
@@ -53,8 +53,16 @@ namespace LostKnightConcept
 
         private void Input(GameManager gameManager)
         {
-            Console.ReadKey(true);
-            gameManager.isGameActive = false;
+            while (true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey(true);
+
+                if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Spacebar)
+                {
+                    gameManager.isGameActive = false;
+                    break;
+                }
+            }
         }
     }
 }

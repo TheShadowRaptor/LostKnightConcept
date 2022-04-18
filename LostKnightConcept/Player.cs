@@ -13,7 +13,7 @@ namespace LostKnightConcept
         private int startPositionX;
         private int startPositionY;
 
-        private const int startHealth = 5;
+        private const int startHealth = 3;
 
         private const int startDamage = 1;
 
