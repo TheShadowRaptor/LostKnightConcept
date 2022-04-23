@@ -26,7 +26,7 @@ namespace LostKnightConcept
             Player player = new Player();
             Map map = new Map();
             EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
-            CollectableManager collectableManager = new CollectableManager();
+            CollectableManager collectableManager = new CollectableManager(map, player, global);
 
             Camera camera = new Camera();
             Render render = new Render(camera, global);
@@ -50,16 +50,18 @@ namespace LostKnightConcept
                     hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, player.currentTarget, enemyMananger.maxEnemies);
 
                     // Draw GameObjects
-                   /* collectableManager.Draw(render);*/
+                    collectableManager.Draw(render);
+
                     player.Draw(render);
+
                     enemyMananger.Draw(render, map);
                     /*door.Draw();*/
 
                     // Update GameObjects
-                    /*collectableManager.Update(player);*/
                     player.Update(map, door, render, global, enemyMananger.enemy, enemyMananger.maxEnemies);
                     camera.Update(player);
 
+                    collectableManager.Update(player, map);
                     enemyMananger.Update(player, map, render, global);
                     /*door.Update(player, collectableManager.key);*/
 

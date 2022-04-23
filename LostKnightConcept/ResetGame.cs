@@ -17,7 +17,7 @@ namespace LostKnightConcept
             Global global = new Global();
 
             EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
-            CollectableManager collectableManager = new CollectableManager();
+            CollectableManager collectableManager = new CollectableManager(map, player, global);
 
             //player
             player.health = 5;

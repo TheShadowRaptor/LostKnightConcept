@@ -31,8 +31,8 @@ namespace LostKnightConcept
 
                     if ((map.IsMapBounds(enemy[currentEnemy].x, enemy[currentEnemy].y) == false)
                     && map.IsFloor(enemy[currentEnemy].x, enemy[currentEnemy].y)
-                    && enemy[currentEnemy].CollideWithPlayer(player, enemy[currentEnemy].x, enemy[currentEnemy].y) == false)
-                    /*&& enemy[currentEnemy].CollideWithEnemy(enemy, enemy[currentEnemy].x, enemy[currentEnemy].y, maxEnemies, currentEnemy) == false)*/
+                    && enemy[currentEnemy].CollideWithPlayer(player, enemy[currentEnemy].x, enemy[currentEnemy].y) == false
+                    && enemy[currentEnemy].CollideWithEnemy(enemy, enemy[currentEnemy].x, enemy[currentEnemy].y, currentEnemy) == false)
                     {
                         canSpawn = true;
                         break;

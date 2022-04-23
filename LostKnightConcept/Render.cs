@@ -24,7 +24,7 @@ namespace LostKnightConcept
             int posX = x - camera.offsetY + 1;
             int posY = y - camera.offsetX + 1;
 
-            if(posX < screenX + 1 && posX > 0 && posY < screenY + 1 && posY > 0)
+            if(posX < screenX + 2 && posX > 0 && posY < screenY + 2 && posY > 0)
             {
                 Console.SetCursorPosition(posX, posY);
                 Console.ForegroundColor = foreGroundColor;
@@ -37,23 +37,16 @@ namespace LostKnightConcept
 
         public void MapDraw(int worldX, int worldY, char character)
         {            
-
-            // scroll camera
             screenX = worldX;
             screenY = worldY;
 
-            // range checking for on-screen coords
-            /*if (screenX > Console.WindowWidth) return;
-            if (screenY > Console.WindowHeight) return;
-            if (screenX < 0) return;
-            if (screenY < 0) return;
-*/
             Console.SetCursorPosition(screenX + 1, screenY + 1);
             Console.Write(character);
         }
 
-        public void CheckCameraScroll(Map map)
+        public void CheckCameraBounds(Map map)
         {
+            // range checking for on-screen coords
             if ((map.CheckCameraBoundX(camera.preOffSetX, global) == false))
             {
                 camera.offsetX = camera.preOffSetX;

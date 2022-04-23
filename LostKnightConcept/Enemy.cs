@@ -71,7 +71,7 @@ namespace LostKnightConcept
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && map.IsFloor(preMoveX, preMoveY)
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                /*&& CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies, currentEnemy) == false*/
+                && CollideWithEnemy(enemy, preMoveX, preMoveY, currentEnemy) == false
                 && player.targetEnemy == false)
             {
                 x = preMoveX;
@@ -94,12 +94,12 @@ namespace LostKnightConcept
             }
             return false;
         }
-        public bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies, int currentEnemy)
+        public bool CollideWithEnemy(Enemy[] enemy, int x, int y, int currentEnemy)
         {
             xData = x;
             yData = y;
 
-            if (xData == enemy[currentEnemy].xData && yData == enemy[currentEnemy].yData)
+            if (xData == enemy[currentEnemy].xData && yData == enemy[currentEnemy].yData && enemy[currentEnemy] != this)
             {
                 return true;
             }

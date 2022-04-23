@@ -138,7 +138,7 @@ namespace LostKnightConcept
                 // =================================
 
                 // check for Collision
-                render.CheckCameraScroll(map);
+                render.CheckCameraBounds(map);
             }
         }
         private bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
