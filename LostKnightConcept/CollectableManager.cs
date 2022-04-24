@@ -27,7 +27,7 @@ namespace LostKnightConcept
             for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)
             {
                 if (currentCollectable < heartCount) collectable[currentCollectable] = new Heart();
-                else if (currentCollectable == maxCollectables) collectable[currentCollectable] = new Key();
+                else if (currentCollectable == maxNumber) collectable[currentCollectable] = new Key();
                 else collectable[currentCollectable] = new DamageUp();
 
                 //Checks if there are any obsticals in the way of spawning

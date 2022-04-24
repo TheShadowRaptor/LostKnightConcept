@@ -8,8 +8,8 @@ namespace LostKnightConcept
 {
     class Key : Collectable
     {
-        private const int startPosX = 7;
-        private const int startPosy = 6;
+        /*private const int startPosX = 2;
+        private const int startPosy = 2;*/
 
         public Key()
         {
@@ -19,8 +19,8 @@ namespace LostKnightConcept
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Yellow;
 
-            x = startPosX;
-            y = startPosy;
+            /*x = startPosX;
+            y = startPosy;*/
 
         }
     }

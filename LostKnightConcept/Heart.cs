@@ -8,8 +8,6 @@ namespace LostKnightConcept
 {
     class Heart : Collectable
     {
-        private const int startPosX = 4;
-        private const int startPosy = 4;
         public Heart()
         {
             name = "Heart";
@@ -17,10 +15,6 @@ namespace LostKnightConcept
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Red;
-
-            x = startPosX;
-            y = startPosy;
-
         }
     }
 }

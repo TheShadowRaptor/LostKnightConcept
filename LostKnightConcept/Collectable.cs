@@ -53,7 +53,6 @@ namespace LostKnightConcept
             if (isActive)
             {
                 onPickUp(player, x, y);
-                CheckIfDead(player);
             }
             else
             {
@@ -62,14 +61,6 @@ namespace LostKnightConcept
 
                 x = xData;
                 y = yData;
-            }
-        }
-
-        private void CheckIfDead(Player player)
-        {
-            if (PickedUp == true)
-            {
-                isActive = false;
             }
         }
 

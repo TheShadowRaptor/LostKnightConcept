@@ -47,6 +47,8 @@
     <Compile Include="EnemyPosition.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Ghoul.cs" />
+    <Compile Include="InteractableObjects.cs" />
+    <Compile Include="InteractableObjectsMananger.cs" />
     <Compile Include="Render.cs" />
     <Compile Include="CollectableManager.cs" />
     <Compile Include="DamageUp.cs" />

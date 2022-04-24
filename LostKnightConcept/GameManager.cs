@@ -55,7 +55,7 @@ namespace LostKnightConcept
                     player.Draw(render);
 
                     enemyMananger.Draw(render, map);
-                    door.Draw();
+                    door.Draw(render);
 
                     // Update GameObjects
                     player.Update(map, door, render, global, enemyMananger.enemy, collectableManager.collectable, enemyMananger.maxEnemies, collectableManager.maxCollectables);

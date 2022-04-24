@@ -6,26 +6,8 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Door
-    {
-        private const int startPosX = 17;
-        private const int startPosy = 4;
-
-        private string name;
-
-        private string graphic;
-
-        private ConsoleColor backColor;
-        private ConsoleColor foreColor;
-
-        public int x;
-        public int y;
-
-        public int xData;
-        public int yData;
-
-        public bool isActive;
-
+    class Door : InteractableObjects
+    {      
         public Door()
         {
             name = "LockedDoor";
@@ -38,24 +20,9 @@ namespace LostKnightConcept
             y = startPosy;
 
             isActive = true;
-
         }
 
-        public void Update(Player player)
-        {
-            if (isActive)
-            {
-                UnlockDoor(player);
-            }
-        }
-
-        public void Draw(Render render)
-        {
-            if (isActive)
-            {
-                render.Draw(x, y, graphic, foreColor, backColor);
-            }
-        }
+        
 
         private void UnlockDoor(Player player)
         {

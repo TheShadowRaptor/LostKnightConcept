@@ -8,8 +8,6 @@ namespace LostKnightConcept
 {
     class DamageUp : Collectable
     {
-        private const int startPosX = 3;
-        private const int startPosy = 4;
         public DamageUp()
         {
             name = "DamageUp";
@@ -17,9 +15,6 @@ namespace LostKnightConcept
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.White;
-
-            x = startPosX;
-            y = startPosy;
         }       
     }
 }

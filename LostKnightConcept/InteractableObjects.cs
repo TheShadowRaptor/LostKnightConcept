@@ -26,13 +26,11 @@ namespace LostKnightConcept
 
         public bool isActive;
 
-        public bool interacted;
-
         public void Update(Player player)
         {
             if (isActive)
             {
-                UnlockDoor(player);
+                onInteract(player);
             }
         }
 
@@ -44,11 +42,15 @@ namespace LostKnightConcept
             }
         }
 
-        public void onInteract()
+        public void onInteract(Player player)
         {
+            xData = x;
+            yData = y;
 
+            if (player.xData == xData && player.yData == yData)
+            {
+                isActive = false;
+            }
         }
     }
-
-
 }
