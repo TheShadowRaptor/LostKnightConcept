@@ -22,14 +22,21 @@ namespace LostKnightConcept
             isActive = true;
         }
 
-        
+        public new void Update(Player player)
+        {
+            if (isActive)
+            {
+                onInteract(player);
+                UnlockDoor(player);
+            }
+        }
 
         private void UnlockDoor(Player player)
         {
             xData = x;
             yData = y;
 
-            if (player.xData == xData && player.yData == yData && player.keysHeld > 0)
+            if (interacted && player.keysHeld > 0)
             {
                 player.keysHeld = player.keysHeld - 1;
                 isActive = false;

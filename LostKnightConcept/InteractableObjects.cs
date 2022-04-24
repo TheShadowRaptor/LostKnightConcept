@@ -18,6 +18,8 @@ namespace LostKnightConcept
         protected ConsoleColor backColor;
         protected ConsoleColor foreColor;
 
+        protected bool interacted;
+
         public int x;
         public int y;
 
@@ -47,9 +49,14 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
 
+            // Looks for interaction once
             if (player.xData == xData && player.yData == yData)
             {
-                isActive = false;
+                interacted = true;
+            }
+            else
+            {
+                interacted = false;
             }
         }
     }

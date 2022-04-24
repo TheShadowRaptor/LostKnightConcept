@@ -138,11 +138,11 @@ namespace LostKnightConcept
             hit.Load();
             hit.Play();
         }
-        protected void CheckIfDamaged(Player player, Enemy[] enemy)
+        protected void CheckIfDamaged(Player player, Enemy[] enemy, int currentEnemy)
         {
             if (player.targetEnemy == true)
             {
-                enemy[player.currentTarget].health = health - player.damage;
+                /*enemy[currentEnemy].health = enemy[currentEnemy].health - player.damage;*/
                 /*health -= player.damage;*/
             }
         }
@@ -150,7 +150,7 @@ namespace LostKnightConcept
         {
             if (IsAlive())
             {
-                CheckIfDamaged(player, enemy);
+                CheckIfDamaged(player, enemy, currentEnemy);
                 Move(map, player, render, enemy, maxEnemies, currentEnemy, global);
             }
 
