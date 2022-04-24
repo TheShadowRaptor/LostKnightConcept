@@ -101,6 +101,18 @@ namespace LostKnightConcept
                 Console.BackgroundColor = ConsoleColor.DarkGray;
             }
 
+            if (map[x + render.camera.offsetX][y + render.camera.offsetY] == '=')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.BackgroundColor = ConsoleColor.DarkYellow;
+            }
+
+            if (map[x + render.camera.offsetX][y + render.camera.offsetY] == '▓')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
+
         }
         public bool IsMapBounds(int x, int y)
         {

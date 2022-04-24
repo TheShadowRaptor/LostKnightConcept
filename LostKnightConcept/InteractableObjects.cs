@@ -8,9 +8,6 @@ namespace LostKnightConcept
 {
     class InteractableObjects
     {
-        protected const int startPosX = 17;
-        protected const int startPosy = 4;
-
         protected string name;
 
         protected string graphic;

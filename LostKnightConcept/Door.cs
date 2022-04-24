@@ -8,6 +8,8 @@ namespace LostKnightConcept
 {
     class Door : InteractableObjects
     {      
+        //21 x
+        //8 y
         public Door()
         {
             name = "LockedDoor";
@@ -16,8 +18,8 @@ namespace LostKnightConcept
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Yellow;
 
-            x = startPosX;
-            y = startPosy;
+            /*x = startPosX;
+            y = startPosy;*/
 
             isActive = true;
         }
