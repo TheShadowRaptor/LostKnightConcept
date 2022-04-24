@@ -47,36 +47,46 @@ namespace LostKnightConcept
 
             if (wait == 1)
             {
-                if (direction == 0)
+                if (DetectPlayer(player, x, y) == false)
                 {
-                    preMoveY--;                   
+                    if (direction == 0)
+                    {
+                        preMoveY--;
+                    }
+
+                    else if (direction == 1)
+                    {
+                        preMoveY++;
+                    }
+
+                    else if (direction == 2)
+                    {
+                        preMoveX--;
+                    }
+
+                    else if (direction == 3)
+                    {
+                        preMoveX++;
+                    }
                 }
 
-                else if (direction == 1)
+                else
                 {
-                    preMoveY++;                   
+                    Console.Beep();
                 }
 
-                else if (direction == 2)
+                // Checks of enemy can move
+                if ((map.IsMapBounds(preMoveX, preMoveY) == false)
+                        && map.IsFloor(preMoveX, preMoveY)
+                        && CollideWithPlayer(player, preMoveX, preMoveY) == false
+                        && CollideWithEnemy(enemy, preMoveX, preMoveY, currentEnemy) == false
+                        && player.targetEnemy == false)
                 {
-                    preMoveX--;                  
+                    x = preMoveX;
+                    y = preMoveY;
                 }
-
-                else if (direction == 3)
-                {
-                    preMoveX++;                                   
-                }
-            }
-
-            if ((map.IsMapBounds(preMoveX, preMoveY) == false)
-                && map.IsFloor(preMoveX, preMoveY)
-                && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                && CollideWithEnemy(enemy, preMoveX, preMoveY, currentEnemy) == false
-                && player.targetEnemy == false)
-            {
-                x = preMoveX;
-                y = preMoveY;
-            }
+            }               
+            
             // Updates enemies position
             xData = x;
             yData = y;
@@ -94,6 +104,22 @@ namespace LostKnightConcept
             }
             return false;
         }
+
+        public bool DetectPlayer(Player player, int x, int y)
+        {
+            xData = x;
+            yData = y;
+
+            if (player.xData == xData + 1 && player.yData == yData
+                || x - 1 == player.xData && yData == player.yData
+                || x == player.x && y + 1 == player.y
+                || x == player.x && y - 1 == player.y)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool CollideWithEnemy(Enemy[] enemy, int x, int y, int currentEnemy)
         {
             xData = x;
@@ -116,7 +142,7 @@ namespace LostKnightConcept
         {
             if (player.targetEnemy == true)
             {
-                enemy[player.currentTarget].health -= player.damage;
+                enemy[player.currentTarget].health = health - player.damage;
                 /*health -= player.damage;*/
             }
         }

@@ -12,6 +12,9 @@ namespace LostKnightConcept
         public int x;
         public int y;
 
+        public int xData;
+        public int yData;
+
         protected string graphic;
 
         protected ConsoleColor backColor;
@@ -20,8 +23,6 @@ namespace LostKnightConcept
 
         protected bool isActive = true;
 
-        protected int xData;
-        protected int yData;
 
         protected bool PickedUp;
 
@@ -30,14 +31,15 @@ namespace LostKnightConcept
             
         }
 
-        protected void ItemPickedUp(Player player, int x, int y)
+        private void onPickUp(Player player, int x, int y)
         {
             xData = x;
             yData = y;
 
             if (player.xData == xData && player.yData == yData)
             {
-                this.isActive = false;
+                Console.Beep();
+                isActive = false;
             }
         }
 
@@ -50,7 +52,7 @@ namespace LostKnightConcept
         {
             if (isActive)
             {
-                ItemPickedUp(player, x, y);
+                onPickUp(player, x, y);
                 CheckIfDead(player);
             }
             else

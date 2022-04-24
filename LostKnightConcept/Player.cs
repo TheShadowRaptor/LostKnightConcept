@@ -17,17 +17,14 @@ namespace LostKnightConcept
 
         private const int startDamage = 1;
 
+        private SoundPlayer hitWall = new SoundPlayer();      
+
         public int resetPositionX;
         public int resetPositionY;
 
         private int preMoveX;
         private int preMoveY;
 
-        //public int OffsetX;
-        //public int OffsetY;
-
-        private SoundPlayer hitWall = new SoundPlayer();      
-        
         public string playerGraphic;
 
         public bool showTarget;
@@ -36,6 +33,12 @@ namespace LostKnightConcept
 
         public bool targetEnemy;
         public bool gameover;
+
+        public int keysHeld;
+
+        //public int OffsetX;
+        //public int OffsetY;
+        
         public Player()
         {
             Global global = new Global();
@@ -74,15 +77,16 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor);
         }
 
-        public void Update(Map map, Door door, Render render, Global global, Enemy[] enemy, int maxEnemies)
+        public void Update(Map map, Door door, Render render, Global global, Enemy[] enemy, Collectable[] collectable, int maxEnemies, int maxCollectables)
         {
             // Check if taken damage
             CheckIfDamaged(enemy, maxEnemies);
 
             if (IsAlive() == true)
             {
-                CheckIfDamaged(enemy, maxEnemies);
                 Move(map, enemy, door, render, global, maxEnemies);
+                ItemCollected(collectable, maxCollectables);
+                CheckIfDamaged(enemy, maxEnemies);
             }
 
             else if (IsAlive() == false)
@@ -212,5 +216,20 @@ namespace LostKnightConcept
             hit.Load();
             hit.Play();
         }
+
+        private void ItemCollected(Collectable[] collectable, int maxCollectables)
+        {
+            for (currentTarget = 0; currentTarget < maxCollectables; currentTarget++)
+            {
+                if (xData == collectable[currentTarget].xData && yData == collectable[currentTarget].yData)
+                {
+                    if (collectable[currentTarget].GetType() == typeof(Heart)) health = health + 1;
+
+                    if (collectable[currentTarget].GetType() == typeof(DamageUp)) damage = damage + 1;
+
+                    if (collectable[currentTarget].GetType() == typeof(Key)) keysHeld = keysHeld + 1;
+                }
+            }
+        } 
     }  
 }

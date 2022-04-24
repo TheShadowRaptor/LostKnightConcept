@@ -55,15 +55,15 @@ namespace LostKnightConcept
                     player.Draw(render);
 
                     enemyMananger.Draw(render, map);
-                    /*door.Draw();*/
+                    door.Draw();
 
                     // Update GameObjects
-                    player.Update(map, door, render, global, enemyMananger.enemy, enemyMananger.maxEnemies);
+                    player.Update(map, door, render, global, enemyMananger.enemy, collectableManager.collectable, enemyMananger.maxEnemies, collectableManager.maxCollectables);
                     camera.Update(player);
 
                     collectableManager.Update(player, map);
                     enemyMananger.Update(player, map, render, global);
-                    /*door.Update(player, collectableManager.key);*/
+                    door.Update(player);
 
                     // Gameover
                     if (player.IsAlive() == false)

@@ -12,7 +12,8 @@ namespace LostKnightConcept
         private const int startPosy = 4;
 
         private string name;
-        private char charGraphic;
+
+        private string graphic;
 
         private ConsoleColor backColor;
         private ConsoleColor foreColor;
@@ -28,7 +29,7 @@ namespace LostKnightConcept
         public Door()
         {
             name = "LockedDoor";
-            charGraphic = ']';
+            graphic = "]";
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Yellow;
@@ -40,40 +41,30 @@ namespace LostKnightConcept
 
         }
 
-        public void Update(Player player, Key key)
+        public void Update(Player player)
         {
             if (isActive)
             {
-                UnlockDoor(player, key);
+                UnlockDoor(player);
             }
         }
 
-        public void Draw()
+        public void Draw(Render render)
         {
             if (isActive)
             {
-                Console.SetCursorPosition(x + 1, y + 1);
-                DrawChar(charGraphic, backColor, foreColor);
-                xData = x;
-                yData = y;
+                render.Draw(x, y, graphic, foreColor, backColor);
             }
         }
-        public void DrawChar(char charGraphic, ConsoleColor backColor, ConsoleColor foreColor)
-        {
-            Console.BackgroundColor = backColor;
-            Console.ForegroundColor = foreColor;
-            Console.Write(charGraphic);
-            Console.ResetColor();
-        }
 
-        private void UnlockDoor(Player player, Key key)
+        private void UnlockDoor(Player player)
         {
             xData = x;
             yData = y;
 
-            if (player.xData == xData && player.yData == yData && key.keys > 0)
+            if (player.xData == xData && player.yData == yData && player.keysHeld > 0)
             {
-                key.keys = key.keys - 1;
+                player.keysHeld = player.keysHeld - 1;
                 isActive = false;
             }
         }
