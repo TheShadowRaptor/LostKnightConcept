@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Door : InteractableObjects
-    {      
-        //21 x
-        //8 y
+    class Door : InteractableObject
+    {             
         public Door()
         {
             name = "LockedDoor";

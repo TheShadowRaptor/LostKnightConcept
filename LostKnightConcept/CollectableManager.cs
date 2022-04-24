@@ -8,13 +8,12 @@ namespace LostKnightConcept
 {
     class CollectableManager
     {
-
-        public int maxCollectables = 5;
+        public int maxCollectables;
 
         int heartCount;
         int keyCount;
 
-        int keyNum = 1;
+        int keyNum;
 
         public Collectable[] collectable;
 
@@ -24,8 +23,11 @@ namespace LostKnightConcept
 
         public CollectableManager(Map map, Player player, Global global)
         {
+            maxCollectables = 5;
             heartCount = 2;
             keyCount = heartCount + 2;
+
+            keyNum = 1;
 
             int maxNumber = maxCollectables - 1;
             collectable = new Collectable[maxCollectables];

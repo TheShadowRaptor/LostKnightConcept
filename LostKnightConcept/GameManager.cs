@@ -25,6 +25,7 @@ namespace LostKnightConcept
             Door door = new Door();
             Player player = new Player();
             Map map = new Map();
+            InteractableObjectMananger interactableObjectMananger = new InteractableObjectMananger(global, map, player);
             EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
             CollectableManager collectableManager = new CollectableManager(map, player, global);
 
@@ -51,11 +52,9 @@ namespace LostKnightConcept
 
                     // Draw GameObjects
                     collectableManager.Draw(render);
-
                     player.Draw(render);
-
                     enemyMananger.Draw(render, map);
-                    door.Draw(render);
+                    interactableObjectMananger.Draw(render);
 
                     // Update GameObjects
                     player.Update(map, door, render, global, enemyMananger.enemy, collectableManager.collectable, enemyMananger.maxEnemies, collectableManager.maxCollectables);
@@ -63,7 +62,7 @@ namespace LostKnightConcept
 
                     collectableManager.Update(player, map);
                     enemyMananger.Update(player, map, render, global);
-                    door.Update(player);
+                    interactableObjectMananger.Update(player, map);
 
                     // Gameover
                     if (player.IsAlive() == false)

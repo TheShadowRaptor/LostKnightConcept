@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class InteractableObjects
+    class InteractableObject
     {
-        protected string name;
 
         protected string graphic;
 
@@ -17,14 +16,20 @@ namespace LostKnightConcept
 
         protected bool interacted;
 
+        public string name;
+
         public int x;
         public int y;
 
         public int xData;
         public int yData;
 
-        public bool isActive;
+        public bool isActive;       
 
+        public InteractableObject()
+        {
+            
+        }
         public void Update(Player player)
         {
             if (isActive)
@@ -33,7 +38,7 @@ namespace LostKnightConcept
             }
         }
 
-        public void Draw(Render render)
+        public void Draw(string name, Render render)
         {
             if (isActive)
             {
@@ -55,6 +60,31 @@ namespace LostKnightConcept
             {
                 interacted = false;
             }
+        }
+
+        public bool CollideWithPlayer(Player player, int x, int y)
+        {
+            xData = x;
+            yData = y;
+
+            if (xData == player.xData && yData == player.yData)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool CollideWithEnemy(InteractableObject[] interactableObject, int x, int y, int currentObject)
+        {
+            xData = x;
+            yData = y;
+
+            if (xData == interactableObject[currentObject].xData && yData == interactableObject[currentObject].yData && interactableObject[currentObject] != this)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

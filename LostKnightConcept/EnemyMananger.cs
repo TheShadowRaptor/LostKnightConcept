@@ -4,14 +4,18 @@ namespace LostKnightConcept
 {
     class EnemyMananger 
     {
-        public int maxEnemies = 5;
+        public int maxEnemies;
 
-        int SkeletonCount = 2;
+        int SkeletonCount;
 
         public Enemy[] enemy;
 
         public EnemyMananger(Map map, Player player, Global global)
         {
+            maxEnemies = 5;
+
+            SkeletonCount = 2;
+
             int maxNumber = maxEnemies - 1;
             enemy = new Enemy[maxEnemies];
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LostKnightConcept
 {
-    class Teleporter : InteractableObjects
+    class Teleporter : InteractableObject
     {
         public Teleporter()
         {
