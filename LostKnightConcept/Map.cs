@@ -157,5 +157,14 @@ namespace LostKnightConcept
             return false;
         }
 
+        public bool GhostBounds(int x, int y)
+        {
+            //Inner map bounds
+            if (map[y][x] == '═' || map[y][x] == '║')
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

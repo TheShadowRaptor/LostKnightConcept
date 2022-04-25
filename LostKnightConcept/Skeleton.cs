@@ -48,6 +48,7 @@ namespace LostKnightConcept
 
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                 && map.IsFloor(preMoveX, preMoveY)
+                && map.GhostBounds(preMoveX, preMoveY) == false
                 && CollideWithPlayer(player, preMoveX, preMoveY) == false
                 && CollideWithEnemy(enemy, preMoveX, preMoveY, currentEnemy) == false
                 && player.targetEnemy == false)

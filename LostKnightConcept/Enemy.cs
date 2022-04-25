@@ -32,6 +32,25 @@ namespace LostKnightConcept
             render.Draw(x, y, graphic, foreColor, backColor);           
             
         }
+
+        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, int currentTarget, int currentEnemy, Global global)
+        {
+            if (IsAlive())
+            {
+                CheckIfDamaged(player, enemy, currentTarget);
+                Move(map, player, render, enemy, maxEnemies, currentEnemy, global);
+            }
+
+            if (IsAlive() == false)
+            {
+                xData = map.row + 1;
+                yData = map.colume + 1;
+
+                x = xData;
+                y = yData;
+            }
+        }
+
         public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, int currentEnemy, Global global)
         {
             // checks if enemy can move
@@ -72,7 +91,7 @@ namespace LostKnightConcept
 
                 else
                 {
-                    Console.Beep();
+                    
                 }
 
                 // Checks of enemy can move
@@ -144,23 +163,6 @@ namespace LostKnightConcept
             {
                 enemy[currentTarget].health = enemy[currentTarget].health - player.damage;
                 /*health -= player.damage;*/
-            }
-        }
-        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, int currentTarget, int currentEnemy, Global global)
-        {
-            if (IsAlive())
-            {
-                CheckIfDamaged(player, enemy, currentTarget);
-                Move(map, player, render, enemy, maxEnemies, currentEnemy, global);
-            }
-
-            if (IsAlive() == false)
-            {
-                xData = map.row + 1;
-                yData = map.colume + 1;
-
-                x = xData;
-                y = yData;
             }
         }
     }

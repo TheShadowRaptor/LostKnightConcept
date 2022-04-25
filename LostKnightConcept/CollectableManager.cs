@@ -23,7 +23,7 @@ namespace LostKnightConcept
 
         public CollectableManager(Map map, Player player, Global global)
         {
-            maxCollectables = 5;
+            maxCollectables = 6;
             heartCount = 2;
             keyCount = heartCount + 2;
 
@@ -43,8 +43,8 @@ namespace LostKnightConcept
 
                 while (canSpawn == false)
                 {
-                    collectable[currentCollectable].x = global.rng.Next(1, /*map.colume*/ 10);
-                    collectable[currentCollectable].y = global.rng.Next(1, /*map.row*/ 10);
+                    collectable[currentCollectable].x = global.rng.Next(1, map.colume);
+                    collectable[currentCollectable].y = global.rng.Next(1, map.row);
 
                     // Manualy spawn items
                     if (collectable[currentCollectable].GetType() == typeof(Key))
@@ -56,8 +56,8 @@ namespace LostKnightConcept
                         }
                         else if (keyNum == 2)
                         {
-                            collectable[currentCollectable].x = 10;
-                            collectable[currentCollectable].y = 14;
+                            collectable[currentCollectable].x = 67;
+                            collectable[currentCollectable].y = 9;
                         }
                         keyNum = keyNum + 1;
                     }
