@@ -77,14 +77,14 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor);
         }
 
-        public void Update(Map map, Door door, Render render, Global global, Enemy[] enemy, Collectable[] collectable, int maxEnemies, int maxCollectables)
+        public void Update(Map map, Render render, Global global, Enemy[] enemy, Collectable[] collectable, InteractableObject[] interactableObject, int maxEnemies, int maxCollectables, int maxObjects)
         {
             // Check if taken damage
             CheckIfDamaged(enemy, maxEnemies);
 
             if (IsAlive() == true)
             {
-                Move(map, enemy, door, render, global, maxEnemies);
+                Move(map, enemy, render, global, interactableObject, maxEnemies, maxObjects);
                 ItemCollected(collectable, maxCollectables);
                 CheckIfDamaged(enemy, maxEnemies);
             }
@@ -95,7 +95,7 @@ namespace LostKnightConcept
                 yData = map.colume + 1;
             }
         }
-        protected void Move(Map map, Enemy[] enemy, Door door, Render render, Global global, int maxEnemies)
+        protected void Move(Map map, Enemy[] enemy, Render render, Global global, InteractableObject[] interactableObject, int maxEnemies, int maxObjects)
         {
             // checks if player can move
             preMoveY = y;
@@ -114,28 +114,28 @@ namespace LostKnightConcept
                 if (input.Key == ConsoleKey.W || input.Key == ConsoleKey.UpArrow)
                 {
                     preMoveY--;
-                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetX--;
+                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.S || input.Key == ConsoleKey.DownArrow)
                 {
                     preMoveY++;
-                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetX++;
+                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX++;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.A || input.Key == ConsoleKey.LeftArrow)
                 {
                     preMoveX--;
-                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetY--;
+                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY--;
                     inputLoop = false;
                 }
 
                 else if (input.Key == ConsoleKey.D || input.Key == ConsoleKey.RightArrow)
                 {
                     preMoveX++;
-                    if (CheckMove(map, door, enemy, maxEnemies)) render.camera.preOffSetY++;
+                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY++;
                     inputLoop = false;
                 }
 
@@ -162,12 +162,12 @@ namespace LostKnightConcept
             return false;
         }
 
-        private bool CheckMove(Map map, Door door, Enemy[] enemy, int maxEnemies)
+        private bool CheckMove(Map map, Enemy[] enemy, InteractableObject[] interactableObject, int maxEnemies, int maxObjects)
         {
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                     && map.IsFloor(preMoveX, preMoveY)
                     && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
-                    && CollideWithDoor(door, preMoveX, preMoveY) == false)
+                    && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false)
                     {               
 
                         x = preMoveX;
@@ -183,14 +183,14 @@ namespace LostKnightConcept
             }
         }
         
-        private bool CollideWithDoor(Door door, int x, int y)
+        private bool CollideWithDoor(InteractableObject[] interactableObject, int x, int y, int maxObjects)
         {
-            xData = x;
-            yData = y;
-
-            if (door.xData == xData && door.yData == yData && door.isActive == true)
+            for (currentTarget = 0; currentTarget < maxObjects; currentTarget++)
             {
-                return true;
+                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                {
+                    if (interactableObject[currentTarget].GetType() == typeof(Door)) return true;             
+                }
             }
             return false;
         }

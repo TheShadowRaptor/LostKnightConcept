@@ -15,14 +15,9 @@ namespace LostKnightConcept
 
             backColor = ConsoleColor.DarkGray;
             foreColor = ConsoleColor.Yellow;
-
-            /*x = startPosX;
-            y = startPosy;*/
-
-            isActive = true;
         }
 
-        public new void Update(Player player)
+        public override void Update(Player player)
         {
             if (isActive)
             {
@@ -33,9 +28,6 @@ namespace LostKnightConcept
 
         private void UnlockDoor(Player player)
         {
-            xData = x;
-            yData = y;
-
             if (interacted && player.keysHeld > 0)
             {
                 player.keysHeld = player.keysHeld - 1;

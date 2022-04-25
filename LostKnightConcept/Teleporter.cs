@@ -15,11 +15,6 @@ namespace LostKnightConcept
 
             backColor = ConsoleColor.DarkGreen;
             foreColor = ConsoleColor.Blue;
-
-            /*x = startPosX;
-            y = startPosy;*/
-
-            isActive = true;
         }
     }
 }

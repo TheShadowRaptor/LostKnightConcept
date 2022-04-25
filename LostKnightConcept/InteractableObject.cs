@@ -14,7 +14,7 @@ namespace LostKnightConcept
         protected ConsoleColor backColor;
         protected ConsoleColor foreColor;
 
-        protected bool interacted;
+        public bool interacted;
 
         public string name;
 
@@ -28,9 +28,10 @@ namespace LostKnightConcept
 
         public InteractableObject()
         {
-            
+            isActive = true;
+            interacted = false;
         }
-        public void Update(Player player)
+        public virtual void Update(Player player)
         {
             if (isActive)
             {
@@ -56,6 +57,7 @@ namespace LostKnightConcept
             {
                 interacted = true;
             }
+
             else
             {
                 interacted = false;

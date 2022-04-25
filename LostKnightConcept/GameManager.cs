@@ -52,12 +52,12 @@ namespace LostKnightConcept
 
                     // Draw GameObjects
                     collectableManager.Draw(render);
+                    interactableObjectMananger.Draw(render);
                     player.Draw(render);
                     enemyMananger.Draw(render, map);
-                    interactableObjectMananger.Draw(render);
 
                     // Update GameObjects
-                    player.Update(map, door, render, global, enemyMananger.enemy, collectableManager.collectable, enemyMananger.maxEnemies, collectableManager.maxCollectables);
+                    player.Update(map, render, global,  enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects);
                     camera.Update(player);
 
                     collectableManager.Update(player, map);
