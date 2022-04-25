@@ -8,8 +8,6 @@ namespace LostKnightConcept
 {
     class Teleporter : InteractableObject
     {       
-        TeleporterDestination teleporterDestination = new TeleporterDestination();
-
         public Teleporter()
         {
             name = "Teleporter";
@@ -20,18 +18,11 @@ namespace LostKnightConcept
 
             xData = x;
             yData = y;
-
         }
 
         public override void Update(Player player)
         {
             onInteract(player);
-            Destination();
-        }
-        public void Destination()
-        {
-            destinationX = teleporterDestination.x;
-            destinationY = teleporterDestination.y;
         }
     }
 }

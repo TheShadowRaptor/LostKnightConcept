@@ -154,7 +154,7 @@ namespace LostKnightConcept
             for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
             {
                 if (enemy[currentTarget].xData == xData && enemy[currentTarget].yData == yData)
-                {
+                {                  
                     PlaySoundHitEnemy();
                     targetEnemy = true;
                     return true;
@@ -195,6 +195,7 @@ namespace LostKnightConcept
             }
             return false;
         }
+
         protected void CheckIfDamaged(Enemy[] enemy, int maxEnemies)
         {
             for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
@@ -242,8 +243,8 @@ namespace LostKnightConcept
                     if (interactableObject[currentTarget].GetType() == typeof(Teleporter))
                     {                     
                         Console.Beep();
+                        //teleport player to teleporterDestination
                     }
-
                 }
             }
         }

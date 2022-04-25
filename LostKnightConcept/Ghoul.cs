@@ -19,7 +19,7 @@ namespace LostKnightConcept
             backColor = ConsoleColor.Red;
         }
 
-        public override void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, int currentEnemy, Global global)
+        public override void Move(Map map, Player player, Render render, Enemy[] enemy, InteractableObject[] interactableObject, int maxEnemies, int maxObjects, Global global)
         {
             // moves enemy with randomizer
             int direction;
@@ -63,7 +63,8 @@ namespace LostKnightConcept
                 if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                     && map.IsFloor(preMoveX, preMoveY)
                     && CollideWithPlayer(player, preMoveX, preMoveY) == false
-                    && CollideWithEnemy(enemy, preMoveX, preMoveY, currentEnemy) == false
+                    && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
+                    && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false
                     && player.targetEnemy == false)
                 {
                     x = preMoveX;

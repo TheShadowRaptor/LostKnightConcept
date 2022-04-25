@@ -8,7 +8,7 @@ namespace LostKnightConcept
 {
     class HUD
     {
-        public void ShowHUD(Map map, Player player, Key key, Enemy[] enemy, int currentEnemy, int maxEnemies)
+        public void ShowHUD(Map map, Player player, Key key, Enemy[] enemy, int maxEnemies)
         {
             Console.SetCursorPosition(0, + 18);
             Console.WriteLine("╔═════════════════════{HUD}═══════════════════════╗");
@@ -28,12 +28,12 @@ namespace LostKnightConcept
             if (player.targetEnemy == true)
             {
                 Console.WriteLine("");
-                Console.WriteLine("║Target name: " + enemy[currentEnemy].name + " health = " + enemy[currentEnemy].health);
+                Console.WriteLine("║Target name: " + enemy[player.currentTarget].name + " health = " + enemy[player.currentTarget].health);
                 Console.WriteLine("║╔═╗");
                 Console.Write("║║");
-                Console.BackgroundColor = enemy[currentEnemy].backColor;
-                Console.ForegroundColor = enemy[currentEnemy].foreColor;
-                Console.Write((enemy[currentEnemy].graphic));
+                Console.BackgroundColor = enemy[player.currentTarget].backColor;
+                Console.ForegroundColor = enemy[player.currentTarget].foreColor;
+                Console.Write((enemy[player.currentTarget].graphic));
                 Console.ResetColor();
                 Console.WriteLine("║");
                 Console.WriteLine("║╚═╝");

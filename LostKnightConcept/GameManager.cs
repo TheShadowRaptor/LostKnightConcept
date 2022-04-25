@@ -48,7 +48,7 @@ namespace LostKnightConcept
                 {
                     // Draw UI                  
                     map.DisplayMap(render);
-                    hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, player.currentTarget, enemyMananger.maxEnemies);
+                    hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
 
                     // Draw GameObjects
                     collectableManager.Draw(render);
@@ -61,7 +61,7 @@ namespace LostKnightConcept
                     camera.Update(player);
 
                     collectableManager.Update(player, map);
-                    enemyMananger.Update(player, map, render, global);
+                    enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
                     interactableObjectMananger.Update(player, map);
 
                     // Gameover

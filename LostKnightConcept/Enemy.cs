@@ -33,12 +33,13 @@ namespace LostKnightConcept
             
         }
 
-        public void Update(Player player, Map map, Render render, Enemy[] enemy, int maxEnemies, int currentTarget, Global global)
+        public void Update(Player player, Map map, Render render, Enemy[] enemy, InteractableObject[] interactableObject, int maxEnemies, int maxObjects, int currentTarget, Global global)
         {
+            CheckIfDamaged(player, enemy, currentTarget);
+
             if (IsAlive())
             {
-                CheckIfDamaged(player, enemy);
-                Move(map, player, render, enemy, maxEnemies, currentTarget, global);
+                Move(map, player, render, enemy, interactableObject, maxEnemies, maxObjects, global);
             }
 
             if (IsAlive() == false)
@@ -51,7 +52,7 @@ namespace LostKnightConcept
             }
         }
 
-        public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, int maxEnemies, int currentEnemy, Global global)
+        public virtual void Move(Map map, Player player, Render render, Enemy[] enemy, InteractableObject[] interactableObject, int maxEnemies, int maxObjects, Global global)
         {
             // checks if enemy can move
             preMoveY = y;
@@ -91,7 +92,8 @@ namespace LostKnightConcept
 
                 else
                 {
-                    
+                    preMoveX = player.xData;
+                    preMoveY = player.yData;
                 }
 
                 // Checks of enemy can move
@@ -99,6 +101,7 @@ namespace LostKnightConcept
                         && map.IsFloor(preMoveX, preMoveY)
                         && CollideWithPlayer(player, preMoveX, preMoveY) == false
                         && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
+                        && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false
                         && player.targetEnemy == false)
                 {
                     x = preMoveX;
@@ -128,14 +131,16 @@ namespace LostKnightConcept
         {
             xData = x;
             yData = y;
-
+            
             if (player.xData == xData + 1 && player.yData == yData
-                || x - 1 == player.xData && yData == player.yData
-                || x == player.x && y + 1 == player.y
-                || x == player.x && y - 1 == player.y)
+            || xData - 1 == player.xData && yData == player.yData
+            || xData == player.xData && yData + 1 == player.yData
+            || xData == player.xData && yData - 1 == player.yData)
             {
+                Console.Beep();
                 return true;
             }
+            
             return false;
         }
 
@@ -159,13 +164,23 @@ namespace LostKnightConcept
             hit.Load();
             hit.Play();
         }
-        protected void CheckIfDamaged(Player player, Enemy[] enemy)
+        protected void CheckIfDamaged(Player player, Enemy[] enemy, int currentTarget)
         {
             if (player.targetEnemy == true)
-            {               
-                 enemy[player.currentTarget].health = enemy[player.currentTarget].health - player.damage;
-                /*health -= player.damage;*/
+            {
+                enemy[currentTarget].health = enemy[currentTarget].health - player.damage;
             }
+        }
+        protected bool CollideWithDoor(InteractableObject[] interactableObject, int x, int y, int maxObjects)
+        {
+            for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            {
+                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                {
+                    if (interactableObject[currentTarget].GetType() == typeof(Door)) return true;
+                }
+            }
+            return false;
         }
     }
 }

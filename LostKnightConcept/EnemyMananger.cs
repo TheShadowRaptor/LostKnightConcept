@@ -59,11 +59,11 @@ namespace LostKnightConcept
             }
         }
 
-        public void Update(Player player, Map map, Render render, Global global)
+        public void Update(Player player, Map map, Render render, InteractableObject[] interactableObject, int maxObjects, Global global)
         {
             for (int currentEnemy  = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[currentEnemy].Update(player, map, render, enemy, maxEnemies, player.currentTarget, global);
+                enemy[currentEnemy].Update(player, map, render, enemy, interactableObject, maxEnemies, maxObjects, player.currentTarget, global);
             }          
         }       
     }
