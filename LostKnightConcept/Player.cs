@@ -186,7 +186,7 @@ namespace LostKnightConcept
         
         private bool CollideWithDoor(InteractableObject[] interactableObject, int x, int y, int maxObjects)
         {
-            for (currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
             {
                 if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
                 {
@@ -235,7 +235,7 @@ namespace LostKnightConcept
 
         private void CanTeleport(InteractableObject[] interactableObject, int maxObjects)
         {
-            for (currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            for (int currentTarget  = 0; currentTarget < maxObjects; currentTarget++)
             {
                 if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData)
                 {

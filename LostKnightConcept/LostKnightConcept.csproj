@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="TeleporterDestination.cs" />
-    <Compile Include="EnemyPosition.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Ghoul.cs" />
     <Compile Include="InteractableObject.cs" />
