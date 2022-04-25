@@ -8,7 +8,6 @@ namespace LostKnightConcept
 {
     class InteractableObject
     {
-
         protected string graphic;
 
         protected ConsoleColor backColor;
@@ -24,7 +23,11 @@ namespace LostKnightConcept
         public int xData;
         public int yData;
 
-        public bool isActive;       
+        public bool isActive;   
+        
+        //for teleporter
+        public int destinationX;
+        public int destinationY;
 
         public InteractableObject()
         {

@@ -7,15 +7,20 @@
         public int maxObjects;
 
         int doorCount;
+        int teleporterCount;
 
         int doorNum;
+        int teleporterNum;
 
         public InteractableObjectMananger(Global global, Map map, Player player)
         {
-            maxObjects = 3;
+            maxObjects = 5;
 
             doorNum = 1;
+            teleporterNum = 1;
+
             doorCount = 2;
+            teleporterCount = doorCount + 2;
 
             int maxNumber = maxObjects - 1;
             interactableObject = new InteractableObject[maxObjects];
@@ -23,7 +28,8 @@
             for (int currentObject = 0; currentObject < maxObjects; currentObject++)
             {
                 if (currentObject < doorCount) interactableObject[currentObject] = new Door();
-                else interactableObject[currentObject] = new Teleporter();
+                else if (currentObject < teleporterCount) interactableObject[currentObject] = new Teleporter();
+                else interactableObject[currentObject] = new TeleporterDestination();
 
                 //Checks if there are any obsticals in the way of spawning
                 bool canSpawn = false;
@@ -49,10 +55,35 @@
                         doorNum = doorNum + 1;
                     }
 
+                    if (interactableObject[currentObject].GetType() == typeof(TeleporterDestination))
+                    {
+                        if (teleporterNum == 1)
+                        {
+                            interactableObject[currentObject].x = 29;
+                            interactableObject[currentObject].y = 8;
+                        }
+
+                        else if (teleporterNum == 2)
+                        {
+                            interactableObject[currentObject].x = 57;
+                            interactableObject[currentObject].y = 4;
+                        }
+                        teleporterNum = teleporterNum + 1;
+                    }
+
                     if (interactableObject[currentObject].GetType() == typeof(Teleporter))
                     {
-                        interactableObject[currentObject].x = 24;
-                        interactableObject[currentObject].y = 8;
+                        if (teleporterNum == 1)
+                        {
+                            interactableObject[currentObject].x = 24;
+                            interactableObject[currentObject].y = 8;
+                        }
+                        
+                        else if (teleporterNum == 2)
+                        {
+                            interactableObject[currentObject].x = 59;
+                            interactableObject[currentObject].y = 9;
+                        }                        
                     }
 
                     if ((map.IsMapBounds(interactableObject[currentObject].x, interactableObject[currentObject].y) == false)

@@ -57,7 +57,7 @@ namespace LostKnightConcept
         {
             for (int currentEnemy  = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[currentEnemy].Update(player, map, render, enemy, maxEnemies, currentEnemy, global);
+                enemy[currentEnemy].Update(player, map, render, enemy, maxEnemies, player.currentTarget, currentEnemy, global);
             }          
         }       
     }

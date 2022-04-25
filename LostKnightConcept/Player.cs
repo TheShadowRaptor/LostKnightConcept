@@ -17,7 +17,7 @@ namespace LostKnightConcept
 
         private const int startDamage = 1;
 
-        private SoundPlayer hitWall = new SoundPlayer();      
+        private SoundPlayer hitWall = new SoundPlayer();
 
         public int resetPositionX;
         public int resetPositionY;
@@ -84,6 +84,7 @@ namespace LostKnightConcept
 
             if (IsAlive() == true)
             {
+                CanTeleport(interactableObject, maxObjects);
                 Move(map, enemy, render, global, interactableObject, maxEnemies, maxObjects);
                 ItemCollected(collectable, maxCollectables);
                 CheckIfDamaged(enemy, maxEnemies);
@@ -219,7 +220,7 @@ namespace LostKnightConcept
 
         private void ItemCollected(Collectable[] collectable, int maxCollectables)
         {
-            for (currentTarget = 0; currentTarget < maxCollectables; currentTarget++)
+            for (int currentTarget = 0; currentTarget < maxCollectables; currentTarget++)
             {
                 if (xData == collectable[currentTarget].xData && yData == collectable[currentTarget].yData)
                 {
@@ -231,5 +232,20 @@ namespace LostKnightConcept
                 }
             }
         } 
+
+        private void CanTeleport(InteractableObject[] interactableObject, int maxObjects)
+        {
+            for (currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            {
+                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData)
+                {
+                    if (interactableObject[currentTarget].GetType() == typeof(Teleporter))
+                    {                     
+                        Console.Beep();
+                    }
+
+                }
+            }
+        }
     }  
 }
