@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="InputManager.cs" />
+    <Compile Include="MenuManager.cs" />
+    <Compile Include="Inventory.cs" />
     <Compile Include="TeleporterDestination.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Ghoul.cs" />
@@ -90,6 +93,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Map.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PauseMenu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Title.txt">

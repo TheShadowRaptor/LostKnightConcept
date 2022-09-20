@@ -66,6 +66,8 @@ namespace LostKnightConcept
             Console.WriteLine("A/◄ = Left");
             Console.WriteLine("D/► = Right");
             Console.WriteLine("Enter/Space = Select");
+            Console.WriteLine("Tab = Open/Close Inventory Menu");
+            Console.WriteLine("Escape = Pause/Unpause Game");
 
             Console.CursorVisible = false;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace LostKnightConcept
 {
@@ -15,6 +16,8 @@ namespace LostKnightConcept
             Global global = new Global();
             GameManager gameManager = new GameManager();
             ResetGame resetGame = new ResetGame();
+            MenuManager menuManager = new MenuManager(global.pauseMenuFile);
+            InputManager inputManager = new InputManager();
             
 
             Title title = new Title();
@@ -24,6 +27,7 @@ namespace LostKnightConcept
 
             Door door = new Door();
             Player player = new Player();
+            Inventory inventory = new Inventory();
             Map map = new Map();
             InteractableObjectMananger interactableObjectMananger = new InteractableObjectMananger(global, map, player);
             EnemyMananger enemyMananger = new EnemyMananger(map, player, global);
@@ -33,6 +37,8 @@ namespace LostKnightConcept
             Render render = new Render(camera, global);
 
             HUD hud = new HUD();
+
+            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
             // Gameloop
             while (gameManager.isGameActive) 
@@ -46,23 +52,37 @@ namespace LostKnightConcept
 
                 if (gameManager.isGameActive)
                 {
-                    // Draw UI                  
+
+                    
+                    // Draw Map and HUD
                     map.DisplayMap(render);
                     hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
+
+
 
                     // Draw GameObjects
                     collectableManager.Draw(render);
                     interactableObjectMananger.Draw(render);
                     player.Draw(render);
                     enemyMananger.Draw(render, map);
+                    
 
-                    // Update GameObjects
-                    player.Update(map, render, global,  enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects);
-                    camera.Update(player);
+                    //Update inputManager
+                    inputManager.Update();
+                    // Update menuManager
+                    menuManager.Update(inputManager.input);
 
-                    collectableManager.Update(player, map);
-                    enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
-                    interactableObjectMananger.Update(player, map);
+                    // Do not allow world updates when menus are open or game is paused
+                    if (menuManager.paused == false)
+                    {
+                        // Update GameObjects
+                        player.Update(map, render, global, enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects, inputManager.input);
+                        camera.Update(player);
+
+                        collectableManager.Update(player, map);
+                        enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
+                        interactableObjectMananger.Update(player, map);
+                    }
 
                     // Gameover
                     if (player.IsAlive() == false)

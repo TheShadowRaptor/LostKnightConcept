@@ -77,7 +77,7 @@ namespace LostKnightConcept
             render.Draw(x, y, characterGraphic, foreColor, backColor);
         }
 
-        public void Update(Map map, Render render, Global global, Enemy[] enemy, Collectable[] collectable, InteractableObject[] interactableObject, int maxEnemies, int maxCollectables, int maxObjects)
+        public void Update(Map map, Render render, Global global, Enemy[] enemy, Collectable[] collectable, InteractableObject[] interactableObject, int maxEnemies, int maxCollectables, int maxObjects, ConsoleKey input)
         {
             // Check if taken damage
             CheckIfDamaged(enemy, maxEnemies);
@@ -85,7 +85,7 @@ namespace LostKnightConcept
             if (IsAlive() == true)
             {
                 CanTeleport(interactableObject, maxObjects);
-                Move(map, enemy, render, global, interactableObject, maxEnemies, maxObjects);
+                Move(map, enemy, render, global, interactableObject, maxEnemies, maxObjects, input);
                 ItemCollected(collectable, maxCollectables);
                 CheckIfDamaged(enemy, maxEnemies);
             }
@@ -96,7 +96,7 @@ namespace LostKnightConcept
                 yData = map.colume + 1;
             }
         }
-        protected void Move(Map map, Enemy[] enemy, Render render, Global global, InteractableObject[] interactableObject, int maxEnemies, int maxObjects)
+        protected void Move(Map map, Enemy[] enemy, Render render, Global global, InteractableObject[] interactableObject, int maxEnemies, int maxObjects, ConsoleKey input)
         {
             // checks if player can move
             preMoveY = y;
@@ -108,32 +108,30 @@ namespace LostKnightConcept
 
             while (inputLoop == true)
             {
-                ConsoleKeyInfo input = Console.ReadKey(true);
-
 
                 // move player ============================
-                if (input.Key == ConsoleKey.W || input.Key == ConsoleKey.UpArrow)
+                if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
                 {
                     preMoveY--;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX--;
                     inputLoop = false;
                 }
 
-                else if (input.Key == ConsoleKey.S || input.Key == ConsoleKey.DownArrow)
+                else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
                 {
                     preMoveY++;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX++;
                     inputLoop = false;
                 }
 
-                else if (input.Key == ConsoleKey.A || input.Key == ConsoleKey.LeftArrow)
+                else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
                 {
                     preMoveX--;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY--;
                     inputLoop = false;
                 }
 
-                else if (input.Key == ConsoleKey.D || input.Key == ConsoleKey.RightArrow)
+                else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
                 {
                     preMoveX++;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY++;
