@@ -42,10 +42,10 @@ namespace LostKnightConcept
             else
             {
                 Console.WriteLine("║                                                 ║");
-                    Console.WriteLine("║                                                 ║");
-                    Console.WriteLine("║                                                 ║");
-                    Console.WriteLine("║                                                 ║");
-                    Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
+                Console.WriteLine("║                                                 ║");
                 /*}*/
                 Console.WriteLine("╚═════════════════════════════════════════════════╝");
             }

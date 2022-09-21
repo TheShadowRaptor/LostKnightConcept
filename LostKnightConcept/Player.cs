@@ -35,6 +35,7 @@ namespace LostKnightConcept
         public bool gameover;
 
         public int keysHeld;
+        public int moneyHeld;
 
         //public int OffsetX;
         //public int OffsetY;
@@ -218,6 +219,8 @@ namespace LostKnightConcept
                     //if (collectable[currentTarget].GetType() == typeof(DamageUp)) damage = damage + 1;
 
                     if (collectable[currentTarget].GetType() == typeof(Key)) keysHeld = keysHeld + 1;
+
+                    //if (collectable[currentTarget].GetType() == typeof(Money)) moneyHeld = moneyHeld + 1;
                 }
             }
         }
