@@ -47,6 +47,7 @@
     <Compile Include="InputManager.cs" />
     <Compile Include="MenuManager.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="Money.cs" />
     <Compile Include="TeleporterDestination.cs" />
     <Compile Include="Ghost.cs" />
     <Compile Include="Ghoul.cs" />
