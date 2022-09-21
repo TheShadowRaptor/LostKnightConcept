@@ -101,48 +101,37 @@ namespace LostKnightConcept
             // checks if player can move
             preMoveY = y;
             preMoveX = x;
-
-            // moves player with button input          
-            bool inputLoop;
-            inputLoop = true;
-
-            while (inputLoop == true)
-            {
-
+        
                 // move player ============================
                 if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
                 {
                     preMoveY--;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX--;
-                    inputLoop = false;
                 }
 
                 else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
                 {
                     preMoveY++;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX++;
-                    inputLoop = false;
                 }
 
                 else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
                 {
                     preMoveX--;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY--;
-                    inputLoop = false;
                 }
 
                 else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
                 {
                     preMoveX++;
                     if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY++;
-                    inputLoop = false;
                 }
 
                 // =================================
 
                 // check for Collision
                 render.CheckCameraBounds(map);
-            }
+            
         }
         private bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
         {

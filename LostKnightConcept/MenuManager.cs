@@ -4,80 +4,71 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
 
 namespace LostKnightConcept
 {
     class MenuManager
     {
-        public bool menuOpen;
+        public bool focusMenu;
+        public bool inventoryOpen;
         public bool paused;
         private bool clearedScreen;
         private string[] pausedMenu;
         
         public MenuManager(string pausedMenuPath)
         {
-            menuOpen = false;
+            focusMenu = false;
+            inventoryOpen = false;
             paused = false;
             clearedScreen = true;
             pausedMenu = File.ReadAllLines(pausedMenuPath);
         }
 
-        public void Update(ConsoleKey input)
+        public void Update(ConsoleKey input, Inventory inventory)
         {
             CheckInputs(input);
-            //CheckBoolStates();
+            CheckBoolStates(inventory);
         }
 
         void CheckInputs(ConsoleKey input)
         {
             if (input == ConsoleKey.Escape)
             {
-                if (paused == true)
-                {
-                    paused = false;
-                }
-                else
-                {
-                    paused = true;
-                }
+                paused = !paused;
             }
-            
-            if (paused == false && input == ConsoleKey.Tab)
+            else if (paused == false && input == ConsoleKey.Tab)
             {
-                if (menuOpen == true)
-                {
-                    menuOpen = false;
-                }
-                else
-                {
-                    menuOpen = true;
-                }
+                inventoryOpen = !inventoryOpen;
             }
         }
 
-        void CheckBoolStates()
+        void CheckBoolStates(Inventory inventory)
         {
+            if (paused == true || inventoryOpen == true)
+            {
+                focusMenu = true;
+            }
+            else if (paused == false && inventoryOpen == false)
+            {
+                focusMenu = false;
+            }
+
             if (paused == true)
             {
-                if (clearedScreen == true)
-                {
-                    Console.SetCursorPosition(30, 0);
-                    Debug.Write("Screen cleared: " + clearedScreen + "Paused: " + paused + "MenuOpen: " + menuOpen);
-                    DrawPause();
-                    clearedScreen = false;
-                } 
-                
-
+                DrawPause();
+                clearedScreen = false;
             }
-            else if (paused == false && menuOpen == false)
+            else if (inventoryOpen == true)
+            {
+                DrawInventory(inventory);
+                clearedScreen = false;
+            }
+            else if (paused == false && inventoryOpen == false)
             {
                 if (clearedScreen == false)
                 {
                     Console.Clear();
                     clearedScreen = true;
-                    Console.SetCursorPosition(30, 0);
-                    Debug.Write(" Screen cleared: " + clearedScreen + " Paused: " + paused + " MenuOpen: " + menuOpen);
                 }
             }
         }
@@ -86,13 +77,26 @@ namespace LostKnightConcept
         {
                 for (int i = 0; i < (pausedMenu.Length); i++)
                 {
+                    // Values are going to be hard coded until I find a spot I like, then I'll move them to global
                     Console.SetCursorPosition(0, 10 + i);
                     for (int j = 0; j < (pausedMenu[0].Length); j++)
                     {
                         Console.Write(pausedMenu[i][j]);
                     }
                 }
-            
+        }
+
+        public void DrawInventory(Inventory inventory)
+        {
+            // Values are going to be hard coded until I find a spot I like, then I'll move them to global
+            int i = 0;
+            Console.SetCursorPosition(30, 0);
+            Console.Write("++++++++Inventory++++++++");
+            foreach (Collectable item in inventory.InventoryList)
+            {
+                Console.SetCursorPosition(30, i + 1);
+                Console.Write(item.name);
+            }
         }
     }
 }

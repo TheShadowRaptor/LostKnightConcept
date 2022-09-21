@@ -38,8 +38,6 @@ namespace LostKnightConcept
 
             HUD hud = new HUD();
 
-            Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
-
             // Gameloop
             while (gameManager.isGameActive) 
             {
@@ -53,27 +51,29 @@ namespace LostKnightConcept
                 if (gameManager.isGameActive)
                 {
 
-                    
-                    // Draw Map and HUD
-                    map.DisplayMap(render);
-                    hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
+                    // Do not allow normal draws when menus are open or game is paused
+                    if (!menuManager.focusMenu)
+                    {
+                        // Draw Map and HUD
+                        map.DisplayMap(render);
+                        hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
 
+                        // Draw GameObjects
+                        collectableManager.Draw(render);
+                        interactableObjectMananger.Draw(render);
+                        player.Draw(render);
+                        enemyMananger.Draw(render, map);
+                    }
 
-
-                    // Draw GameObjects
-                    collectableManager.Draw(render);
-                    interactableObjectMananger.Draw(render);
-                    player.Draw(render);
-                    enemyMananger.Draw(render, map);
                     
 
                     //Update inputManager
                     inputManager.Update();
                     // Update menuManager
-                    menuManager.Update(inputManager.input);
+                    menuManager.Update(inputManager.input, inventory);
 
                     // Do not allow world updates when menus are open or game is paused
-                    if (menuManager.paused == false)
+                    if (!menuManager.focusMenu)
                     {
                         // Update GameObjects
                         player.Update(map, render, global, enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects, inputManager.input);
