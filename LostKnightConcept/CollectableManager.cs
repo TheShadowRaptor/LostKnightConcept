@@ -82,11 +82,21 @@ namespace LostKnightConcept
             }
         }
 
-        public void Update(Player player, Map map)
+        public void Update(Player player, Map map, Inventory inventory)
         {
             for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)
             {
                 collectable[currentCollectable].Update(player, map);
+            }
+
+            for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)
+            {
+                if (collectable[currentCollectable].isActive == false && collectable[currentCollectable].PickedUp == false)
+                {
+                    if (collectable[currentCollectable].GetType() == typeof(Key)) continue;
+                    inventory.addToInventory(collectable[currentCollectable]);
+                    collectable[currentCollectable].PickedUp = true;
+                }
             }
         }
     }

@@ -21,10 +21,10 @@ namespace LostKnightConcept
         protected ConsoleColor foreColor;
 
 
-        protected bool isActive = true;
+        public bool isActive = true;
 
 
-        protected bool PickedUp;
+        public bool PickedUp = false;
 
         public Collectable()
         {

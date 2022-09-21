@@ -12,7 +12,10 @@ namespace LostKnightConcept
         public bool focusMenu;
         public bool inventoryOpen;
         public bool paused;
+        //public bool affirmAction;
+        private int previousSelection;
         private bool clearedScreen;
+        private int selection;
         private string[] pausedMenu;
         
         public MenuManager(string pausedMenuPath)
@@ -22,12 +25,13 @@ namespace LostKnightConcept
             paused = false;
             clearedScreen = true;
             pausedMenu = File.ReadAllLines(pausedMenuPath);
+            selection = 0;
         }
 
-        public void Update(ConsoleKey input, Inventory inventory)
+        public void Update(ConsoleKey input, Inventory inventory, Player player)
         {
             CheckInputs(input);
-            CheckBoolStates(inventory);
+            CallMenus(inventory, player, input);
         }
 
         void CheckInputs(ConsoleKey input)
@@ -42,7 +46,7 @@ namespace LostKnightConcept
             }
         }
 
-        void CheckBoolStates(Inventory inventory)
+        void CallMenus(Inventory inventory, Player player, ConsoleKey input)
         {
             if (paused == true || inventoryOpen == true)
             {
@@ -60,10 +64,11 @@ namespace LostKnightConcept
             }
             else if (inventoryOpen == true)
             {
+                NavigateInventory(inventory, input, player);
                 DrawInventory(inventory);
                 clearedScreen = false;
             }
-            else if (paused == false && inventoryOpen == false)
+            else if (clearedScreen == false)
             {
                 if (clearedScreen == false)
                 {
@@ -78,7 +83,7 @@ namespace LostKnightConcept
                 for (int i = 0; i < (pausedMenu.Length); i++)
                 {
                     // Values are going to be hard coded until I find a spot I like, then I'll move them to global
-                    Console.SetCursorPosition(0, 10 + i);
+                    Console.SetCursorPosition(0, 5 + i);
                     for (int j = 0; j < (pausedMenu[0].Length); j++)
                     {
                         Console.Write(pausedMenu[i][j]);
@@ -94,8 +99,47 @@ namespace LostKnightConcept
             Console.Write("++++++++Inventory++++++++");
             foreach (Collectable item in inventory.InventoryList)
             {
-                Console.SetCursorPosition(30, i + 1);
+                Console.SetCursorPosition(30, i += 1);
                 Console.Write(item.name);
+            }
+        }
+
+        public void NavigateInventory(Inventory inventory, ConsoleKey input, Player player)
+        {
+            Console.Clear();
+            previousSelection = selection;
+            if (paused == false && inventoryOpen == true)
+            {
+                if (input == ConsoleKey.W)
+                {
+                    selection--;
+                }
+                else if (input == ConsoleKey.S)
+                {
+                    selection++;
+                }
+                else if (input == ConsoleKey.Enter)
+                {
+                    if (inventory.InventoryList.Count != 0)
+                    {
+                        player.ApplyItemEffect(inventory.InventoryList[selection]);
+                        inventory.removeFromInventory(inventory.InventoryList[selection]);
+                        Console.Beep(500,200);
+                    }
+                }
+
+                if (selection >= inventory.InventoryList.Count)
+                {
+                    selection = 0;
+                }
+                else if (selection < 0)
+                {
+                    selection = inventory.InventoryList.Count - 1;
+                }
+
+                Console.SetCursorPosition(29, selection + 1);
+                Console.Write(">");
+                
             }
         }
     }

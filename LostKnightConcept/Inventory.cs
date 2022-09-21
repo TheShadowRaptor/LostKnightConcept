@@ -24,11 +24,6 @@ namespace LostKnightConcept
         {
 			InventoryList.Remove(toBeRemoved);
         }
-
-		public void useItem(Collectable toBeUsed)
-        {
-			
-        }
 	}
 }
 

@@ -206,20 +206,28 @@ namespace LostKnightConcept
             hit.Play();
         }
 
+        //uses items immediately on pickup
         private void ItemCollected(Collectable[] collectable, int maxCollectables)
         {
             for (int currentTarget = 0; currentTarget < maxCollectables; currentTarget++)
             {
                 if (xData == collectable[currentTarget].xData && yData == collectable[currentTarget].yData)
                 {
-                    if (collectable[currentTarget].GetType() == typeof(Heart)) health = health + 1;
+                    //if (collectable[currentTarget].GetType() == typeof(Heart)) health = health + 1;
 
-                    if (collectable[currentTarget].GetType() == typeof(DamageUp)) damage = damage + 1;
+                    //if (collectable[currentTarget].GetType() == typeof(DamageUp)) damage = damage + 1;
 
                     if (collectable[currentTarget].GetType() == typeof(Key)) keysHeld = keysHeld + 1;
                 }
             }
-        } 
+        }
+
+        public void ApplyItemEffect(Collectable collectable)
+        {
+            if (collectable.GetType() == typeof(Heart)) health = health + 1;
+
+            if (collectable.GetType() == typeof(DamageUp)) damage = damage + 1;
+        }
 
         private void CanTeleport(InteractableObject[] interactableObject, int maxObjects)
         {

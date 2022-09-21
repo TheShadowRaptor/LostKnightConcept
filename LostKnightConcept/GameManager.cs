@@ -50,13 +50,13 @@ namespace LostKnightConcept
 
                 if (gameManager.isGameActive)
                 {
-
+                    hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
                     // Do not allow normal draws when menus are open or game is paused
                     if (!menuManager.focusMenu)
                     {
                         // Draw Map and HUD
                         map.DisplayMap(render);
-                        hud.ShowHUD(map, player, collectableManager.key, enemyMananger.enemy, enemyMananger.maxEnemies);
+                        
 
                         // Draw GameObjects
                         collectableManager.Draw(render);
@@ -70,7 +70,7 @@ namespace LostKnightConcept
                     //Update inputManager
                     inputManager.Update();
                     // Update menuManager
-                    menuManager.Update(inputManager.input, inventory);
+                    menuManager.Update(inputManager.input, inventory, player);
 
                     // Do not allow world updates when menus are open or game is paused
                     if (!menuManager.focusMenu)
@@ -79,7 +79,7 @@ namespace LostKnightConcept
                         player.Update(map, render, global, enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects, inputManager.input);
                         camera.Update(player);
 
-                        collectableManager.Update(player, map);
+                        collectableManager.Update(player, map, inventory);
                         enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
                         interactableObjectMananger.Update(player, map);
                     }
