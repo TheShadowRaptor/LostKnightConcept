@@ -220,6 +220,8 @@ namespace LostKnightConcept
 
                     if (collectable[currentTarget].GetType() == typeof(Key)) keysHeld = keysHeld + 1;
 
+                    if (collectable[currentTarget].GetType() == typeof(Money)) moneyHeld = moneyHeld + 1;
+
                     //if (collectable[currentTarget].GetType() == typeof(Money)) moneyHeld = moneyHeld + 1;
                 }
             }

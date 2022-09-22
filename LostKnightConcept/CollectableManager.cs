@@ -12,20 +12,24 @@ namespace LostKnightConcept
 
         int heartCount;
         int keyCount;
+        int moneyCount;
 
         int keyNum;
 
         public Collectable[] collectable;
 
+        public Money money = new Money();
         public Heart heart = new Heart();
         public DamageUp damageUp = new DamageUp();
         public Key key = new Key();
 
         public CollectableManager(Map map, Player player, Global global)
         {
-            maxCollectables = 6;
+            maxCollectables = 26;
             heartCount = 2;
             keyCount = heartCount + 2;
+            moneyCount = keyCount + 20;
+
 
             keyNum = 1;
 
@@ -36,6 +40,7 @@ namespace LostKnightConcept
             {
                 if (currentCollectable < heartCount) collectable[currentCollectable] = new Heart();
                 else if (currentCollectable < keyCount) collectable[currentCollectable] = new Key();
+                else if (currentCollectable < moneyCount) collectable[currentCollectable] = new Money();
                 else collectable[currentCollectable] = new DamageUp();
 
                 //Checks if there are any obsticals in the way of spawning

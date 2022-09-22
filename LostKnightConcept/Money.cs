@@ -13,8 +13,8 @@ namespace LostKnightConcept
             name = "Money";
             graphic = "$";
 
-            backColor = ConsoleColor.DarkGreen;
-            foreColor = ConsoleColor.Green;
+            backColor = ConsoleColor.Green;
+            foreColor = ConsoleColor.DarkGreen;
         }
     }
 }
