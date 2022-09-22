@@ -156,7 +156,8 @@ namespace LostKnightConcept
             if ((map.IsMapBounds(preMoveX, preMoveY) == false)
                     && map.IsFloor(preMoveX, preMoveY)
                     && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
-                    && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false)
+                    && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false
+                    && CollideWithShop(interactableObject, preMoveX, preMoveY, maxObjects) == false)
                     {               
 
                         x = preMoveX;
@@ -183,6 +184,19 @@ namespace LostKnightConcept
             }
             return false;
         }
+
+        private bool CollideWithShop(InteractableObject[] interactableObject, int x, int y, int maxObjects)
+        {
+            for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            {
+                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                {
+                    if (interactableObject[currentTarget].GetType() == typeof(Shop)) return true;
+                }
+            }
+            return false;
+        }
+
 
         protected void CheckIfDamaged(Enemy[] enemy, int maxEnemies)
         {
@@ -232,6 +246,8 @@ namespace LostKnightConcept
             if (collectable.GetType() == typeof(Heart)) health = health + 1;
 
             if (collectable.GetType() == typeof(DamageUp)) damage = damage + 1;
+
+            if (collectable.GetType() == typeof(Key)) keysHeld = keysHeld + 1;
         }
 
         private void CanTeleport(InteractableObject[] interactableObject, int maxObjects)

@@ -8,19 +8,23 @@
 
         int doorCount;
         int teleporterCount;
+        int shopCount;
 
         int doorNum;
         int teleporterNum;
+        int shopNum;
 
         public InteractableObjectMananger(Global global, Map map, Player player)
         {
-            maxObjects = 5;
+            maxObjects = 6;
 
             doorNum = 1;
             teleporterNum = 1;
+            shopNum = 1;
 
             doorCount = 2;
             teleporterCount = doorCount + 2;
+            shopNum = teleporterCount + 1;
 
             int maxNumber = maxObjects - 1;
             interactableObject = new InteractableObject[maxObjects];
@@ -29,6 +33,7 @@
             {
                 if (currentObject < doorCount) interactableObject[currentObject] = new Door();
                 else if (currentObject < teleporterCount) interactableObject[currentObject] = new Teleporter();
+                else if (currentObject < shopCount) interactableObject[currentObject] = new Shop();
                 else interactableObject[currentObject] = new TeleporterDestination();
 
                 //Checks if there are any obsticals in the way of spawning
@@ -69,6 +74,12 @@
                             interactableObject[currentObject].y = 4;
                         }
                         teleporterNum = teleporterNum + 1;
+                    }
+
+                    if (interactableObject[currentObject].GetType() == typeof(Shop))
+                    {
+                        interactableObject[currentObject].x = 23;
+                        interactableObject[currentObject].y = 7;
                     }
 
                     if (interactableObject[currentObject].GetType() == typeof(Teleporter))

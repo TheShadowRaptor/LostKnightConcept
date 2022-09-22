@@ -15,6 +15,8 @@ namespace LostKnightConcept
         public int xData;
         public int yData;
 
+        public int price;
+
         protected string graphic;
 
         protected ConsoleColor backColor;
