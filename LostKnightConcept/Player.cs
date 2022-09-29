@@ -102,46 +102,72 @@ namespace LostKnightConcept
             // checks if player can move
             preMoveY = y;
             preMoveX = x;
-        
-                // move player ============================
-                if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
+           
+
+            // move player ============================
+            if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
+            {
+                preMoveY--;
+                xData = preMoveX;
+                yData = preMoveY;
+                
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects))
                 {
-                    preMoveY--;
-                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX--;
+                    render.camera.preOffSetX--;
                 }
-
-                else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
+            }
+            else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
+            {
+                preMoveY++;
+                xData = preMoveX;
+                yData = preMoveY;
+                
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects))
                 {
-                    preMoveY++;
-                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetX++;
+                    render.camera.preOffSetX++;
                 }
-
-                else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
+            }
+            else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
+            {
+                preMoveX--;
+                xData = preMoveX;
+                yData = preMoveY;
+               
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects))
                 {
-                    preMoveX--;
-                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY--;
+                    render.camera.preOffSetY--;
                 }
-
-                else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
+            }
+            else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
+            {
+                preMoveX++;
+                xData = preMoveX;
+                yData = preMoveY;
+               
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects))
                 {
-                    preMoveX++;
-                    if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) render.camera.preOffSetY++;
+                    render.camera.preOffSetY++;
                 }
+            }
+            else
+            {
+               
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) ;
+            }
 
-                // =================================
+            // =================================
 
-                // check for Collision
-                render.CheckCameraBounds(map);
-            
+           // check for Collision
+           render.CheckCameraBounds(map);
+           
         }
-        private bool CollideWithEnemy(Enemy[] enemy, int x, int y, int maxEnemies)
-        {
-            xData = x;
-            yData = y;
 
+
+        private bool CollideWithEnemy(Enemy[] enemy, int checkX, int checkY, int maxEnemies)
+        {
             for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
             {
-                if (enemy[currentTarget].xData == xData && enemy[currentTarget].yData == yData)
+                if (enemy[currentTarget].xData == checkX && enemy[currentTarget].yData == checkY)
                 {                  
                     PlaySoundHitEnemy();
                     targetEnemy = true;
@@ -158,26 +184,27 @@ namespace LostKnightConcept
                     && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
                     && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false
                     && CollideWithShop(interactableObject, preMoveX, preMoveY, maxObjects) == false)
-                    {               
+            {               
 
                         x = preMoveX;
                         y = preMoveY;
-
-                        return true;
-                    }
+                     
+                return true;
+            }
 
             else
             {
                 PlaySoundHitWall();
+               
                 return false;
             }
         }
         
-        private bool CollideWithDoor(InteractableObject[] interactableObject, int x, int y, int maxObjects)
+        private bool CollideWithDoor(InteractableObject[] interactableObject, int checkX, int checkY, int maxObjects)
         {
             for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
             {
-                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                if (checkX == interactableObject[currentTarget].xData && checkY == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
                 {
                     if (interactableObject[currentTarget].GetType() == typeof(Door)) return true;             
                 }
@@ -185,11 +212,11 @@ namespace LostKnightConcept
             return false;
         }
 
-        private bool CollideWithShop(InteractableObject[] interactableObject, int x, int y, int maxObjects)
+        private bool CollideWithShop(InteractableObject[] interactableObject, int checkX, int checkY, int maxObjects)
         {
             for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
             {
-                if (xData == interactableObject[currentTarget].xData && yData == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                if (checkX == interactableObject[currentTarget].xData && checkY == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
                 {
                     if (interactableObject[currentTarget].GetType() == typeof(Shop)) return true;
                 }

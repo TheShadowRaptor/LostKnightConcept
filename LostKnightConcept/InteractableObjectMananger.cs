@@ -24,7 +24,7 @@
 
             doorCount = 2;
             teleporterCount = doorCount + 2;
-            shopNum = teleporterCount + 1;
+            shopCount = teleporterCount + 1;
 
             int maxNumber = maxObjects - 1;
             interactableObject = new InteractableObject[maxObjects];
@@ -117,7 +117,7 @@
             }
         }
 
-        public void Update(Player player, Map map)
+        public void Update(Player player)
         {
             for (int currentCollectable = 0; currentCollectable < maxObjects; currentCollectable++)
             {

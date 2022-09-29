@@ -55,7 +55,7 @@ namespace LostKnightConcept
             xData = x;
             yData = y;
 
-            // Looks for interaction once
+            // Looks for interaction
             if (player.xData == xData && player.yData == yData)
             {
                 interacted = true;

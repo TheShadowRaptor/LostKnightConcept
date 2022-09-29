@@ -69,8 +69,7 @@ namespace LostKnightConcept
 
                     //Update inputManager
                     inputManager.Update();
-                    // Update menuManager
-                    menuManager.Update(inputManager.input, inventory, player);
+
 
                     // Do not allow world updates when menus are open or game is paused
                     if (!menuManager.focusMenu)
@@ -81,8 +80,12 @@ namespace LostKnightConcept
 
                         collectableManager.Update(player, map, inventory);
                         enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
-                        interactableObjectMananger.Update(player, map);
                     }
+
+                    interactableObjectMananger.Update(player);
+
+                    // Update menuManager
+                    menuManager.Update(inputManager.input, inventory, player, interactableObjectMananger.interactableObject);
 
                     // Gameover
                     if (player.IsAlive() == false)

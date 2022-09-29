@@ -98,7 +98,7 @@ namespace LostKnightConcept
             {
                 if (collectable[currentCollectable].isActive == false && collectable[currentCollectable].PickedUp == false)
                 {
-                    if (collectable[currentCollectable].GetType() == typeof(Key)) continue;
+                    if (collectable[currentCollectable].GetType() == typeof(Key) || collectable[currentCollectable].GetType() == typeof(Money)) continue;
                     inventory.addToInventory(collectable[currentCollectable]);
                     collectable[currentCollectable].PickedUp = true;
                 }

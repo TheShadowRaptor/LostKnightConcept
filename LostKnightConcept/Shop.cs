@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace LostKnightConcept 
 {
@@ -7,6 +8,7 @@ namespace LostKnightConcept
 		public Inventory inventory;
 		private int maxItems;
 		private int item;
+		public bool shopOpen;
 		private Random itemRNG;
 
 
@@ -17,15 +19,41 @@ namespace LostKnightConcept
 			inventory = new Inventory();
 			maxItems = 4;
 			itemRNG = new Random();
+			shopOpen = false;
 
 			backColor = ConsoleColor.Black;
 			foreColor = ConsoleColor.Yellow;
 
 			name = "Shop";
 			graphic = "?";
+
+			PopulateInventory();
 		}
 
-		public void PopulateInventory()
+        public override void Update(Player player)
+        {
+            if (isActive)
+            {
+                onInteract(player);
+				OpenShop();
+            }
+        }
+
+		public void OpenShop()
+		{
+			if (interacted)
+			{
+				Console.SetCursorPosition(30, 11);
+				shopOpen = true;
+            }
+			else
+			{
+                Console.SetCursorPosition(30, 11);
+                shopOpen = false;
+			}
+		}
+
+        public void PopulateInventory()
         {
 			for (int i = 0; i < maxItems; i++)
             {
