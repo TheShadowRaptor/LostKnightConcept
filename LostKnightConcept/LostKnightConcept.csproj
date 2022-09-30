@@ -48,7 +48,10 @@
     <Compile Include="MenuManager.cs" />
     <Compile Include="Inventory.cs" />
     <Compile Include="Money.cs" />
+    <Compile Include="NPC.cs" />
     <Compile Include="Quest.cs" />
+    <Compile Include="QuestEnemy.cs" />
+    <Compile Include="QuestItem.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="TeleporterDestination.cs" />
     <Compile Include="Ghost.cs" />

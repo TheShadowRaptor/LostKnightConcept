@@ -152,7 +152,7 @@ namespace LostKnightConcept
             else
             {
                
-                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects)) ;
+                if (CheckMove(map, enemy, interactableObject, maxEnemies, maxObjects));
             }
 
             // =================================
@@ -183,6 +183,7 @@ namespace LostKnightConcept
                     && map.IsFloor(preMoveX, preMoveY)
                     && CollideWithEnemy(enemy, preMoveX, preMoveY, maxEnemies) == false
                     && CollideWithDoor(interactableObject, preMoveX, preMoveY, maxObjects) == false
+                    && CollideWithNPC(interactableObject, preMoveX, preMoveY, maxObjects) == false
                     && CollideWithShop(interactableObject, preMoveX, preMoveY, maxObjects) == false)
             {               
 
@@ -219,6 +220,18 @@ namespace LostKnightConcept
                 if (checkX == interactableObject[currentTarget].xData && checkY == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
                 {
                     if (interactableObject[currentTarget].GetType() == typeof(Shop)) return true;
+                }
+            }
+            return false;
+        }
+
+        private bool CollideWithNPC(InteractableObject[] interactableObject, int checkX, int checkY, int maxObjects)
+        {
+            for (int currentTarget = 0; currentTarget < maxObjects; currentTarget++)
+            {
+                if (checkX == interactableObject[currentTarget].xData && checkY == interactableObject[currentTarget].yData && interactableObject[currentTarget].isActive == true)
+                {
+                    if (interactableObject[currentTarget].GetType() == typeof(NPC)) return true;
                 }
             }
             return false;

@@ -9,7 +9,7 @@ namespace LostKnightConcept
     class ResetGame
     {
 
-        public void Reset()
+        public void Reset(Quest quest)
         {
             Door door = new Door();
             Player player = new Player();

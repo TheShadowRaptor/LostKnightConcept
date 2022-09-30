@@ -60,7 +60,6 @@ namespace LostKnightConcept
             {
                 interacted = true;
             }
-
             else
             {
                 interacted = false;

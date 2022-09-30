@@ -22,6 +22,7 @@ namespace LostKnightConcept
         private int activeShop;
         private int itemCost;
         private string[] pausedMenu;
+        public List<string> gameLog;
         
         public MenuManager(string pausedMenuPath)
         {
@@ -32,6 +33,7 @@ namespace LostKnightConcept
             paused = false;
             clearedScreen = true;
             pausedMenu = File.ReadAllLines(pausedMenuPath);
+            gameLog = new List<string>();
             selection = 0;
         }
 
@@ -40,6 +42,7 @@ namespace LostKnightConcept
             CheckForOpenShops(interactableObjects);
             CheckInputs(input);
             CallMenus(inventory, player, input, interactableObjects);
+            UpdateLog();
         }
 
         void CheckInputs(ConsoleKey input)
@@ -232,11 +235,26 @@ namespace LostKnightConcept
             }
         }
 
-        public void DrawNpcDialogue()
+        public void AddToGameLog(string message)
         {
-
+            gameLog.Insert(0,message);
+            Console.Clear();
+            UpdateLog();
         }
         
+        public void UpdateLog()
+        {
+            int i = 0;
+            Console.SetCursorPosition(0, 29);
+            Console.WriteLine("++++Log++++");
+            foreach (string message in gameLog)
+            {
+                Console.SetCursorPosition(0, 30 + i);
+                Console.WriteLine(message);
+                Console.WriteLine();
+                i++;
+            }
+        }
 
         public void DrawInventory(Inventory inventory)
         {
@@ -269,6 +287,7 @@ namespace LostKnightConcept
                 {
                     if (inventory.InventoryList.Count != 0)
                     {
+                        if (inventory.InventoryList[selection].GetType() == typeof(QuestItem)) return;
                         player.ApplyItemEffect(inventory.InventoryList[selection]);
                         inventory.removeFromInventory(inventory.InventoryList[selection]);
                         Console.Beep(500,200);

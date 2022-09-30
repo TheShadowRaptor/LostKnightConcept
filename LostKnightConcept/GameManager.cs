@@ -24,8 +24,8 @@ namespace LostKnightConcept
             Gameover gameover = new Gameover();
             Win win = new Win();
             
-
-            Door door = new Door();
+            Quest quest = new Quest(global.rng);
+            //Door door = new Door();
             Player player = new Player();
             Inventory inventory = new Inventory();
             Map map = new Map();
@@ -59,10 +59,10 @@ namespace LostKnightConcept
                         
 
                         // Draw GameObjects
-                        collectableManager.Draw(render);
+                        collectableManager.Draw(render, quest.questRecieved, quest.questType);
                         interactableObjectMananger.Draw(render);
                         player.Draw(render);
-                        enemyMananger.Draw(render, map);
+                        enemyMananger.Draw(render, map, quest.questRecieved, quest.questType);
                     }
 
                     
@@ -75,11 +75,12 @@ namespace LostKnightConcept
                     if (!menuManager.focusMenu)
                     {
                         // Update GameObjects
+                        quest.Update(player, enemyMananger, collectableManager, interactableObjectMananger, menuManager);
                         player.Update(map, render, global, enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects, inputManager.input);
                         camera.Update(player);
-
-                        collectableManager.Update(player, map, inventory);
-                        enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global);
+                        
+                        collectableManager.Update(player, map, inventory, quest.questRecieved, quest.questType);
+                        enemyMananger.Update(player, map, render, interactableObjectMananger.interactableObject, interactableObjectMananger.maxObjects, global, quest.questRecieved, quest.questType);
                     }
 
                     interactableObjectMananger.Update(player);

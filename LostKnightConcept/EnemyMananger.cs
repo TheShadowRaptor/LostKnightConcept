@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace LostKnightConcept
 {
@@ -7,14 +8,17 @@ namespace LostKnightConcept
         public int maxEnemies;
 
         int SkeletonCount;
+        int BossCount;
 
         public Enemy[] enemy;
 
         public EnemyMananger(Map map, Player player, Global global)
         {
             maxEnemies = 20;
-
+            BossCount = SkeletonCount + 1;
             SkeletonCount = 10;
+
+            
 
             int maxNumber = maxEnemies - 1;
             enemy = new Enemy[maxEnemies];
@@ -23,6 +27,7 @@ namespace LostKnightConcept
             {
                 if (currentEnemy < SkeletonCount) enemy[currentEnemy] = new Skeleton();
                 else if (currentEnemy == maxNumber) enemy[currentEnemy] = new Ghoul();
+                else if (currentEnemy == maxNumber - 1) enemy[currentEnemy] = new QuestEnemy(global.rng); 
                 else enemy[currentEnemy] = new Ghost();
 
                 //Checks if there are any obsticals in the way of spawning
@@ -51,19 +56,33 @@ namespace LostKnightConcept
             }
         }
 
-        public void Draw(Render render, Map map)
+        public void Draw(Render render, Map map, bool questStarted, int questType)
         {
             for (int currentEnemy = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
+                if (enemy[currentEnemy].GetType() == typeof(QuestEnemy))
+                {
+                    if (questStarted && questType == 0) enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
+                }
+                else
+                {
+                    enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
+                }  
             }
         }
 
-        public void Update(Player player, Map map, Render render, InteractableObject[] interactableObject, int maxObjects, Global global)
+        public void Update(Player player, Map map, Render render, InteractableObject[] interactableObject, int maxObjects, Global global, bool questStarted, int questType)
         {
             for (int currentEnemy  = 0; currentEnemy < maxEnemies; currentEnemy++)
             {
-                enemy[currentEnemy].Update(player, map, render, enemy, interactableObject, maxEnemies, maxObjects, player.currentTarget, global);
+                if (enemy[currentEnemy].GetType() == typeof(QuestEnemy))
+                {
+                    if (questStarted && questType == 0) enemy[currentEnemy].Update(player, map, render, enemy, interactableObject, maxEnemies, maxObjects, player.currentTarget, global);
+                }
+                else
+                {
+                    enemy[currentEnemy].Update(player, map, render, enemy, interactableObject, maxEnemies, maxObjects, player.currentTarget, global);
+                }
             }          
         }       
     }

@@ -10,9 +10,12 @@ namespace LostKnightConcept
     {
         public int maxCollectables;
 
+        bool canSpawn;
+
         int heartCount;
         int keyCount;
         int moneyCount;
+        int questItemCount;
 
         int keyNum;
 
@@ -25,9 +28,10 @@ namespace LostKnightConcept
 
         public CollectableManager(Map map, Player player, Global global)
         {
-            maxCollectables = 26;
+            maxCollectables = 27;
             heartCount = 2;
             keyCount = heartCount + 2;
+            questItemCount = moneyCount + 1;
             moneyCount = keyCount + 20;
 
 
@@ -41,10 +45,11 @@ namespace LostKnightConcept
                 if (currentCollectable < heartCount) collectable[currentCollectable] = new Heart();
                 else if (currentCollectable < keyCount) collectable[currentCollectable] = new Key();
                 else if (currentCollectable < moneyCount) collectable[currentCollectable] = new Money();
+                else if (currentCollectable == 26) collectable[currentCollectable] = new QuestItem(global.rng);
                 else collectable[currentCollectable] = new DamageUp();
 
                 //Checks if there are any obsticals in the way of spawning
-                bool canSpawn = false;
+                canSpawn = false;
 
                 while (canSpawn == false)
                 {
@@ -79,19 +84,34 @@ namespace LostKnightConcept
             }
         }
 
-        public void Draw(Render render)
+        public void Draw(Render render, bool questStarted, int questType)
         {
+
             for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)
             {
-                collectable[currentCollectable].Draw(collectable[currentCollectable].name, render);
+                if (collectable[currentCollectable].GetType() == typeof(QuestItem))
+                {
+                    if (questStarted && questType == 1) collectable[currentCollectable].Draw(collectable[currentCollectable].name, render);
+                }
+                else
+                {
+                    collectable[currentCollectable].Draw(collectable[currentCollectable].name, render);
+                } 
             }
         }
 
-        public void Update(Player player, Map map, Inventory inventory)
+        public void Update(Player player, Map map, Inventory inventory, bool questStarted, int questType)
         {
             for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)
             {
-                collectable[currentCollectable].Update(player, map);
+                if (collectable[currentCollectable].GetType() == typeof(QuestItem))
+                {
+                    if (questStarted && questType == 1) collectable[currentCollectable].Update(player, map);
+                }
+                else
+                {
+                    collectable[currentCollectable].Update(player, map);
+                }
             }
 
             for (int currentCollectable = 0; currentCollectable < maxCollectables; currentCollectable++)

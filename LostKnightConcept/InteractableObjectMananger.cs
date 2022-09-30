@@ -1,4 +1,6 @@
-﻿namespace LostKnightConcept
+﻿using System;
+
+namespace LostKnightConcept
 {
     class InteractableObjectMananger
     {
@@ -6,25 +8,31 @@
 
         public int maxObjects;
 
+        bool canSpawn;
+
         int doorCount;
         int teleporterCount;
         int shopCount;
+        int npcCount;
 
         int doorNum;
         int teleporterNum;
+        int npcNum;
         int shopNum;
 
         public InteractableObjectMananger(Global global, Map map, Player player)
         {
-            maxObjects = 6;
+            maxObjects = 7;
 
             doorNum = 1;
             teleporterNum = 1;
             shopNum = 1;
+            npcNum = 1;
 
             doorCount = 2;
             teleporterCount = doorCount + 2;
             shopCount = teleporterCount + 1;
+            npcCount = shopCount + 1;
 
             int maxNumber = maxObjects - 1;
             interactableObject = new InteractableObject[maxObjects];
@@ -34,10 +42,11 @@
                 if (currentObject < doorCount) interactableObject[currentObject] = new Door();
                 else if (currentObject < teleporterCount) interactableObject[currentObject] = new Teleporter();
                 else if (currentObject < shopCount) interactableObject[currentObject] = new Shop();
+                else if (currentObject < npcCount) interactableObject[currentObject] = new NPC();
                 else interactableObject[currentObject] = new TeleporterDestination();
 
                 //Checks if there are any obsticals in the way of spawning
-                bool canSpawn = false;
+                canSpawn = false;
 
                 while (canSpawn == false)
                 {
