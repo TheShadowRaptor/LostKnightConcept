@@ -104,7 +104,7 @@ class Quest
                 {
                     if (dialogue1.Length != 0)
                     {
-                        menuManager.AddToGameLog(dialogue0[3]);
+                        menuManager.AddToGameLog(dialogue1[3]);
                     }
                 }
                 else
