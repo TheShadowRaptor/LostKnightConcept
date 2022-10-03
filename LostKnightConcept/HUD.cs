@@ -27,7 +27,7 @@ namespace LostKnightConcept
                 Console.ForegroundColor = enemy[player.currentTarget].foreColor;
                 Console.Write((enemy[player.currentTarget].graphic));
                 Console.ResetColor();
-                player.targetEnemy = false;
+                //player.targetEnemy = false;
             }
         }
     }

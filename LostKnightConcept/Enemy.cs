@@ -35,7 +35,7 @@ namespace LostKnightConcept
 
         public void Update(Player player, Map map, Render render, Enemy[] enemy, InteractableObject[] interactableObject, int maxEnemies, int maxObjects, int currentTarget, Global global)
         {
-            CheckIfDamaged(player, enemy, currentTarget);
+            
 
             if (IsAlive())
             {
@@ -164,12 +164,9 @@ namespace LostKnightConcept
             hit.Load();
             hit.Play();
         }
-        protected void CheckIfDamaged(Player player, Enemy[] enemy, int currentTarget)
+        public void CheckIfDamaged(Player player)
         {
-            if (player.targetEnemy == true)
-            {
-                enemy[currentTarget].health = enemy[currentTarget].health - player.damage;
-            }
+                health -= player.damage;
         }
         protected bool CollideWithDoor(InteractableObject[] interactableObject, int x, int y, int maxObjects)
         {

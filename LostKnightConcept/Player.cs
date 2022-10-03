@@ -167,13 +167,15 @@ namespace LostKnightConcept
         {
             for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
             {
-                if (enemy[currentTarget].xData == checkX && enemy[currentTarget].yData == checkY)
+                if (enemy[currentTarget].xData == checkX && enemy[currentTarget].yData == checkY && enemy[currentTarget].IsAlive())
                 {                  
                     PlaySoundHitEnemy();
+                    enemy[currentTarget].CheckIfDamaged(this);
                     targetEnemy = true;
                     return true;
                 }
             }
+            targetEnemy = false;
             return false;
         }
 
