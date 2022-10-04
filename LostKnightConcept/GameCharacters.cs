@@ -15,6 +15,7 @@ namespace LostKnightConcept
 
         public int health;
         public int damage;
+        public int maxHealth;
 
         public ConsoleColor backColor;
         public ConsoleColor foreColor;

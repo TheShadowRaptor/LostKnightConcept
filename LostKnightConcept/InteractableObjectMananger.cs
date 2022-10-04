@@ -22,7 +22,7 @@ namespace LostKnightConcept
 
         public InteractableObjectMananger(Global global, Map map, Player player)
         {
-            maxObjects = 7;
+            maxObjects = 8;
 
             doorNum = 1;
             teleporterNum = 1;
@@ -31,7 +31,7 @@ namespace LostKnightConcept
 
             doorCount = 2;
             teleporterCount = doorCount + 2;
-            shopCount = teleporterCount + 1;
+            shopCount = teleporterCount + 2;
             npcCount = shopCount + 1;
 
             int maxNumber = maxObjects - 1;
@@ -41,7 +41,7 @@ namespace LostKnightConcept
             {
                 if (currentObject < doorCount) interactableObject[currentObject] = new Door();
                 else if (currentObject < teleporterCount) interactableObject[currentObject] = new Teleporter();
-                else if (currentObject < shopCount) interactableObject[currentObject] = new Shop();
+                else if (currentObject < shopCount) interactableObject[currentObject] = new Shop(global.rng);
                 else if (currentObject < npcCount) interactableObject[currentObject] = new NPC();
                 else interactableObject[currentObject] = new TeleporterDestination();
 
@@ -87,8 +87,12 @@ namespace LostKnightConcept
 
                     if (interactableObject[currentObject].GetType() == typeof(Shop))
                     {
-                        interactableObject[currentObject].x = 23;
-                        interactableObject[currentObject].y = 7;
+                        if (shopNum == 1)
+                        {
+                            interactableObject[currentObject].x = 23;
+                            interactableObject[currentObject].y = 7;
+                            shopNum++;
+                        }
                     }
 
                     if (interactableObject[currentObject].GetType() == typeof(Teleporter))
@@ -104,6 +108,24 @@ namespace LostKnightConcept
                             interactableObject[currentObject].x = 59;
                             interactableObject[currentObject].y = 9;
                         }                        
+                    }
+
+                    if (interactableObject[currentObject].GetType() == typeof(NPC) || interactableObject[currentObject].GetType() == typeof(Shop))
+                    {
+                        if (interactableObject[currentObject].y == 9 ||
+                            interactableObject[currentObject].y == 13 ||
+                            interactableObject[currentObject].y == 15 ||
+                            interactableObject[currentObject].y == 5)
+                        {
+                            interactableObject[currentObject].y++;
+                        }
+
+                        if (interactableObject[currentObject].x == 10 ||
+                            interactableObject[currentObject].x == 67 ||
+                            interactableObject[currentObject].y == 69)
+                        {
+                            interactableObject[currentObject].x++;
+                        }
                     }
 
                     if ((map.IsMapBounds(interactableObject[currentObject].x, interactableObject[currentObject].y) == false)

@@ -19,6 +19,7 @@ namespace LostKnightConcept
             damage = 2;
             foreColor = ConsoleColor.Red;
             backColor = ConsoleColor.DarkRed;
+            maxHealth = health;
 
             enemyType = random.Next(0, 2);
         }

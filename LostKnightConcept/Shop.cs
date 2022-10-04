@@ -9,16 +9,14 @@ namespace LostKnightConcept
 		private int maxItems;
 		private int item;
 		public bool shopOpen;
-		private Random itemRNG;
 
 
 
 
-		public Shop()
+		public Shop(Random random)
 		{
 			inventory = new Inventory();
 			maxItems = 4;
-			itemRNG = new Random();
 			shopOpen = false;
 
 			backColor = ConsoleColor.Black;
@@ -27,7 +25,7 @@ namespace LostKnightConcept
 			name = "Shop";
 			graphic = "?";
 
-			PopulateInventory();
+			PopulateInventory(random);
 		}
 
         public override void Update(Player player)
@@ -53,11 +51,11 @@ namespace LostKnightConcept
 			}
 		}
 
-        public void PopulateInventory()
+        public void PopulateInventory(Random random)
         {
 			for (int i = 0; i < maxItems; i++)
             {
-				item = itemRNG.Next(0, 3);
+				item = random.Next(0, 3);
 				if (item == 0)
                 {
 					inventory.addToInventory(new Heart());
@@ -74,7 +72,19 @@ namespace LostKnightConcept
                 {
 					inventory.addToInventory(new Key());
                 }
+
             }
+
+			Console.SetCursorPosition(0, 55);
+
+			int k = 0;
+			foreach (Collectable item in inventory.InventoryList)
+            {
+				Console.SetCursorPosition(0, 55 +k);
+				Console.Write(item.name);
+				k++;
+            }
+			Console.ReadKey(true);
         }
 	}
 }

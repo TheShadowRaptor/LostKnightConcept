@@ -9,6 +9,7 @@ namespace LostKnightConcept
 
         int SkeletonCount;
         int BossCount;
+        bool spawnedBoss = false;
 
         public Enemy[] enemy;
 
@@ -62,7 +63,24 @@ namespace LostKnightConcept
             {
                 if (enemy[currentEnemy].GetType() == typeof(QuestEnemy))
                 {
-                    if (questStarted && questType == 0) enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
+                    if (!questStarted) 
+                    {
+                        enemy[currentEnemy].health = 0;
+                    }
+                    if (questStarted && questType == 0) 
+                    {
+                        if (!spawnedBoss)
+                        {
+                            enemy[currentEnemy].health = enemy[currentEnemy].maxHealth;
+                            spawnedBoss = true;
+                        }
+                        enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);
+                    }
+                    else if (questType != 0)
+                    {
+                        enemy[currentEnemy].x = 0;
+                        enemy[currentEnemy].y = 0;
+                    }
                 }
                 else
                 {
