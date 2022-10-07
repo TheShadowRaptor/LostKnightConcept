@@ -5,7 +5,7 @@ using System.Threading;
 class Quest
 {
 	public bool questRecieved;
-	private bool questCompleted;
+	public bool questCompleted;
 	private bool objectiveCompleted;
     private bool rewardCollected;
     private bool givenReward;
@@ -222,7 +222,7 @@ class Quest
 
     }
 
-    public void Update(Player player, EnemyMananger enemyManager, CollectableManager collectableManager, InteractableObjectMananger interactableObjectManager, MenuManager menuManager, Random questRewardRng)
+    public void Update(Player player, EnemyMananger enemyManager, CollectableManager collectableManager, InteractableObjectMananger interactableObjectManager, MenuManager menuManager, Random questRewardRng, Inventory playerInventory)
     {
         GetQuestObjectIndex(enemyManager, collectableManager, interactableObjectManager);
         CheckObjectiveCondition((QuestEnemy)enemyManager.enemy[questEnemyIndex], (QuestItem)collectableManager.collectable[questItemIndex], interactableObjectManager.interactableObject[questInteractableIndex], (NPC)interactableObjectManager.interactableObject[questNPCIndex]);
@@ -232,10 +232,21 @@ class Quest
             DisplayDialogue(menuManager);
         }
 
-        if (!rewardCollected && givenReward)
+        if (rewardCollected == false && givenReward == true)
         {
             player.moneyHeld += questRewardRng.Next(3, 5);
             rewardCollected = true;
+        }
+
+        if (questCompleted == true)
+        {
+            foreach (Collectable item in playerInventory.InventoryList)
+            {
+                if (item.GetType() == typeof(QuestItem))
+                {
+                    playerInventory.removeFromInventory(item);
+                }
+            }
         }
     }
 
