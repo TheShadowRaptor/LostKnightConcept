@@ -168,11 +168,24 @@ namespace LostKnightConcept
             for (currentTarget = 0; currentTarget < maxEnemies; currentTarget++)
             {
                 if (enemy[currentTarget].xData == checkX && enemy[currentTarget].yData == checkY && enemy[currentTarget].IsAlive())
-                {                  
-                    PlaySoundHitEnemy();
-                    enemy[currentTarget].CheckIfDamaged(this);
-                    targetEnemy = true;
-                    return true;
+                {               
+                    if (enemy[currentTarget].GetType() == typeof(QuestEnemy))
+                    {
+                        if ((enemy[currentTarget] as QuestEnemy).hidden == false)
+                        {
+                            PlaySoundHitEnemy();
+                            enemy[currentTarget].CheckIfDamaged(this);
+                            targetEnemy = true;
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        PlaySoundHitEnemy();
+                        enemy[currentTarget].CheckIfDamaged(this);
+                        targetEnemy = true;
+                        return true;
+                    }
                 }
             }
             targetEnemy = false;

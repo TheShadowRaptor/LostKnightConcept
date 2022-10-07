@@ -1,11 +1,14 @@
 ﻿using LostKnightConcept;
 using System;
+using System.Threading;
 
 class Quest
 {
 	public bool questRecieved;
 	private bool questCompleted;
 	private bool objectiveCompleted;
+    private bool rewardCollected;
+    private bool givenReward;
 
     private int questEnemyIndex;
     private int questItemIndex;
@@ -26,6 +29,8 @@ class Quest
 		this.questRecieved = false;
 		this.questCompleted = false;
 		this.objectiveCompleted = false;
+        this.rewardCollected = false;
+        this.givenReward = false;
 
 
 
@@ -57,7 +62,9 @@ class Quest
                     if (dialogue0.Length != 0)
                     {
                         menuManager.AddToGameLog(dialogue0[2]);
+                        
                     }
+                    givenReward = true;
                     questCompleted = true;
                 }
                 else if (questCompleted)
@@ -98,6 +105,7 @@ class Quest
                     {
                         menuManager.AddToGameLog(dialogue1[2]);
                     }
+                    givenReward = true;
                     questCompleted = true;
                 }
                 else if (questCompleted)
@@ -138,6 +146,7 @@ class Quest
                     {
                         menuManager.AddToGameLog(dialogue2[2]);
                     }
+                    givenReward = true;
                     questCompleted = true;
                 }
                 else if (questCompleted)
@@ -213,7 +222,7 @@ class Quest
 
     }
 
-    public void Update(Player player, EnemyMananger enemyManager, CollectableManager collectableManager, InteractableObjectMananger interactableObjectManager, MenuManager menuManager)
+    public void Update(Player player, EnemyMananger enemyManager, CollectableManager collectableManager, InteractableObjectMananger interactableObjectManager, MenuManager menuManager, Random questRewardRng)
     {
         GetQuestObjectIndex(enemyManager, collectableManager, interactableObjectManager);
         CheckObjectiveCondition((QuestEnemy)enemyManager.enemy[questEnemyIndex], (QuestItem)collectableManager.collectable[questItemIndex], interactableObjectManager.interactableObject[questInteractableIndex], (NPC)interactableObjectManager.interactableObject[questNPCIndex]);
@@ -221,6 +230,12 @@ class Quest
         if (interactableObjectManager.interactableObject[questNPCIndex].interacted)
         {
             DisplayDialogue(menuManager);
+        }
+
+        if (!rewardCollected && givenReward)
+        {
+            player.moneyHeld += questRewardRng.Next(3, 5);
+            rewardCollected = true;
         }
     }
 

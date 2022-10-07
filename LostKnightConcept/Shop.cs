@@ -73,16 +73,16 @@ namespace LostKnightConcept
 
             }
 
-			Console.SetCursorPosition(0, 55);
+			//Console.SetCursorPosition(0, 55);
 
-			int k = 0;
-			foreach (Collectable item in inventory.InventoryList)
-            {
-				Console.SetCursorPosition(0, 55 +k);
-				Console.Write(item.name);
-				k++;
-            }
-			Console.ReadKey(true);
+			//int k = 0;
+			//foreach (Collectable item in inventory.InventoryList)
+   //         {
+			//	Console.SetCursorPosition(0, 55 +k);
+			//	Console.Write(item.name);
+			//	k++;
+   //         }
+			//Console.ReadKey(true);
         }
 	}
 }

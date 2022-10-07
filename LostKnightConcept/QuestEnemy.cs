@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +13,18 @@ namespace LostKnightConcept
         int enemyType;
         bool moveTwice;
         string output;
+        public bool hidden;
+
         public QuestEnemy(Random random)
         {
             name = GenerateName(random);
             graphic = "B";
             health = 5;
-            damage = 2;
+            damage = 1;
             foreColor = ConsoleColor.Red;
             backColor = ConsoleColor.DarkRed;
             maxHealth = health;
-
+            hidden = true;
             enemyType = random.Next(0, 2);
         }
 

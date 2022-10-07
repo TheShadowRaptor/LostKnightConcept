@@ -65,13 +65,13 @@ namespace LostKnightConcept
                 {
                     if (!questStarted) 
                     {
-                        enemy[currentEnemy].health = 0;
+                        (enemy[currentEnemy] as QuestEnemy).hidden = true;
                     }
                     if (questStarted && questType == 0) 
                     {
                         if (!spawnedBoss)
                         {
-                            enemy[currentEnemy].health = enemy[currentEnemy].maxHealth;
+                            (enemy[currentEnemy] as QuestEnemy).hidden = false;
                             spawnedBoss = true;
                         }
                         enemy[currentEnemy].Draw(enemy[currentEnemy].name, render);

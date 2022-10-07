@@ -75,7 +75,7 @@ namespace LostKnightConcept
                     if (!menuManager.focusMenu)
                     {
                         // Update GameObjects
-                        quest.Update(player, enemyMananger, collectableManager, interactableObjectMananger, menuManager);
+                        quest.Update(player, enemyMananger, collectableManager, interactableObjectMananger, menuManager, global.rng);
                         player.Update(map, render, global, enemyMananger.enemy, collectableManager.collectable, interactableObjectMananger.interactableObject, enemyMananger.maxEnemies, collectableManager.maxCollectables, interactableObjectMananger.maxObjects, inputManager.input);
                         camera.Update(player);
                         

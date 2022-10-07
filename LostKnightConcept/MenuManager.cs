@@ -266,6 +266,8 @@ namespace LostKnightConcept
                 Console.WriteLine();
                 i++;
             }
+
+            Console.SetCursorPosition(0, 0);
         }
 
         public void DrawInventory(Inventory inventory)
