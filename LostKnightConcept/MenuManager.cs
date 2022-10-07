@@ -21,6 +21,20 @@ namespace LostKnightConcept
         private int selection;
         private int activeShop;
         private int itemCost;
+
+        private int inventoryCursorX = 29;
+        private int inventoryHeaderX = 30;
+        private int inventoryHeaderY = 0;
+        private int pauseMenuX = 0;
+        private int pauseMenuY = 5;
+        private int shopCursorX = 59;
+        private int shopItemsX = 60;
+        private int shopItemsY = 0;
+        private int logHeaderX = 0;
+        private int logHeaderY = 29;
+
+
+
         private string[] pausedMenu;
         public List<string> gameLog;
         
@@ -124,8 +138,7 @@ namespace LostKnightConcept
         {
                 for (int i = 0; i < (pausedMenu.Length); i++)
                 {
-                    // Values are going to be hard coded until I find a spot I like, then I'll move them to global
-                    Console.SetCursorPosition(0, 5 + i);
+                    Console.SetCursorPosition(pauseMenuX, pauseMenuY + i);
                     for (int j = 0; j < (pausedMenu[0].Length); j++)
                     {
                         Console.Write(pausedMenu[i][j]);
@@ -135,13 +148,12 @@ namespace LostKnightConcept
 
         public void DrawShopMenu(Shop shop)
         {
-            // Values are going to be hard coded until I find a spot I like, then I'll move them to global
             int i = 0;
-            Console.SetCursorPosition(60, 0);
+            Console.SetCursorPosition(shopItemsX, shopItemsY);
             Console.Write("========Shop========");
             foreach (Collectable item in shop.inventory.InventoryList)
             {
-                Console.SetCursorPosition(60, i += 1);
+                Console.SetCursorPosition(shopItemsX, i += 1);
                 if (item.GetType() == typeof(DamageUp))
                 {
                     itemCost = 3;
@@ -190,7 +202,7 @@ namespace LostKnightConcept
                     selection = shop.inventory.InventoryList.Count - 1;
                 }
 
-                Console.SetCursorPosition(59, selection + 1);
+                Console.SetCursorPosition(shopCursorX, selection + 1);
                 Console.Write(">");
             }
         }
@@ -245,11 +257,11 @@ namespace LostKnightConcept
         public void UpdateLog()
         {
             int i = 0;
-            Console.SetCursorPosition(0, 29);
+            Console.SetCursorPosition(logHeaderX, logHeaderY);
             Console.WriteLine("++++Log++++");
             foreach (string message in gameLog)
             {
-                Console.SetCursorPosition(0, 30 + i);
+                Console.SetCursorPosition(logHeaderX, logHeaderY + 1 + i);
                 Console.WriteLine(message);
                 Console.WriteLine();
                 i++;
@@ -258,13 +270,12 @@ namespace LostKnightConcept
 
         public void DrawInventory(Inventory inventory)
         {
-            // Values are going to be hard coded until I find a spot I like, then I'll move them to global
             int i = 0;
-            Console.SetCursorPosition(30, 0);
+            Console.SetCursorPosition(inventoryHeaderX, inventoryHeaderY);
             Console.Write("++++++++Inventory++++++++");
             foreach (Collectable item in inventory.InventoryList)
             {
-                Console.SetCursorPosition(30, i += 1);
+                Console.SetCursorPosition(inventoryHeaderX, i += 1);
                 Console.Write(item.name);
             }
         }
@@ -303,7 +314,7 @@ namespace LostKnightConcept
                     selection = inventory.InventoryList.Count - 1;
                 }
 
-                Console.SetCursorPosition(29, selection + 1);
+                Console.SetCursorPosition(inventoryCursorX, selection + 1);
                 Console.Write(">");
                 
             }

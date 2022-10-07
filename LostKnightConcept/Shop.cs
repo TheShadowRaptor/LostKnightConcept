@@ -41,12 +41,10 @@ namespace LostKnightConcept
 		{
 			if (interacted)
 			{
-				Console.SetCursorPosition(30, 11);
 				shopOpen = true;
             }
 			else
 			{
-                Console.SetCursorPosition(30, 11);
                 shopOpen = false;
 			}
 		}
